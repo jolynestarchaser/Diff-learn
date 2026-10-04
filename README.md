@@ -20,8 +20,8 @@ node dist/cli/main.js context --root /path/to/synthetic-workspace --base baselin
 Clone and set up once to use the short `dr` command from any terminal:
 
 ```sh
-git clone https://github.com/jolynestarchaser/Diff-tutor.git
-cd Diff-tutor
+git clone https://github.com/jolynestarchaser/Diff-learn.git
+cd Diff-learn
 npm run setup
 dr --help
 dr --version
