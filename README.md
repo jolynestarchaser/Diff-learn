@@ -17,6 +17,31 @@ node dist/cli/main.js context --root /path/to/synthetic-workspace --base baselin
 
 ## Prerequisites and local installation
 
+Clone and set up once to use the short `dr` command from any terminal:
+
+```sh
+git clone https://github.com/jolynestarchaser/Diff-tutor.git
+cd Diff-tutor
+npm run setup
+dr --help
+dr --version
+```
+
+`npm run setup` installs locked dependencies with lifecycle scripts disabled, builds the CLI, and uses [npm link](https://docs.npmjs.com/cli/v11/commands/npm-link/) to register `dr` in npm's global binary directory. It does not publish anything. Check for an existing `dr` command first (`Get-Command dr` in PowerShell or `command -v dr` in bash/zsh); if another tool owns that name, use the direct Node invocation below instead. Keep this clone in place because the command links to it.
+
+Open a terminal in the repository or workspace you want to inspect:
+
+```sh
+dr status --base origin/main
+dr diff --base origin/main
+dr context --base origin/main --lang th
+dr evidence --base origin/main --json
+```
+
+The workspace defaults to the current directory, so `--root` is optional. Configure per-repository bases in `.difflearn.json` to omit `--base` too. Bare `dr` displays help; the current interface uses subcommands rather than an interactive TUI.
+
+If `dr` is not found, restart the terminal and ensure npm's global binary directory is on PATH: `npm prefix -g` itself on Windows, or its `bin` subdirectory on Linux/macOS. In PowerShell, `dr.cmd` can be used when execution policy blocks the generated `dr.ps1` shim. After pulling updates, run `npm run setup` again. Remove the global link with `npm uninstall --global difflearn`; this leaves the clone intact.
+
 Use Node **24.20.0 or a newer maintained 24.x patch**, npm, and **Git >=2.49** on PATH. Other Node majors are outside the declared engine range. No AI account, API key, database, compiler toolchain or Git credentials are required. Help/version do not require Git or read configuration. Local verification uses Windows; a Node 24.20.0 Windows/Linux CI matrix is supplied, with hosted results pending. There is no published npm installation command yet.
 
 ```sh

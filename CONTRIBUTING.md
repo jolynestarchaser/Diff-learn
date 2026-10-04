@@ -4,6 +4,8 @@ This is a single strict TypeScript ESM package. Config, discovery, the bounded G
 
 ## Setup and checks
 
+For everyday terminal use after cloning, run `npm run setup` once. It installs locked dependencies without lifecycle scripts, builds, and globally links `dr` to this checkout. Check for an existing `dr` on PATH first; keep the checkout in place. The README covers PATH troubleshooting and uninstalling the link. For development or isolated verification without a global link, use the commands below.
+
 Use Node 24.20.0 or a maintained newer 24.x patch, npm, and Git >=2.49 on PATH; other Node majors are outside the declared engine range. Candidate fixtures additionally need compatible ripgrep on PATH. Run `npm ci --ignore-scripts --no-audit --no-fund`, `npm run build`, `npm run typecheck`, and `npm test`. Test-file concurrency is capped at four to bound simultaneous Git subprocess load; do not overlap artifact verification with the full fixture suite. Run `node dist/cli/main.js --help`, `node dist/cli/main.js evidence --help`, and `node dist/cli/main.js --version` to inspect the actual build. `npm run verify:package` performs a dry-run packaging inspection. `npm run verify:artifact` inspects the allowlist, packs into a disposable temporary directory, installs offline using cached exact runtime dependencies, checks installed files and runs the actual npm binary shim against a synthetic repository with Thai/space paths. Run `npm ci` first to populate the npm cache. It does not globally link, publish or retain the tarball. Keep dependency versions and `package-lock.json` aligned; do not commit dependencies, generated builds, tarballs, evidence, or state.
 
 ## Layout
