@@ -1,0 +1,23 @@
+# Dependencies and generated builds
+node_modules/
+dist/
+.test-dist/
+coverage/
+*.tsbuildinfo
+*.tgz
+npm-debug.log*
+
+# Local configuration, evidence exports, and explicit local review state
+.difflearn.json
+.difflearn/
+*.difflearn.evidence.json
+*.difflearn.context.md
+difflearn-evidence*.json
+difflearn-context*.md
+
+# Local secrets and editor/OS artifacts
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

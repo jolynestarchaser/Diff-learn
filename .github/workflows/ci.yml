@@ -1,0 +1,51 @@
+name: Verify Git and opt-in v0.2 evidence
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Node 24.20.0 / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24.20.0'
+          cache: npm
+      - name: Show toolchain
+        run: |
+          node --version
+          npm --version
+          git --version
+      - name: Install ripgrep (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ripgrep
+          rg --version
+      - name: Install ripgrep (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          choco install ripgrep --yes --no-progress
+          rg --version
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npm test
+      - name: Inspect package file list
+        run: npm pack --dry-run --json
+      - name: Install and exercise packed binary in isolation
+        run: npm run verify:artifact

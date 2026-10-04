@@ -1,0 +1,12 @@
+{
+  "configVersion": "1",
+  "base": "origin/development",
+  "lang": "en",
+  "repositories": [
+    { "path": "service-a", "key": "service-a", "base": "origin/main" },
+    { "path": "service-a-worktree", "key": "service-a-worktree" }
+  ],
+  "excludeDirectories": ["vendor"],
+  "excludePaths": ["archive"],
+  "limits": { "maxDepth": 8, "concurrency": 4, "maxFileBytes": 2097152 }
+}
