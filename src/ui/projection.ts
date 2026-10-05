@@ -17,7 +17,7 @@ function page<T>(items: T[], url: URL): UiPage<T> {
 }
 function id(url: URL, key: string) { const value = url.searchParams.get(key); if (!value || !/^[a-f0-9]{64}$/u.test(value)) throw new UiRequestError(400, 'Expected an original evidence or repository ID'); return value; }
 
-export function createUiProjection(bundle: ReadEvidenceBundle, expiresAt: string) {
+export function createUiProjection(bundle: ReadEvidenceBundle, expiresAt: string | null) {
   const entries = new Map(bundle.evidence.map(entry => [entry.id, entry]));
   const files = bundle.evidence.filter(entry => entry.kind === 'file-change');
   const hunks = bundle.evidence.filter(entry => entry.kind === 'hunk');

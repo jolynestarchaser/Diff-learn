@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import type { UiSession, UiPage, UiRepository, UiFile, UiHunk, UiEvidence, UiInspection } from '../src/ui/contracts.js';
+import type { UiSession, UiPage, UiRepository, UiFile, UiHunk, UiEvidence, UiInspection, UiAppState } from '../src/ui/contracts.js';
 import './style.css';
 import { readingParts } from './reading.js';
 
@@ -13,21 +13,116 @@ function ReadingText({ children }: { children: string }) {
 
 const bootstrap = document.getElementById('difflearn-bootstrap')?.textContent;
 const token: string | null = bootstrap ? (JSON.parse(bootstrap) as { token: string }).token : null;
-async function api<T>(route: string, signal: AbortSignal): Promise<T> {
-  if (!token) throw new Error('Session bootstrap is missing. Run dr ui --evidence <export.json>; a development server is not an evidence session.');
-  const response = await fetch(route, { headers: { 'X-Difflearn-Session': token }, signal, cache: 'no-store', credentials: 'omit' });
+async function api<T>(route: string, signal: AbortSignal, method = 'GET'): Promise<T> {
+  if (!token) throw new Error('This app session is unavailable. Run dr again in the repository.');
+  const response = await fetch(route, { method, headers: { 'X-Difflearn-Session': token }, signal, cache: 'no-store', credentials: 'omit' });
   if (!response.ok) { const body = await response.json() as { error?: string }; throw new Error(body.error ?? `Viewer request failed (${response.status})`); }
   return response.json() as Promise<T>;
 }
+const GenerationContext = createContext(1);
+const pages = new Map<string, unknown>();
+const versioned = (route: string, generation: number) => `${route}${route.includes('?') ? '&' : '?'}generation=${generation}`;
+async function cached<T>(route: string, generation: number, signal: AbortSignal): Promise<T> {
+  const key = versioned(route, generation);
+  if (pages.has(key)) return pages.get(key) as T;
+  const value = await api<T>(key, signal); signal.throwIfAborted();
+  if (pages.size >= 128) pages.delete(pages.keys().next().value!);
+  pages.set(key, value); return value;
+}
 function useApi<T>(route: string | null) {
+  const generation = useContext(GenerationContext);
   const [result, setResult] = useState<{ key: string | null; data: T | null; error: string | null; loading: boolean }>({ key: null, data: null, error: null, loading: false });
   useEffect(() => {
     if (!route) return;
-    const controller = new AbortController(); setResult({ key: route, data: null, error: null, loading: true });
-    void api<T>(route, controller.signal).then(data => { if (!controller.signal.aborted) setResult({ key: route, data, error: null, loading: false }); }, error => { if (!controller.signal.aborted) setResult({ key: route, data: null, error: String(error.message), loading: false }); });
+    const controller = new AbortController();
+    const existing = pages.get(versioned(route, generation)) as T | undefined;
+    setResult({ key: route, data: existing ?? null, error: null, loading: existing === undefined });
+    void cached<T>(route, generation, controller.signal).then(data => { if (!controller.signal.aborted) setResult({ key: route, data, error: null, loading: false }); }, error => { if (!controller.signal.aborted) setResult({ key: route, data: null, error: String(error.message), loading: false }); });
     return () => controller.abort();
-  }, [route]);
-  return result.key === route && route !== null ? result : { data: null, error: null, loading: route !== null };
+  }, [route, generation]);
+  const existing = route ? pages.get(versioned(route, generation)) as T | undefined : undefined;
+  return result.key === route && route !== null ? result : { data: existing ?? null, error: null, loading: route !== null && existing === undefined };
+}
+type Selection = { repositoryId: string | null; file: UiFile | null; selected: UiEvidence | null; repositoryOffset: number; fileOffset: number; hunkOffset: number; inspectOffset: number; query: string; change: string };
+const emptySelection: Selection = { repositoryId: null, file: null, selected: null, repositoryOffset: 0, fileOffset: 0, hunkOffset: 0, inspectOffset: 0, query: '', change: '' };
+const pathOf = (file: UiFile) => file.data.destinationPath ?? file.data.originalPath;
+const hunkKey = (hunk: UiHunk) => JSON.stringify(hunk.data.lines.map(line => [line.kind, line.contentBytes, line.oldNoNewline, line.newNoNewline]));
+async function prepare(state: UiAppState, wanted: Selection, signal: AbortSignal): Promise<Selection> {
+  const generation = state.generation;
+  await cached<UiSession>('/api/session', generation, signal);
+  const repositories = await cached<UiPage<UiRepository>>(`/api/repositories?offset=${wanted.repositoryOffset}`, generation, signal);
+  const repositoryId = repositories.items.find(item => item.repositoryId === wanted.repositoryId)?.repositoryId ?? repositories.items[0]?.repositoryId ?? null;
+  if (!repositoryId) return { ...emptySelection, repositoryOffset: wanted.repositoryOffset };
+  const files = await cached<UiPage<UiFile>>(`/api/files?repositoryId=${repositoryId}&offset=${wanted.fileOffset}&q=${encodeURIComponent(wanted.query)}&change=${wanted.change}`, generation, signal);
+  let file = files.items.find(item => wanted.file && pathOf(item) === pathOf(wanted.file)) ?? null;
+  if (!file && wanted.file && pathOf(wanted.file)) {
+    const matching = await cached<UiPage<UiFile>>(`/api/files?repositoryId=${repositoryId}&q=${encodeURIComponent(pathOf(wanted.file)!)}&change=${wanted.change}`, generation, signal);
+    file = matching.items.find(item => pathOf(item) === pathOf(wanted.file!)) ?? null;
+  }
+  file ??= files.items[0] ?? null;
+  if (!file) return { ...wanted, repositoryId, file: null, selected: null };
+  const sameFile = !!wanted.file && pathOf(file) === pathOf(wanted.file);
+  const hunkOffset = sameFile ? wanted.hunkOffset : 0;
+  const hunks = await cached<UiPage<UiHunk>>(`/api/hunks?fileEvidenceId=${file.id}&offset=${hunkOffset}`, generation, signal);
+  let selected: UiEvidence = hunks.items[0] ?? file;
+  if (sameFile && wanted.selected?.kind === 'file-change') selected = file;
+  if (sameFile && wanted.selected?.kind === 'hunk') {
+    const previous = wanted.selected;
+    const matches = hunks.items.filter(item => hunkKey(item) === hunkKey(previous));
+    selected = hunks.items.find(item => item.id === previous.id) ?? (matches.length === 1 ? matches[0]! : selected);
+  }
+  const inspectOffset = sameFile ? wanted.inspectOffset : 0;
+  if (sameFile && wanted.selected?.kind === 'symbol') {
+    const inspection = await cached<UiInspection>(`/api/inspect?evidenceId=${file.id}&offset=${inspectOffset}`, generation, signal);
+    const previous = wanted.selected;
+    const key = (entry: typeof previous) => JSON.stringify([entry.data.language, entry.data.kind, entry.data.name, entry.data.side, entry.data.scope, 'signatureDisplay' in entry.data ? entry.data.signatureDisplay : null, entry.data.range.startLine]);
+    const matches = inspection.related.items.filter((item): item is typeof previous => item.kind === 'symbol' && key(item) === key(previous));
+    if (matches.length === 1) selected = matches[0]!;
+  }
+  await cached<UiInspection>(`/api/inspect?evidenceId=${selected.id}&offset=${inspectOffset}`, generation, signal);
+  return { ...wanted, repositoryId, file, selected, hunkOffset, inspectOffset };
+}
+
+function App() {
+  const [state, setState] = useState<UiAppState | null>(null), [display, setDisplay] = useState<{ state: UiAppState; initial: Selection } | null>(null);
+  const [error, setError] = useState(''), [poll, setPoll] = useState(0), [busy, setBusy] = useState(false);
+  const [preparing, setPreparing] = useState(false);
+  const selection = useRef(emptySelection);
+  const [locale, setLocale] = useState('en'), [theme, setTheme] = useState('dark'), [bionic, setBionic] = useState(false);
+  useEffect(() => {
+    const controller = new AbortController(); let timer: ReturnType<typeof setTimeout>;
+    const read = async () => {
+      try {
+        const next = await api<UiAppState>('/api/state', controller.signal);
+        if (controller.signal.aborted) return;
+        setState(next); setError('');
+        if (next.phase === 'loading' || next.phase === 'refreshing') timer = setTimeout(() => void read(), 300);
+        else setBusy(false);
+      } catch (failure) { if (!controller.signal.aborted) { setError((failure as Error).message); setBusy(false); } }
+    };
+    void read(); return () => { controller.abort(); clearTimeout(timer); };
+  }, [poll]);
+  useEffect(() => {
+    if (!state?.snapshot || state.generation === display?.state.generation) return;
+    const controller = new AbortController(); setPreparing(true);
+    void prepare(state, selection.current, controller.signal).then(initial => {
+      if (controller.signal.aborted) return;
+      selection.current = initial; setDisplay({ state, initial }); setError(''); setPreparing(false);
+    }, failure => { if (!controller.signal.aborted) { setError((failure as Error).message); setPreparing(false); } });
+    return () => controller.abort();
+  }, [state?.generation, display?.state.generation]);
+  const refresh = async () => {
+    if (busy) return;
+    setBusy(true); setError('');
+    try { setState(await api<UiAppState>('/api/refresh', new AbortController().signal, 'POST')); setPoll(value => value + 1); }
+    catch (failure) { setBusy(false); setError((failure as Error).message); setPoll(value => value + 1); }
+  };
+  const live = state?.mode === 'repository';
+  const refreshing = busy || preparing || !error && (state?.phase === 'refreshing' || state?.phase === 'loading' || !!state?.snapshot && state.generation !== display?.state.generation);
+  const notice = error || state?.error?.message;
+  return <>{live ? <section className="local-session" aria-label="Local repository"><div><strong className="break">{state.root}</strong><span>Branch: {(display ? display.state.branch : state.branch) ?? 'detached HEAD'} · all · HEAD → working tree</span></div><button disabled={refreshing} onClick={() => void refresh()}>{refreshing ? 'Collecting…' : 'Refresh'}</button></section> : null}
+    {notice ? <div className="coverage-warning" role="alert">{notice} {live ? 'Correct the problem, then click Refresh. The last collected snapshot stays visible.' : 'Keep the terminal running or reopen the app.'}</div> : null}
+    {display ? <GenerationContext.Provider value={display.state.generation}><Workspace key={display.state.generation} initial={display.initial} live={display.state.mode === 'repository'} preferences={{ locale, setLocale, theme, setTheme, bionic, setBionic }} report={value => { selection.current = value; }} /></GenerationContext.Provider> : <main className="startup-error"><h1>Difflearn Review Workspace</h1><p role="status">{notice ? 'No snapshot available yet.' : live ? 'Collecting current changes…' : 'Opening collected evidence…'}</p>{live ? <p>The app is read-only. Keep this terminal open; Ctrl+C closes the app.</p> : null}</main>}</>;
 }
 const short = (value: string | null) => value ? `${value.slice(0, 12)}…` : 'unavailable';
 const symbolName = (data: { name: string | null; kind: string; signatureDisplay?: string | undefined }) => data.signatureDisplay ?? data.name ?? data.kind;
@@ -58,17 +153,16 @@ function Hunk({ hunk, split, selected, select, text }: { hunk: UiHunk; split: bo
     </div>
   </section>;
 }
-function App() {
-  const [locale, setLocale] = useState('en'), [theme, setTheme] = useState('dark');
-  const [bionic, setBionic] = useState(false);
+function Workspace({ initial, live, preferences, report }: { initial: Selection; live: boolean; preferences: { locale: string; setLocale: (value: string) => void; theme: string; setTheme: (value: string) => void; bionic: boolean; setBionic: (value: boolean) => void }; report: (value: Selection) => void }) {
+  const { locale, setLocale, theme, setTheme, bionic, setBionic } = preferences;
   const text: Text = (en, th) => locale === 'th' ? th : en;
   useEffect(() => { document.documentElement.dataset.theme = theme; document.documentElement.lang = locale; }, [theme, locale]);
   const session = useApi<UiSession>('/api/session');
-  const [repositoryOffset, setRepositoryOffset] = useState(0), [repositoryId, setRepositoryId] = useState<string | null>(null);
+  const [repositoryOffset, setRepositoryOffset] = useState(initial.repositoryOffset), [repositoryId, setRepositoryId] = useState<string | null>(initial.repositoryId);
   const repositories = useApi<UiPage<UiRepository>>(session.data ? `/api/repositories?offset=${repositoryOffset}` : null);
-  const [query, setQuery] = useState(''), [change, setChange] = useState(''), [fileOffset, setFileOffset] = useState(0), [file, setFile] = useState<UiFile | null>(null);
+  const [query, setQuery] = useState(initial.query), [change, setChange] = useState(initial.change), [fileOffset, setFileOffset] = useState(initial.fileOffset), [file, setFile] = useState<UiFile | null>(initial.file);
   const files = useApi<UiPage<UiFile>>(repositoryId ? `/api/files?repositoryId=${repositoryId}&offset=${fileOffset}&q=${encodeURIComponent(query)}&change=${change}` : null);
-  const [hunkOffset, setHunkOffset] = useState(0), [selectedId, setSelectedId] = useState<string | null>(null), [inspectOffset, setInspectOffset] = useState(0);
+  const [hunkOffset, setHunkOffset] = useState(initial.hunkOffset), [selectedId, setSelectedId] = useState<string | null>(initial.selected?.id ?? null), [inspectOffset, setInspectOffset] = useState(initial.inspectOffset);
   const hunks = useApi<UiPage<UiHunk>>(file ? `/api/hunks?fileEvidenceId=${file.id}&offset=${hunkOffset}` : null);
   const inspection = useApi<UiInspection>(selectedId ? `/api/inspect?evidenceId=${selectedId}&offset=${inspectOffset}` : null);
   const [split, setSplit] = useState(false), [explorerOpen, setExplorerOpen] = useState(false), [inspectorOpen, setInspectorOpen] = useState(false);
@@ -76,11 +170,14 @@ function App() {
   useEffect(() => { if (!repositoryId && repositories.data?.items[0]) setRepositoryId(repositories.data.items[0].repositoryId); }, [repositories.data, repositoryId]);
   useEffect(() => { if (!file && files.data?.items[0]) setFile(files.data.items[0]); }, [files.data, file]);
   useEffect(() => { if (file && !selectedId) setSelectedId(file.id); }, [file, selectedId]);
-  useEffect(() => { if (hunks.data?.items[0]) { setSelectedId(hunks.data.items[0].id); setInspectOffset(0); } }, [hunks.data]);
+  const firstHunks = useRef(true);
+  useEffect(() => { if (firstHunks.current) { firstHunks.current = false; return; } if (hunks.data?.items[0]) { setSelectedId(hunks.data.items[0].id); setInspectOffset(0); } }, [hunks.data]);
+  useEffect(() => { report({ repositoryId, file, selected: inspection.data?.entry ?? initial.selected, repositoryOffset, fileOffset, hunkOffset, inspectOffset, query, change }); }, [repositoryId, file, inspection.data, repositoryOffset, fileOffset, hunkOffset, inspectOffset, query, change]);
   const repository = repositories.data?.items.find(item => item.repositoryId === repositoryId);
   const selectFile = (chosen: UiFile) => { setFile(chosen); setSelectedId(null); setInspectOffset(0); setHunkOffset(0); setStatus(''); setHandoff(''); setExplorerOpen(false); if (matchMedia('(max-width:768px)').matches) queueMicrotask(() => heading.current?.focus()); };
   const select = (id: string) => { setSelectedId(id); setInspectOffset(0); setStatus(''); setHandoff(''); };
-  useEffect(() => { setHunkOffset(0); setInspectOffset(0); setStatus(''); setHandoff(''); }, [file?.id]);
+  const previousFile = useRef(file?.id);
+  useEffect(() => { if (previousFile.current === file?.id) return; previousFile.current = file?.id; setHunkOffset(0); setInspectOffset(0); setStatus(''); setHandoff(''); }, [file?.id]);
   const inspected = inspection.data ? [inspection.data.entry, ...inspection.data.related.items] : [];
   const symbols = inspected.filter(entry => entry.kind === 'symbol');
   const analyses = inspected.filter(entry => entry.kind === 'language-analysis');
@@ -98,9 +195,9 @@ function App() {
   const capture = session.data;
   return <ReadingContext.Provider value={bionic}>
     <a className="skip-link" href="#viewer">{text('Skip to hunks', 'ไปที่ hunks')}</a><a className="skip-link" href="#inspector" onClick={() => { setInspectorOpen(true); requestAnimationFrame(() => document.getElementById('inspector')?.focus()); }}>{text('Skip to inspector', 'ไปที่ inspector')}</a>
-    <header className="topbar"><div className="brand"><span className="brand-mark" aria-hidden="true">D/</span><div><h1>Difflearn</h1><span>{text('Review Workspace', 'พื้นที่ตรวจทาน')}</span></div></div><div className="capture"><strong>{text('Captured export · Read-only', 'หลักฐานจาก export · อ่านอย่างเดียว')}</strong><span>{capture.schemaVersion !== '1.3.0' ? text('Historical schema', 'schema รุ่นก่อน') : text('Java syntax schema', 'schema ไวยากรณ์ Java')} {capture.schemaVersion} · {capture.collection.endedAt}</span><span>{text('Working-tree freshness not checked', 'ยังไม่ได้ตรวจความสดของ working tree')}</span></div><div className="preferences"><button aria-pressed={bionic} title={text("Emphasize word beginnings in hunks and reading notes; original evidence stays unchanged", "เน้นต้นคำใน hunks และคำอธิบาย โดยไม่เปลี่ยนหลักฐานต้นฉบับ")} onClick={() => setBionic(!bionic)}>Bionic Reading</button><label>{text('Language', 'ภาษา')}<select aria-label={text('Language', 'ภาษา')} value={locale} onChange={event => setLocale(event.target.value)}><option value="en">English</option><option value="th">ไทย</option></select></label><button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? text('Light theme', 'ธีมสว่าง') : text('Dark theme', 'ธีมมืด')}</button></div></header>
+    <header className="topbar"><div className="brand"><span className="brand-mark" aria-hidden="true">D/</span><div><h1>Difflearn</h1><span>{text('Review Workspace', 'พื้นที่ตรวจทาน')}</span></div></div><div className="capture"><strong>{live ? 'Local changes · Read-only' : text('Captured export · Read-only', 'หลักฐานจาก export · อ่านอย่างเดียว')}</strong><span>{capture.schemaVersion !== '1.3.0' ? text('Historical schema', 'schema รุ่นก่อน') : text('Java syntax schema', 'schema ไวยากรณ์ Java')} {capture.schemaVersion} · {capture.collection.endedAt}</span><span>{live ? 'Collected snapshot · Refresh to update' : text('Working-tree freshness not checked', 'ยังไม่ได้ตรวจความสดของ working tree')}</span></div><div className="preferences"><button aria-pressed={bionic} title={text("Emphasize word beginnings in hunks and reading notes; original evidence stays unchanged", "เน้นต้นคำใน hunks และคำอธิบาย โดยไม่เปลี่ยนหลักฐานต้นฉบับ")} onClick={() => setBionic(!bionic)}>Bionic Reading</button><label>{text('Language', 'ภาษา')}<select aria-label={text('Language', 'ภาษา')} value={locale} onChange={event => setLocale(event.target.value)}><option value="en">English</option><option value="th">ไทย</option></select></label><button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? text('Light theme', 'ธีมสว่าง') : text('Dark theme', 'ธีมมืด')}</button></div></header>
     <div className="snapshot-bar"><span>{text('Scope', 'Scope')}: <strong>{capture.scopes.join(', ')}</strong></span><span>{text('Base', 'Base')}: <strong>{capture.base ?? text('Unavailable', 'ไม่มีข้อมูล')}</strong></span><span>Git: <strong>{capture.gitCompleteness.state}</strong></span><span>{text('Syntax', 'ไวยากรณ์')}: <strong>{capture.syntax.state}</strong></span><span>{text('References / tests / history', 'References / tests / history')}: {capture.discovery.references} / {capture.discovery.relatedTests} / {capture.discovery.history}</span></div>
-    {capture.completeness.state !== 'complete' ? <div className="coverage-warning" role="status">{text('Partial or failed export. Retained evidence is shown; absence is not proof of no changes.', 'export ไม่ครบหรือมีส่วนล้มเหลว แสดงเฉพาะหลักฐานที่เก็บได้ การไม่มีข้อมูลไม่พิสูจน์ว่าไม่มีการเปลี่ยนแปลง')}<details><summary>{text('Coverage reasons', 'เหตุผลความไม่ครบถ้วน')}</summary><p>{capture.completeness.reasons.join(', ')}</p></details></div> : null}
+    {capture.completeness.state !== 'complete' ? <div className="coverage-warning" role="status">{live ? 'Some changes or declarations could not be collected. Retained evidence is shown; absence is not proof of no changes.' : text('Partial or failed export. Retained evidence is shown; absence is not proof of no changes.', 'export ไม่ครบหรือมีส่วนล้มเหลว แสดงเฉพาะหลักฐานที่เก็บได้ การไม่มีข้อมูลไม่พิสูจน์ว่าไม่มีการเปลี่ยนแปลง')}<details><summary>{text('Coverage reasons', 'เหตุผลความไม่ครบถ้วน')}</summary><p>{capture.completeness.reasons.join(', ')}</p>{live && capture.completeness.reasons.some(reason => /UNBORN|HEAD_UNRESOLVED|BASE_UNRESOLVED/u.test(reason)) ? <p>Create the first commit in this repository, then click Refresh to compare against HEAD.</p> : null}</details></div> : null}
     <nav className="region-controls" aria-label={text('Workspace regions', 'ส่วนของพื้นที่ตรวจทาน')}><button aria-controls="explorer" aria-expanded={explorerOpen} onClick={() => setExplorerOpen(!explorerOpen)}>{text('Repositories and files', 'Repositories และไฟล์')}</button><button aria-controls="inspector" aria-expanded={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}>{text('Evidence inspector', 'ตรวจหลักฐาน')}</button></nav>
     <div className="workspace" data-explorer-open={explorerOpen} data-inspector-open={inspectorOpen}>
       <aside id="explorer" className="explorer" aria-label={text('Repository and file explorer', 'รายการ repository และไฟล์')}><h2>{text('Repositories', 'Repositories')} <span className="count">{capture.repositoryCount}</span></h2>
@@ -127,7 +224,7 @@ function App() {
           <button className="copy-button" onClick={() => void copy()}>{text('Copy selected evidence', 'คัดลอกหลักฐานที่เลือก')}</button><p className="handoff-status" role="status">{status}</p>{handoff ? <label>{text('Selectable handoff text', 'ข้อความสำหรับเลือกคัดลอก')}<textarea readOnly value={handoff} rows={10} /></label> : null}
         </> : <p><ReadingText>{text('Select a file, hunk or declaration to inspect its original evidence.', 'เลือกไฟล์ hunk หรือ declaration เพื่อดูหลักฐานต้นฉบับ')}</ReadingText></p>}
       </aside>
-    </div><footer className="session-footer">{text('Captured evidence only. Review writes and live refresh are not enabled.', 'อ่านหลักฐานจาก export เท่านั้น ยังไม่เปิดการเขียน review state หรือ live refresh')} · {text('Session expires', 'session หมดอายุ')}: {capture.expiresAt}</footer>
+    </div><footer className="session-footer">{live ? 'Read-only snapshot. Refresh collects current changes. Keep the terminal open; Ctrl+C closes the app.' : text('Captured evidence only. Review writes and live refresh are not enabled.', 'อ่านหลักฐานจาก export เท่านั้น ยังไม่เปิดการเขียน review state หรือ live refresh')} {capture.expiresAt ? `· ${text('Session expires', 'session หมดอายุ')}: ${capture.expiresAt}` : ''}</footer>
   </ReadingContext.Provider>;
 }
 createRoot(document.getElementById('root')!).render(<App />);

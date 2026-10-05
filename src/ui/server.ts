@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 import { ScanError } from '../config/load.js';
 import { readEvidenceBundle } from '../evidence/read.js';
 import { createUiProjection, UiRequestError } from './projection.js';
+import type { UiAppState, UiSession } from './contracts.js';
+
+type LocalCollection = { root: string; branch: string | null; collect: (signal: AbortSignal) => Promise<unknown> };
 
 const assetDirectory = fileURLToPath(new URL('../ui-assets/', import.meta.url));
 async function assets() {
@@ -20,13 +23,40 @@ async function assets() {
   }
   return map;
 }
-export async function startUi(value: unknown, options: { signal?: AbortSignal; lifetimeMs?: number } = {}) {
+export async function startUi(value: unknown, options: { signal?: AbortSignal; lifetimeMs?: number; local?: LocalCollection } = {}) {
   options.signal?.throwIfAborted();
-  const bundle = readEvidenceBundle(structuredClone(value)), staticAssets = await assets();
+  const bundle = options.local ? null : readEvidenceBundle(structuredClone(value)), staticAssets = await assets();
   const lifetime = options.lifetimeMs ?? 30 * 60_000;
   if (!Number.isSafeInteger(lifetime) || lifetime < 1 || lifetime > 60 * 60_000) throw new ScanError('UI_SESSION_INVALID', 'Session lifetime exceeds its bound', 1);
   const token = randomBytes(32).toString('hex'), nonce = randomBytes(18).toString('base64');
-  const project = createUiProjection(bundle, new Date(Date.now() + lifetime).toISOString());
+  const expirationDate = options.local ? null : new Date(Date.now() + lifetime).toISOString();
+  const projections = new Map<number, ReturnType<typeof createUiProjection>>();
+  if (bundle) projections.set(1, createUiProjection(bundle, expirationDate));
+  const initial = projections.get(1);
+  let state: UiAppState = { mode: options.local ? 'repository' : 'export', phase: options.local ? 'loading' : 'ready', root: options.local?.root ?? '', branch: options.local?.branch ?? null, scope: options.local ? 'all' : bundle!.request.scopes.join(', '), generation: bundle ? 1 : 0, snapshot: initial ? initial(new URL('http://localhost/api/session')) as UiSession : null, error: null };
+  const collectionController = new AbortController();
+  let active: Promise<void> | null = null;
+  const recollect = () => {
+    if (active || !options.local || closed) return;
+    state = { ...state, phase: state.snapshot ? 'refreshing' : 'loading', error: null };
+    active = (async () => {
+      try {
+        const collected = readEvidenceBundle(structuredClone(await options.local!.collect(collectionController.signal)));
+        collectionController.signal.throwIfAborted();
+        const project = createUiProjection(collected, null);
+        // The branch comes from the collector's guarded revision, never from a later Git read.
+        const head = collected.repositories[0]?.revisions?.head;
+        const branch = head ? head.branch : state.branch;
+        const generation = state.generation + 1;
+        const snapshot = project(new URL('http://localhost/api/session')) as UiSession;
+        projections.set(generation, project);
+        for (const key of projections.keys()) if (key < generation - 1) projections.delete(key);
+        state = { ...state, phase: 'ready', generation, snapshot, branch, error: null };
+      } catch (error) {
+        if (!collectionController.signal.aborted) state = { ...state, phase: 'error', error: { code: error instanceof ScanError ? error.code : 'COLLECTION_FAILED', message: error instanceof Error ? error.message : 'Collection failed. Check the terminal, then refresh.' } };
+      } finally { active = null; }
+    })();
+  };
   let origin = '', host = ''; let closed = false;
   const server = createServer({ maxHeaderSize: 8192, requestTimeout: 5000, headersTimeout: 5000 }, (request, response) => {
     response.setHeader('Cache-Control', 'no-store'); response.setHeader('X-Content-Type-Options', 'nosniff'); response.setHeader('Referrer-Policy', 'no-referrer');
@@ -35,18 +65,37 @@ export async function startUi(value: unknown, options: { signal?: AbortSignal; l
     const error = (status: number, message: string) => { response.writeHead(status, { 'Content-Type': 'application/json;charset=utf-8' }); response.end(JSON.stringify({ error: message })); };
     try {
       if (closed || request.socket.remoteAddress !== '127.0.0.1' || request.headers.host !== host || request.headers.origin !== undefined && request.headers.origin !== origin || request.headers['sec-fetch-site'] === 'cross-site') throw new UiRequestError(403, 'Only this same-origin loopback session is allowed');
-      if (request.method !== 'GET') throw new UiRequestError(405, 'This viewer supports read-only GET requests');
       if (request.headers['transfer-encoding'] || request.headers['content-length'] && request.headers['content-length'] !== '0') throw new UiRequestError(413, 'Request bodies are not accepted');
       const raw = request.url ?? ''; if (!raw.startsWith('/') || raw.startsWith('//') || raw.length > 2048) throw new UiRequestError(400, 'Invalid or oversized request target');
       const decoded = decodeURIComponent(raw.split('?')[0]!);
       if (decoded.includes('\\') || decoded.split('/').some(part => part === '.' || part === '..')) throw new UiRequestError(400, 'Asset traversal is not accepted');
       const url = new URL(raw, origin);
+      const refresh = url.pathname === '/api/refresh' && !!options.local;
+      if (request.method !== 'GET' && !(refresh && request.method === 'POST')) throw new UiRequestError(405, 'Only read requests and explicit local refresh are supported');
       if (url.pathname.startsWith('/api/')) {
         const supplied = request.headers['x-difflearn-session'];
         if (typeof supplied !== 'string' || Buffer.byteLength(supplied) !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) throw new UiRequestError(403, 'Session header is missing or invalid; reopen the local viewer');
-        const json = Buffer.from(JSON.stringify(project(url)));
+        let result: unknown;
+        if (url.pathname === '/api/state') {
+          if (url.search) throw new UiRequestError(400, 'State does not accept query parameters');
+          result = state;
+        } else if (refresh) {
+          if (request.method !== 'POST') throw new UiRequestError(405, 'Refresh requires POST');
+          if (request.headers.origin !== origin) throw new UiRequestError(403, 'Refresh requires this exact origin');
+          if (url.search) throw new UiRequestError(400, 'Refresh does not accept query parameters');
+          if (active) throw new UiRequestError(409, 'Collection is already running');
+          recollect(); result = state;
+        } else {
+          const generations = url.searchParams.getAll('generation');
+          if (generations.length > 1 || generations[0] !== undefined && !/^[1-9][0-9]{0,9}$/u.test(generations[0])) throw new UiRequestError(400, 'Invalid snapshot generation');
+          const generation = generations[0] === undefined ? state.generation : Number(generations[0]);
+          const project = projections.get(generation);
+          if (!project) throw new UiRequestError(409, 'This snapshot is unavailable; refresh the viewer');
+          url.searchParams.delete('generation'); result = project(url);
+        }
+        const json = Buffer.from(JSON.stringify(result));
         if (json.length > 4 * 1024 * 1024) throw new UiRequestError(413, 'Projection exceeds its byte bound; select a smaller page or export');
-        response.writeHead(200, { 'Content-Type': 'application/json;charset=utf-8' }); response.end(json); return;
+        response.writeHead(refresh ? 202 : 200, { 'Content-Type': 'application/json;charset=utf-8' }); response.end(json); return;
       }
       if (url.search) throw new UiRequestError(400, 'Static assets do not accept query parameters');
       const asset = staticAssets.get(url.pathname === '/' ? '/index.html' : url.pathname);
@@ -65,8 +114,9 @@ export async function startUi(value: unknown, options: { signal?: AbortSignal; l
   const address = server.address(); if (!address || typeof address === 'string') throw new ScanError('UI_START_FAILED', 'Cannot bind the loopback viewer', 1);
   host = `127.0.0.1:${address.port}`; origin = `http://${host}`;
   let resolveClosed: () => void; const done = new Promise<void>(resolve => { resolveClosed = resolve; });
-  const close = async () => { if (closed) return done; closed = true; clearTimeout(expiration); options.signal?.removeEventListener('abort', aborted); server.closeAllConnections(); await new Promise<void>(resolve => server.close(() => resolve())); resolveClosed(); };
-  const aborted = () => { void close(); }; const expiration = setTimeout(aborted, lifetime); expiration.unref();
+  const close = async () => { if (closed) return done; closed = true; clearTimeout(expiration); collectionController.abort(); options.signal?.removeEventListener('abort', aborted); server.closeAllConnections(); await new Promise<void>(resolve => server.close(() => resolve())); await active; resolveClosed(); };
+  const aborted = () => { void close(); }; const expiration = options.local ? undefined : setTimeout(aborted, lifetime); expiration?.unref();
   options.signal?.addEventListener('abort', aborted, { once: true }); if (options.signal?.aborted) await close();
-  return { url: `${origin}/`, done, close, schemaVersion: bundle.schemaVersion };
+  recollect();
+  return { url: `${origin}/`, done, close, schemaVersion: bundle?.schemaVersion ?? null };
 }

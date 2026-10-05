@@ -31,7 +31,7 @@ async function readDirectory(directory: string, byteLimit: number): Promise<Dire
   return entries.sort((a, b) => compareText(a.name, b.name));
 }
 
-export async function discover(root: string, config: Config, limits: Limits, selections: string[] = [], io: DiscoveryIO = { readDirectory, git: runGit }, signal?: AbortSignal) {
+export async function discover(root: string, config: Config, limits: Limits, selections: string[] = [], io: DiscoveryIO = { readDirectory, git: runGit }, signal?: AbortSignal, rootOnly = false) {
   const repositories: Repository[] = []; const diagnostics: Diagnostic[] = [];
   const skipped: { path: string; reason: string }[] = []; const incompleteSubtrees: string[] = [];
   const excludes = [...new Set([...builtInExcludes, ...config.excludeDirectories ?? []])].sort(compareText);
@@ -141,6 +141,7 @@ export async function discover(root: string, config: Config, limits: Limits, sel
         const result = await io.git(actual, ['rev-parse', '--show-toplevel'], limits, signal);
         if (result.code === 0) markIncomplete('.', 'ROOT_INSIDE_REPOSITORY', 'Root is a repository subdirectory; choose its toplevel to include that repository');
       }
+      if (rootOnly) return [];
       if (!boundariesKnown) return [];
       return entries.filter(entry => entry.type === 'directory' || entry.type === 'symlink').flatMap(entry => {
         const child = path.join(actual, entry.name); const childPath = relativePath(root, child);

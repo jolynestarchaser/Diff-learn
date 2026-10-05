@@ -6,3 +6,7 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
 .bionic-prefix{font-weight:700}.preferences button[aria-pressed=true]{border-color:var(--accent);background:var(--selection)}
+/* The active repository stays visible independently of collection and snapshot replacement. */
+.local-session{display:flex;gap:1rem;justify-content:space-between;align-items:center;padding:.8rem 1.2rem;border-bottom:1px solid var(--border);background:var(--surface)}
+.local-session>div{min-width:0;display:flex;flex-direction:column;gap:.35rem}.local-session strong{overflow-wrap:anywhere}.local-session span{font-size:.85rem}.local-session button{flex-shrink:0}
+@media(max-width:768px){.local-session{padding:.75rem;align-items:flex-start}.local-session span{font-size:.75rem}}

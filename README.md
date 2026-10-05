@@ -2,7 +2,7 @@
 
 Understand the code your AI writes.
 
-difflearn collects local Git changes as cited evidence, adds optional syntax declarations, and lets you review an exported snapshot in a local browser. Use it to inspect changes yourself or hand evidence to a coding agent.
+difflearn opens your current Git changes in a local browser, with cited hunks and syntax declarations. Run `dr` inside your repository to inspect changes yourself or copy evidence to a coding agent.
 
 ## Overview
 
@@ -10,7 +10,7 @@ difflearn collects local Git changes as cited evidence, adds optional syntax dec
 - Compare committed, staged, unstaged, or net working-tree changes with explicit revisions and completeness.
 - Export Git facts, authoritative hunks, diagnostics, and stable evidence IDs as JSON or cited Markdown.
 - Add syntax declarations for **Java, TypeScript, TSX, and JavaScript** with `--symbols`. Java includes packages/imports, types, annotations, methods/constructors, fields, and nested declarations, with before/after ranges and hunk citations.
-- Review exports in a **read-only local UI** with a repository/file explorer, inline or split hunks, declarations, provenance, diagnostics, and copy-evidence handoff.
+- Run bare **`dr`** for a read-only local UI with automatic browser opening, internal Git/Java collection, and an explicit Refresh button. Export viewing remains available separately.
 - Explicitly acknowledge inspected hunks through the separate `review mark|list|reset` CLI.
 
 Collection uses local Git and filesystem data. It does not fetch, upload to an AI service, or execute inspected repositories' scripts, tests, or hooks. No AI account, API key, database, or Java compiler is required. Syntax analysis does not prove behavior, semantic callers, or test coverage; overload ambiguity and parsing limitations remain visible.
@@ -59,7 +59,24 @@ After updating your checkout, run `npm run setup` again. Remove the global link 
 
 ## Start reviewing changes
 
-Open a terminal in the repository or workspace you want to inspect:
+Open a terminal in the Git repository you want to inspect:
+
+```sh
+cd /path/to/repository
+dr
+```
+
+The app opens in your default browser and collects current tracked uncommitted changes with Java/TypeScript syntax automatically. No export, evidence path, remote branch, development server or extra command is needed. Running from a subdirectory or a Git worktree resolves that worktree's root. The header shows the actual repository, captured branch and comparison scope.
+
+Click **Refresh** after editing. The last snapshot stays visible while a new one is collected and validated; the display changes together, preserving the selected file and a uniquely matching hunk when applicable. Partial collection and errors remain visible. Nothing is marked reviewed automatically.
+
+Keep the terminal open; **Ctrl+C** stops the app and any active collection. If the browser cannot open, use the clickable URL printed in the terminal. The server binds only to `127.0.0.1` on an available port. Outside Git, `dr` asks you to run it inside a repository and does not scan other folders.
+
+The default comparison is existing `all` semantics with base **HEAD**: HEAD → tracked working tree as one net diff. Staged and unstaged edits can cancel. No remote is needed; an unborn repository needs its first commit before this comparison is available. Untracked content is excluded. The app reads collected hunks rather than inventing full source, and Refresh is manual.
+
+### Explicit terminal commands
+
+For workspace discovery, other scopes, exports or custom comparisons:
 
 ```sh
 dr scan
@@ -68,7 +85,7 @@ dr diff --base HEAD --scope staged
 dr context --base HEAD --scope staged --symbols
 ```
 
-The root defaults to the current directory. Use `--root "/path/to/workspace"` for another location and `--repo service-a` to select an exact root-relative repository path. Bare `dr` displays help.
+Explicit commands default their root to the current directory. Use `--root "/path/to/workspace"` for another location and `--repo service-a` to select an exact root-relative repository path. `dr --help` lists the commands; bare `dr` launches the app.
 
 Choose a base revision that already exists locally, such as `HEAD` for local edits or `origin/main` for a branch comparison. difflearn does not fetch or verify remote freshness.
 
@@ -81,7 +98,7 @@ Choose a base revision that already exists locally, such as `HEAD` for local edi
 
 `all` is not a concatenation of the other scopes: edits can cancel. A clean working tree can still have committed branch changes. Untracked contents are excluded unless `--include-untracked` is explicitly requested; eligibility and bounds still apply.
 
-### Export evidence and open the UI
+### View a captured export (optional)
 
 In **PowerShell 7**, create a UTF-8 export:
 
@@ -124,13 +141,13 @@ Share an explicit JSON export or context Markdown through your agent's approved 
 
 ## Configuration and limits
 
-Copy [.difflearn.example.json](.difflearn.example.json) to `.difflearn.json` at the workspace root and adapt repository paths/bases. Base precedence is CLI → repository configuration → workspace configuration → local symbolic remote HEAD. Invalid explicit choices fail without fallback; no branch names are guessed.
+Copy [.difflearn.example.json](.difflearn.example.json) to `.difflearn.json` at the workspace root and adapt repository paths/bases. For explicit collection commands, base precedence is CLI → repository configuration → workspace configuration → local symbolic remote HEAD. Invalid explicit choices fail without fallback; no branch names are guessed. Bare `dr` always uses HEAD and confines collection to the current worktree, retaining configured limits/exclusions.
 
 JSON keys, evidence IDs, paths, and identifiers remain unchanged by human output language (`--lang en|th`). Default Git evidence remains schema **1.0.0**; opt-in syntax uses **1.1.0**, Java syntax **1.3.0**, and candidate/history opt-ins their historical **1.2.0** TS/TSX/JS profile. Historical readers remain supported.
 
-`--references`, `--related-tests`, and `--history` on evidence/context collect bounded candidates or path history. Text matches are not confirmed callers; potential tests remain **not-run**. Java reference/JUnit heuristics, UI review writes, and live refresh remain follow-up work.
+`--references`, `--related-tests`, and `--history` on evidence/context collect bounded candidates or path history. Text matches are not confirmed callers; potential tests remain **not-run**. Java reference/JUnit heuristics, UI review writes, and automatic file watching remain follow-up work. Manual Refresh is available in the bare launcher.
 
-Check completeness and diagnostics as well as output: exit **0** means complete, **1** partial/operational failure, **2** invalid input, and **130** interrupt. A partial export may retain useful evidence; unavailable comparisons do not mean no changes. Collection is bounded and optimistically checked, not an atomic snapshot across repositories. Symlink/submodule boundaries, unsupported filters, source normalization, parsing errors, and limits can withhold coverage.
+Check completeness and diagnostics as well as output. Explicit collection commands use exit **0** for complete, **1** partial/operational failure, **2** invalid input, and **130** interrupt. The local app stays attached while displaying collection errors or partial evidence. A partial export may retain useful evidence; unavailable comparisons do not mean no changes. Collection is bounded and optimistically checked, not an atomic snapshot across repositories. Symlink/submodule boundaries, unsupported filters, source normalization, parsing errors, and limits can withhold coverage.
 
 Further contracts: [Git/evidence policy](docs/adr/0001-evidence-contract.md), [language analysis](docs/language-analysis.md), [Java and UI](docs/adr/0002-java-and-export-ui.md), [candidate discovery](docs/candidate-analysis.md), and [UI design](docs/ui-design.md).
 
@@ -147,7 +164,9 @@ npm run verify:artifact
 
 Tests use temporary synthetic Git repositories. Browser checks use installed Edge on Windows; other platforms need a Playwright-compatible Chromium (see [CONTRIBUTING](CONTRIBUTING.md)). `verify:artifact` builds, packs a real tarball, installs exact runtime dependencies offline with scripts disabled, and exercises the installed CLI, Java parser, and UI. Run dependency installation first to populate npm's cache. `verify:package` only inspects the dry-run package list.
 
-The Java/UI foundation passed **105/105 local Windows tests**, typecheck/build, production browser checks, and an actual **67-file packed artifact** verification. [Hosted run 37269223456](https://github.com/jolynestarchaser/Diff-learn/actions/runs/37269223456), for commit `3cc3fcb` before Bionic Reading, passed Windows including artifact verification. Ubuntu passed build/typecheck and 102/105 tests, including the Java and index-preservation regressions, but failed two candidate-discovery fixtures and one review-matching fixture; its artifact steps were skipped. The full hosted matrix is not green, and hosted browser/Bionic Reading and macOS execution remain unverified. Source-checkout verification records are in `docs/progress.md`.
+The current local-startup update passed **111/111 local Windows tests**, typecheck/build, production browser checks, and an actual **71-file packed artifact** verification. The installed bare command was checked from roots, subdirectories and Thai/space worktrees, including Java hunks/declarations, empty state and Refresh preserving selection across changed snapshot IDs. No development dependencies/server or manual export were required.
+
+[Hosted run 37269223456](https://github.com/jolynestarchaser/Diff-learn/actions/runs/37269223456), for the earlier foundation commit `3cc3fcb`, passed Windows including artifact verification. Ubuntu passed build/typecheck and 102/105 tests, including Java and index preservation, but failed two candidate-discovery fixtures and one review-matching fixture; artifact steps were skipped. That run's matrix was not green. Hosted verification of the current startup update, hosted browser checks and macOS remain pending/unverified. See `docs/progress.md` for exact results and limitations.
 
 For an isolated local installation after building:
 

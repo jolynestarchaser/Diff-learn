@@ -1,6 +1,6 @@
 # Difflearn Review Workspace
 
-This read-only vertical slice follows the current user brief. Use cases are approved by that brief's instruction to continue through design and integration without phase confirmations. The supplied plan's explicit review writes and live refresh are deferred.
+This read-only vertical slice follows the current user brief. Use cases are approved by that brief's instruction to continue through design and integration without phase confirmations. The subsequent startup brief adds bare `dr` and explicit manual Refresh; review writes and automatic watching remain deferred. Export viewing retains its immutable-session policy.
 
 Later scope clarification: bilingual language switching and Bionic Reading for Thai and English belong to a follow-up milestone, not the Java/UI acceptance scope. The selector implemented before that clarification is preserved as existing work; no further language/reading work is started here. Thai/Unicode evidence must remain readable and lossless in the core viewer. See the [deferred backlog](progress.md).
 
@@ -37,7 +37,13 @@ The local ui-ux-pro-max search matched a coding dark palette and readable typogr
 - Inspector: selected record ID, Java/other declarations with side/range/matching/signature, exact provenance, diagnostics and coverage. Historical candidate records keep candidate/not-run wording. No test or semantic conclusions are invented.
 - Handoff: bounded copy of selected evidence and IDs; visible success/error and selectable-text fallback. Opening, selecting or copying never writes review state.
 
-Empty complete exports say no changes in the requested comparison. Failed/partial exports preserve their reasons and retained data. Unsupported syntax says unavailable separately from Git success. Binary/gitlink/mode-only files show metadata without text. Historical exports are labeled by schema and captured time; working-tree freshness is never claimed. Invalid exports are rejected by the CLI, and browser/session/API failures have actionable error states. Review writes, state freshness and live refresh controls do not exist in this slice.
+Empty complete exports say no changes in the requested comparison. Failed/partial exports preserve their reasons and retained data. Unsupported syntax says unavailable separately from Git success. Binary/gitlink/mode-only files show metadata without text. Historical exports are labeled by schema and captured time; working-tree freshness is never claimed. Invalid exports are rejected by the CLI, and browser/session/API failures have actionable error states. No review write or automatic freshness control exists.
+
+## Simple local startup
+
+Bare `dr` resolves the current worktree, serves bundled assets immediately and opens the default browser. A persistent path/branch/scope strip sits above the existing workbench. Its explicit Refresh button recollects guarded `all` evidence against HEAD with syntax, without a remote or export. While loading, the actual location and comparison are visible; during Refresh, the old view remains. Generation-pinned repository, file, hunk and inspector pages are prepared before one render replaces the view. Match selection by retained path and unique unchanged hunk content; ambiguous selections fall back rather than invent continuity. Collection/validation errors retain the previous snapshot and offer Refresh. Complete zero changes, partial collection and unborn HEAD are separate states. See [startup wireframe](ux-flows/wireframes/startup.html) and [approved flows](ux-flows/UX-FLOWS.md).
+
+The browser opener receives only the server's loopback URL, uses no shell or repository commands, and runs once. Failure prints that URL while the server stays attached to the terminal. Ctrl+C aborts collection and closes the listener. Local sessions last until terminal shutdown; explicit exported sessions keep their 30-minute bound. Existing language and Bionic controls are preserved without adding follow-up work.
 
 Keyboard: skip links to viewer/inspector, native buttons/selects/details, logical tab order, visible focus, Enter/Space activation, explicit previous/next hunk and responsive region controls. New file selection focuses its heading on narrow screens. Copy failure never steals evidence selection. Screen reader status uses a polite live region. Source values are plain text even when they contain HTML.
 

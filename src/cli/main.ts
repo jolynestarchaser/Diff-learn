@@ -27,6 +27,7 @@ const jsonRequested = process.argv[2] === 'evidence' || process.argv.slice(2).so
 let humanLocale: Locale = process.argv.some((arg, index) => arg === '--lang=th' || arg === '--lang' && process.argv[index + 1] === 'th') ? 'th' : 'en';
 const controller = new AbortController();
 process.once('SIGINT', () => controller.abort());
+process.once('SIGTERM', () => controller.abort());
 process.stdout.on('error', () => { process.exitCode = 1; });
 process.stderr.on('error', () => { process.exitCode = 1; });
 const program = new Command().name('dr').description('difflearn: local Git discovery, status, and diff evidence.').version(version)
@@ -34,9 +35,10 @@ const program = new Command().name('dr').description('difflearn: local Git disco
   .allowExcessArguments(false).exitOverride()
   .configureOutput({ writeErr: () => { /* errors are rendered once by the catch boundary */ } })
   .addHelpText('after', '\nImplemented: scan, status, diff, evidence, context, review, ui, --help, --version.\nEvidence emits validated JSON by default. Context emits escaped English/Thai Markdown.\nDefault collection provides Git/filesystem/diff facts. Semantic references, behavior, impact and test coverage analysis are unsupported.\nOpt-in evidence/context --symbols adds TS/TSX/JS and Java declarations (Java schema 1.3.0); no semantic references or behavior claims.\nreview mark/list/reset manage explicit local acknowledgments separately from evidence.\nui --evidence opens a validated captured export in a read-only loopback viewer.')
-  .action((command: string | undefined) => {
+  .action(async (command: string | undefined) => {
     if (command !== undefined) throw new ScanError('COMMAND_UNAVAILABLE', `Command ${JSON.stringify(command)} is not implemented. Run dr --help.`);
-    program.help();
+    const { launchLocalApp } = await import('./local.js');
+    await launchLocalApp(process.cwd(), controller.signal);
   });
 
 type Options = { root?: string; config?: string; repo?: string[]; lang?: string; maxDepth?: string; concurrency?: string; json?: boolean; base?: string; scope?: string; includeUntracked?: boolean; maxFileBytes?: string; maxPatchBytes?: string; symbols?: boolean; references?: boolean; relatedTests?: boolean; history?: boolean; maxSymbols?: string; maxResults?: string; maxHistory?: string };

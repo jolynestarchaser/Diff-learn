@@ -1,5 +1,11 @@
 # Changelog
 
+## Local startup update
+
+- Bare `dr` inside a repository/subdirectory/worktree starts the bundled local app, opens the default browser and internally collects `all` against HEAD with Java syntax. No manual export or remote base is needed.
+- Explicit Refresh validates and replaces one snapshot together while retaining current evidence on failure and matching file/hunk selection where applicable. Loading, empty, partial and actionable error states show the actual location/branch/scope.
+- Loopback authentication, production asset bounds, collector guards and physical index preservation remain in force. Export commands remain available. Review writes, automatic watching and further language/reading work are outside this update.
+
 ## Unreleased — v0.1 preparation
 
 ### Bionic Reading presentation
@@ -12,7 +18,7 @@
 
 - Added pinned Java grammar 0.23.5 on runtime 0.21.1 and independent schema 1.3.0, authoritative before/after declarations/ranges/hunk citations, explicit overload ambiguity and parsing limits. Historical readers and default Git facts/IDs remain intact.
 - Added read-only `dr ui --evidence` with validated loopback sessions and bundled production assets, repository/file explorer, inline/split hunks, declarations/provenance/diagnostics/coverage, English/Thai, keyboard/responsive layout and evidence-copy fallback.
-- Added synthetic historical/Java/partial/empty fixtures, production browser checks and installed-package Java/UI verification. Java reference/JUnit heuristics, UI review writes and live refresh remain follow-up work. Hosted Linux verification is pending.
+- Added synthetic historical/Java/partial/empty fixtures, production browser checks and installed-package Java/UI verification. Java reference/JUnit heuristics, UI review writes and automatic watching remain follow-up work. The subsequent startup update adds explicit manual Refresh; hosted Linux verification is pending.
 
 ### CI correctness fixes
 

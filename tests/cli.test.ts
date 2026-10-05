@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { mkdtemp, rm } from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
@@ -42,11 +45,13 @@ test('version matches package metadata with no diagnostics', () => {
   assert.equal(result.stderr, '');
 });
 
-test('bare invocation shows help', () => {
-  const result = run();
-  assert.equal(result.status, 0);
-  assert.match(result.stdout, /Usage: dr/);
-  assert.equal(result.stderr, '');
+test('bare invocation outside Git asks for a repository instead of scanning folders', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'difflearn-outside-'));
+  try {
+    const result = spawnSync(process.execPath, [entrypoint], { cwd: root, encoding: 'utf8', timeout: 20000, env: Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.toUpperCase().startsWith('GIT_'))) });
+    assert.ifError(result.error); assert.equal(result.status, 1); assert.equal(result.stdout, '');
+    assert.match(result.stderr, /Run dr inside a Git repository/u); assert.doesNotMatch(result.stderr, /Usage:/u);
+  } finally { assert.ok(path.relative(os.tmpdir(), root).startsWith('difflearn-outside-')); await rm(root, { recursive: true, force: true }); }
 });
 
 for (const command of ['unknown']) {

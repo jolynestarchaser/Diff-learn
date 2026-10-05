@@ -12,6 +12,11 @@ export type UiSession = {
   syntax: { state: string; reasons: string[]; languages: string[] };
   discovery: { references: string; relatedTests: string; history: string };
   repositoryCount: number; fileCount: number; hunkCount: number;
-  readOnly: true; freshness: 'not-verified'; expiresAt: string;
+  readOnly: true; freshness: 'not-verified'; expiresAt: string | null;
+};
+export type UiAppState = {
+  mode: 'export' | 'repository'; phase: 'loading' | 'ready' | 'refreshing' | 'error';
+  root: string; branch: string | null; scope: string; generation: number;
+  snapshot: UiSession | null; error: { code: string; message: string } | null;
 };
 export type UiInspection = { entry: UiEvidence; related: UiPage<UiEvidence>; diagnostics: ReadEvidenceBundle['diagnostics']; completeness: ReadEvidenceBundle['completeness'] };

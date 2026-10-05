@@ -131,6 +131,53 @@ try {
     if (child.exitCode === null) await new Promise(resolve => child.once('exit', resolve));
   }
   console.log('Installed Java grammar loaded/parsed; actual dr ui shim served validated 1.3.0 evidence, original symbol IDs and production JS/CSS without development dependencies.');
+  async function bare(cwd, checkJava = true) {
+    const command = `$ErrorActionPreference = 'Stop'; [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); & ${literal(shim)}; exit $LASTEXITCODE`;
+    const headlessEnv = { ...env, DIFFLEARN_NO_BROWSER: '1' };
+    const child = process.platform === 'win32' ? spawn('powershell.exe', ['-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand', Buffer.from(command, 'utf16le').toString('base64')], { cwd, env: headlessEnv, shell: false, windowsHide: true }) : spawn(shim, [], { cwd, env: headlessEnv, shell: false });
+    try {
+      const url = await new Promise((resolve, reject) => { let stdout = '', stderr = ''; const timer = setTimeout(() => reject(new Error('Installed bare dr did not open a server')), 30000); child.once('error', reject); child.stderr.on('data', bytes => { stderr += bytes; }); child.once('exit', code => { clearTimeout(timer); reject(new Error(`Bare dr exited ${code}: ${stderr}`)); }); child.stdout.on('data', bytes => { stdout += bytes; const match = /http:\/\/127\.0\.0\.1:\d+\//u.exec(stdout); if (match) { clearTimeout(timer); resolve(match[0]); } }); });
+      const response = await fetch(url), html = await response.text(); assert.equal(response.status, 200);
+      const { token } = JSON.parse(/<script id="difflearn-bootstrap"[^>]*>([^<]+)<\/script>/u.exec(html)[1]);
+      const api = route => fetch(new URL(route, url), { headers: { 'X-Difflearn-Session': token } });
+      const state = async generation => { for (let attempt = 0; attempt < 300; attempt++) { const value = await (await api('/api/state')).json(); if (value.phase === 'error') throw new Error(JSON.stringify(value.error)); if (value.generation >= generation && value.phase === 'ready') return value; await new Promise(resolve => setTimeout(resolve, 200)); } throw new Error('Installed local collection did not complete'); };
+      const current = await state(1); assert.equal(current.mode, 'repository'); assert.equal(current.scope, 'all'); assert.equal(current.snapshot.base, 'HEAD'); assert.equal(current.snapshot.expiresAt, null);
+      const expectedRoot = execute('git', ['rev-parse', '--show-toplevel'], cwd).stdout.trim(); assert.equal(path.relative(expectedRoot, current.root), '');
+      assert.equal(current.branch, execute('git', ['symbolic-ref', '--short', 'HEAD'], cwd).stdout.trim());
+      if (checkJava) {
+        const repositories = await (await api('/api/repositories?generation=1')).json();
+        const files = await (await api(`/api/files?repositoryId=${repositories.items[0].repositoryId}&generation=1`)).json(); const javaFile = files.items.find(file => file.data.destinationPath === 'บริการ.java'); assert.ok(javaFile);
+        const inspection = await (await api(`/api/inspect?evidenceId=${javaFile.id}&generation=1`)).json(); assert.ok(inspection.related.items.some(entry => entry.kind === 'symbol' && entry.data.name === 'ข้อความ'));
+      } else assert.equal(current.snapshot.fileCount, 0);
+      if (process.env.DIFFLEARN_ARTIFACT_BROWSER === '1') {
+        const { chromium, expect } = await import('@playwright/test'); const browser = await chromium.launch(process.platform === 'win32' ? { channel: 'msedge', headless: true } : { headless: true });
+        try {
+          const page = await browser.newPage(); await page.goto(url); await expect(page.getByText('Local changes · Read-only', { exact: true })).toBeVisible();
+          if (checkJava) {
+            await page.locator('.file-list').getByRole('button', { name: /บริการ\.java/u }).click(); await expect(page.locator('.hunk').first()).toBeVisible(); await expect(page.locator('.symbol-list')).toContainText('ข้อความ');
+            await page.locator('.hunk-heading').first().click(); await expect(page.locator('.hunk').first()).toHaveClass(/selected/u); await expect(page.locator('.selected-evidence > span')).toHaveText('hunk');
+            const previousId = await page.locator('.selected-evidence code').textContent(); const previousText = await page.locator('.inline-code code').allTextContents();
+            // Changing a different tracked file gives every evidence record a new snapshot ID.
+            await writeFile(path.join(current.root, filename), `synthetic refresh ${Date.now()}\n`);
+            await page.getByRole('button', { name: 'Refresh', exact: true }).click(); await expect(page.getByRole('button', { name: 'Refresh', exact: true })).toBeEnabled({ timeout: 60000 });
+            await expect(page.locator('.file-heading h2')).toHaveText('บริการ.java'); await expect(page.locator('.hunk').first()).toHaveClass(/selected/u);
+            assert.notEqual(await page.locator('.selected-evidence code').textContent(), previousId); assert.deepEqual(await page.locator('.inline-code code').allTextContents(), previousText);
+            await mkdir(path.join(workspace, '.difflearn', 'ui-verification'), { recursive: true }); await page.screenshot({ path: path.join(workspace, '.difflearn', 'ui-verification', 'installed-local.png'), fullPage: true });
+          } else await expect(page.locator('.viewer')).toContainText('No changes in this comparison');
+        } finally { await browser.close(); }
+      }
+      const refreshed = await fetch(new URL('/api/refresh', url), { method: 'POST', headers: { 'X-Difflearn-Session': token, Origin: new URL(url).origin } }); assert.equal(refreshed.status, 202); await state(2);
+      for (const asset of [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/gu)].map(match => match[1])) { assert.equal(await (await fetch(new URL(asset, url))).text(), await readFile(path.join(workspace, 'dist', 'ui-assets', asset.slice(1)), 'utf8')); }
+    } finally { if (child.exitCode === null && child.pid) { if (process.platform === 'win32') execute('taskkill.exe', ['/PID', String(child.pid), '/T', '/F'], installation); else child.kill('SIGINT'); } if (child.exitCode === null) await new Promise(resolve => child.once('exit', resolve)); }
+  }
+  await bare(repository);
+  const subdirectory = path.join(repository, 'sub directory ไทย'); await mkdir(subdirectory); await bare(subdirectory);
+  // External worktree detection uses the actual installed binary, with no remote configured.
+  git('commit', '-m', 'synthetic worktree baseline');
+  const worktree = path.join(temporary, 'external worktree ไทย'); git('worktree', 'add', '-b', 'artifact-local', worktree); await bare(worktree, false);
+  await writeFile(path.join(worktree, 'บริการ.java'), 'package synthetic; record บริการ(String ชื่อ) { String ข้อความ() { return "updated ไทย😀"; } }\r\n'); await bare(worktree);
+  console.log('Actual installed bare dr verified: root, subdirectory and external Thai/space worktree; internal HEAD/all Java collection, empty state, explicit refresh and bundled assets; no manual export or development server. Browser opt-out was used by this automated harness.');
+  if (process.env.DIFFLEARN_ARTIFACT_BROWSER === '1') console.log('Actual installed bare dr also passed headless browser DOM checks for Java hunks/declarations and empty state.');
   console.log(`Installed ${manifest.name}@${manifest.version}: actual ${path.basename(shim)} help/version, scan/status/diff/evidence, Thai context, JSON error, syntax/candidate/history partial coverage and explicit review mark/list/reset verified on ${process.platform}; synthetic Thai/space paths.`);
 } finally {
   // Only remove the absolute directory returned by this mkdtemp call.
