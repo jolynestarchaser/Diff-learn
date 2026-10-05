@@ -12,7 +12,7 @@ import { analyzeFile } from '../language/collect.js';
 export type CollectionDiagnostic = { code: string; severity: 'warning'; stage: 'discovery' | 'collection'; repositoryId: string; path: string | null; scope: Scope | null; message: string };
 type Endpoint = { kind: 'commit' | 'index' | 'working-tree' | 'empty-tree'; oid: string | null };
 export type Comparison = { scope: Scope; comparisonId: string | null; state: 'complete' | 'partial' | 'unavailable'; before: Endpoint; after: Endpoint; files: (FileChange & { patch?: FilePatch; languageAnalysis?: LanguageResult })[]; reasons: string[]; omittedCount: number | null; patchCoverage?: { source: 'git'; retainedBytes: number; observedBytesLowerBound: number; totalBytes: number | null; truncated: boolean; observedHunks: number; omittedHunks: number | null } };
-export type DiffRequest = { scope: Scope; includeUntracked: boolean; symbols?: boolean; java?: boolean };
+export type DiffRequest = { scope: Scope; includeUntracked: boolean; symbols?: boolean; java?: boolean; commits?: { before: string; after: string; emptyBefore?: boolean } };
 export type Conflict = GitPath & { xy: string | null; stages: { base: { mode: string; oid: string } | null; ours: { mode: string; oid: string } | null; theirs: { mode: string; oid: string } | null } };
 export type RepositoryStatus = Repository & {
   state: 'complete' | 'partial' | 'failed'; reasons: string[]; revisions: Revisions | null;
@@ -41,6 +41,10 @@ export async function collectRepository(repository: Repository, config: Config, 
     try {
       const attemptBudget = { bytes: 0 };
       const before = await capture(adapter, config, budget, cliBase, attemptBudget, diff ? { includeUntracked: diff.includeUntracked, retainContent: true, retainTracked: diff.symbols === true && (diff.scope === 'unstaged' || diff.scope === 'all') } : undefined);
+      if (diff?.commits && diff.scope !== 'branch') throw new ScanError('COMPARISON_INVALID', 'Pinned commit comparisons require branch scope', 1);
+      // Capture/validate the real worktree as usual. Only the comparison endpoints
+      // change; language sources for branch comparisons come from raw diff blob IDs.
+      const revisions: Revisions = diff?.commits ? { ...before.revisions, head: { oid: diff.commits.after, branch: null, state: 'detached' }, base: { input: diff.commits.before, oid: diff.commits.before, resolutionSource: 'cli', reason: null, remoteFreshness: 'not-verified' }, mergeBase: { ...before.revisions.mergeBase, oid: diff.commits.before, candidates: [diff.commits.before], reason: null } } : before.revisions;
       const conflictPaths = new Set(before.index.filter(entry => entry.stage > 0).map(entry => entry.pathBytes));
       const conflicts: Conflict[] = [...conflictPaths].map(encoded => {
         const entries = before.index.filter(entry => entry.pathBytes === encoded); const first = entries[0]!;
@@ -53,18 +57,19 @@ export async function collectRepository(repository: Repository, config: Config, 
         const reasons: string[] = [];
         if (scope === 'branch' || scope === 'staged') reasons.push(...before.immutableReasons);
         if (scope === 'staged' && before.revisions.head.oid === null && before.status.reasons.some(reason => reason === 'WORKTREE_SYMLINK_BOUNDARY' || reason === 'ATTRIBUTE_SYMLINK')) reasons.push('UNBORN_ATTRIBUTE_BOUNDARY');
-        if ((scope === 'branch' || scope === 'all') && !before.revisions.mergeBase.oid) reasons.push(before.revisions.mergeBase.reason ?? 'BASE_UNRESOLVED');
+        if ((scope === 'branch' || scope === 'all') && !revisions.mergeBase.oid) reasons.push(revisions.mergeBase.reason ?? 'BASE_UNRESOLVED');
         if ((scope === 'unstaged' || scope === 'all') && !before.status.available) reasons.push(...before.status.reasons);
-        const comparison: Comparison = { scope, comparisonId: null, state: 'unavailable', ...endpoints(scope, before.revisions), files: [], reasons, omittedCount: null };
+        const comparison: Comparison = { scope, comparisonId: null, state: 'unavailable', ...endpoints(scope, revisions), files: [], reasons, omittedCount: null };
+        if (diff?.commits?.emptyBefore) comparison.before.kind = 'empty-tree';
         if (reasons.length === 0) {
           try {
-            const result = await adapter.comparison(scope, before.revisions, scope === 'branch' ? new Set() : conflictPaths);
+            const result = await adapter.comparison(scope, revisions, scope === 'branch' ? new Set() : conflictPaths);
             if (result.renameLimited) reasons.push('RENAME_LIMIT');
             if (scope !== 'branch' && conflicts.length) reasons.push('UNMERGED_PATH');
             comparison.files = result.changes; comparison.state = reasons.length ? 'partial' : 'complete'; comparison.omittedCount = scope === 'branch' ? 0 : conflicts.length;
             if (diff) {
               try {
-                const patch = await adapter.patch(scope, before.revisions, result.renameLimited);
+                const patch = await adapter.patch(scope, revisions, result.renameLimited);
                 // Conflict records have no ordinary FileChange; retain the Git
                 // conflict diagnostic rather than interpreting a combined hunk.
                 const parsed = parseUnified(patch.stdout, result.changes, { maxHunks: limits.maxHunks, maxFileBytes: limits.maxFileBytes, maxOutputBytes: limits.maxBundleBytes / 8, truncated: patch.truncated ?? false });
@@ -91,7 +96,7 @@ export async function collectRepository(repository: Repository, config: Config, 
       }
       const after = await capture(adapter, config, budget, cliBase, attemptBudget, diff ? { includeUntracked: diff.includeUntracked, retainContent: false } : undefined);
       if (before.guard !== after.guard) throw new ScanError('SNAPSHOT_CHANGED', 'Relevant refs, index, configuration, attributes, status, or files changed during collection', 1);
-      const snapshotId = digest(['snapshot-v1', repository.repositoryId, before.semantic]);
+      const snapshotId = digest(['snapshot-v1', repository.repositoryId, diff?.commits ? { ...before.semantic, revisions } : before.semantic]);
       for (const comparison of comparisons) if (comparison.state !== 'unavailable') comparison.comparisonId = digest(['comparison-v1', snapshotId, comparison.scope, comparison.before, comparison.after, diffOptions]);
       for (const comparison of comparisons) for (const file of comparison.files) for (const hunk of file.patch?.hunks ?? []) hunk.hunkId = digest(['hunk-v1', comparison.comparisonId, fileKey(file), hunk]);
       for (const file of before.untracked) if (file.content?.state === 'collected') file.content.contentId = digest(['filesystem-content-v1', repository.repositoryId, snapshotId, file.pathBytes, file.content.sha256]);

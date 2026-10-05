@@ -1,6 +1,12 @@
 # Changelog
 
+- Adapted the existing local workbench to shadcn/ui controls and surfaces with bundled Tailwind styling, keyboard tabs/menus, provenance dialogs and responsive sheets. Preserved custom authoritative hunks and all Git/Java collection behavior.
+
 ## Local startup update
+
+- Added separate Uncommitted changes / Unpushed commits modes to bare `dr`, using configured upstream local refs or an explicitly chosen local comparison. Captured IDs, ahead/behind/divergence and untrusted commit display metadata are visible.
+- Individual commit reviews use actual parent → commit blobs, root empty trees and labelled merge first parents. Aggregate is a unique-merge-base → HEAD net diff; missing/multiple bases, shallow missing parents and empty ranges remain explicit.
+- Refresh rereads local refs without fetching. Existing guarded collection, exact Java sources, default facts/historical schemas, index preservation and read-only UI remain in force.
 
 - Bare `dr` inside a repository/subdirectory/worktree starts the bundled local app, opens the default browser and internally collects `all` against HEAD with Java syntax. No manual export or remote base is needed.
 - Explicit Refresh validates and replaces one snapshot together while retaining current evidence on failure and matching file/hunk selection where applicable. Loading, empty, partial and actionable error states show the actual location/branch/scope.

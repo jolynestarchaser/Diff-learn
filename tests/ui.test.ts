@@ -115,7 +115,12 @@ test('production bridge accepts each historical version, retaining original IDs,
   for (const version of ['1.0.0', '1.1.0', '1.2.0']) {
     const bundle = await historical(version); const { server, get, html, token, response } = await open(bundle);
     try {
-      assert.match(response.headers.get('content-security-policy')!, /frame-ancestors 'none'/u); assert.equal(response.headers.get('cache-control'), 'no-store'); assert.equal(response.headers.get('access-control-allow-origin'), null);
+      const csp = response.headers.get('content-security-policy')!;
+      assert.match(csp, /frame-ancestors 'none'/u);
+      const nonce = /<script id="difflearn-bootstrap"[^>]*nonce="([^"]+)"/u.exec(html)?.[1]; assert.ok(nonce);
+      assert.ok(csp.includes(`script-src 'self' 'nonce-${nonce}'`)); assert.ok(csp.includes(`style-src 'self' 'nonce-${nonce}'`));
+      assert.ok(!csp.includes('unsafe-inline')); assert.ok(!csp.includes('unsafe-eval'));
+      assert.equal(response.headers.get('cache-control'), 'no-store'); assert.equal(response.headers.get('access-control-allow-origin'), null);
       const session = await (await get('/api/session')).json() as UiSession; assert.equal(session.schemaVersion, version); assert.equal(session.freshness, 'not-verified'); assert.equal(session.readOnly, true); assert.ok(!JSON.stringify(session).includes(token));
       const repositories = await (await get('/api/repositories?limit=1')).json() as UiPage<typeof bundle.repositories[number]>; assert.deepEqual(repositories.items[0], bundle.repositories[0]);
       const files = await (await get(`/api/files?repositoryId=${repositories.items[0]!.repositoryId}`)).json() as UiPage<UiEvidence>; const file = files.items[0]!; assert.equal(file.kind, 'file-change');

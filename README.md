@@ -11,6 +11,7 @@ difflearn opens your current Git changes in a local browser, with cited hunks an
 - Export Git facts, authoritative hunks, diagnostics, and stable evidence IDs as JSON or cited Markdown.
 - Add syntax declarations for **Java, TypeScript, TSX, and JavaScript** with `--symbols`. Java includes packages/imports, types, annotations, methods/constructors, fields, and nested declarations, with before/after ranges and hunk citations.
 - Run bare **`dr`** for a read-only local UI with automatic browser opening, internal Git/Java collection, and an explicit Refresh button. Export viewing remains available separately.
+- Review locally outgoing commits individually or as a net diff, with the configured upstream's captured ID. The shadcn/ui workbench includes keyboard-accessible controls, responsive panels and light/dark themes; authoritative hunks keep their custom renderer.
 - Explicitly acknowledge inspected hunks through the separate `review mark|list|reset` CLI.
 
 Collection uses local Git and filesystem data. It does not fetch, upload to an AI service, or execute inspected repositories' scripts, tests, or hooks. No AI account, API key, database, or Java compiler is required. Syntax analysis does not prove behavior, semantic callers, or test coverage; overload ambiguity and parsing limitations remain visible.
@@ -73,6 +74,12 @@ Click **Refresh** after editing. The last snapshot stays visible while a new one
 Keep the terminal open; **Ctrl+C** stops the app and any active collection. If the browser cannot open, use the clickable URL printed in the terminal. The server binds only to `127.0.0.1` on an available port. Outside Git, `dr` asks you to run it inside a repository and does not scan other folders.
 
 The default comparison is existing `all` semantics with base **HEAD**: HEAD → tracked working tree as one net diff. Staged and unstaged edits can cancel. No remote is needed; an unborn repository needs its first commit before this comparison is available. Untracked content is excluded. The app reads collected hunks rather than inventing full source, and Refresh is manual.
+
+Choose **Unpushed commits** to review local commits separately from staged/unstaged changes. The app uses the current branch's configured upstream, displays its captured ref and full commit ID, ahead/behind counts and divergence, and lists outgoing commits with SHA, subject, author, date and actual parents. “Unpushed” means reachable from captured HEAD but absent from the locally known upstream ref; it does **not** establish the current remote server state. The app never fetches automatically.
+
+Select one commit for a parent → commit diff and syntax evidence from its exact Git blobs. Root commits compare against the empty tree; merge commits use a clearly labelled first-parent comparison. **Aggregate outgoing changes** is a separate net diff from a unique merge base → captured HEAD, rather than a concatenation of the commit diffs. Multiple/missing merge bases disable the aggregate while preserving valid individual views. Missing first-parent objects (including shallow boundaries) stay unavailable rather than being treated as roots.
+
+When there is no configured upstream, the upstream ref is missing locally, or HEAD is detached, choose a local comparison ref explicitly. This is labelled **Chosen comparison (not confirmed unpushed)**. Shallow history reports that counts/membership reflect only local ancestry; no outgoing commits has its own empty state. Refresh rereads local refs and replaces the validated snapshot together. Neither review mode pushes, rewrites commits, resets branches or modifies the reviewed repository.
 
 ### Explicit terminal commands
 

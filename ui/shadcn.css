@@ -1,0 +1,31 @@
+/* shadcn/ui utilities use the existing workbench palette and 4px corners. */
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+@source "./**/*.{ts,tsx}";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--bg);
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--selection);
+  --color-accent-foreground: var(--text);
+  --color-destructive: var(--remove-text);
+  --color-destructive-foreground: var(--remove-bg);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--accent);
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+}

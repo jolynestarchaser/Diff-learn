@@ -18,5 +18,18 @@ export type UiAppState = {
   mode: 'export' | 'repository'; phase: 'loading' | 'ready' | 'refreshing' | 'error';
   root: string; branch: string | null; scope: string; generation: number;
   snapshot: UiSession | null; error: { code: string; message: string } | null;
+  reviewSelection?: ReviewSelection;
+  outgoing?: OutgoingReview | null;
+};
+export type ReviewSelection = { mode: 'uncommitted' | 'unpushed'; commit: string | null; comparisonRef?: string };
+export type OutgoingCommit = { oid: string; shortOid: string; subject: string; author: string; date: string; parents: string[]; unavailableReason: string | null };
+export type OutgoingReview = {
+  head: string | null; branch: string | null; detached: boolean; shallow: boolean;
+  comparison: { ref: string; oid: string; kind: 'upstream' | 'chosen' } | null;
+  upstreamRef: string | null; refs: { ref: string; oid: string }[];
+  status: 'ready' | 'empty' | 'unborn' | 'detached' | 'no-upstream' | 'missing-upstream';
+  ahead: number | null; behind: number | null; diverged: boolean;
+  commits: OutgoingCommit[]; complete: boolean; omittedCommits: number;
+  mergeBases: string[]; aggregateReason: string | null; capturedAt: string;
 };
 export type UiInspection = { entry: UiEvidence; related: UiPage<UiEvidence>; diagnostics: ReadEvidenceBundle['diagnostics']; completeness: ReadEvidenceBundle['completeness'] };

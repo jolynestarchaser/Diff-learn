@@ -166,7 +166,34 @@ sequenceDiagram
   Note over UI: No network upload or review write
 ```
 
-## Wireframe inventory
+## Local outgoing commit review
+
+The user brief approves the two-mode flow without design phase confirmations. Uncommitted changes retains HEAD/all. Unpushed commits reads only the configured upstream local ref, captures its ID and HEAD, and lists HEAD-reachable commits absent from that ref in topological order with actual parents. An explicit local-ref choice is offered when upstream is absent/missing or HEAD is detached; it stays labelled chosen. Commit subjects/authors are untrusted plain display data.
+
+```mermaid
+flowchart TD
+  A[bare dr: Uncommitted changes] --> B[Unpushed commits]
+  B --> C{Local comparison available?}
+  C -->|no| D[Choose local ref explicitly]
+  D --> E[Capture local IDs and outgoing commits]
+  C -->|yes| E
+  E --> F[Select individual commit]
+  E --> G{Unique merge base?}
+  G -->|yes| H[Aggregate net diff: merge base to HEAD]
+  G -->|no| I[Explain aggregate unavailable; retain valid commit views]
+  F --> J[Parent to commit; merge first parent; root empty tree]
+  J --> K[Exact blob analysis, hunks and provenance]
+  H --> K
+  E --> L[No outgoing commits: clear historical view]
+  K --> M[Refresh local refs and atomically replace snapshot]
+  M --> E
+```
+
+Loading keeps the accepted comparison labels and evidence visible. Failed capture retains that view with an actionable error. Shallow missing parents are explicitly unavailable; empty outgoing ranges clear stale hunks. Keyboard-accessible shadcn mode tabs, commit buttons and Native Select precede the existing workbench, with a scrollable commit list and stacked rows at mobile widths. The updated [startup prototype](wireframes/startup.html#outgoing) links both modes, aggregate/individual workspaces and outgoing-empty state. Copy adds captured commit/ref context, while normal historical export viewing remains unchanged. No fetch, push, reset, rewrite or review write is part of this flow.
+
+## Wireframe inventory (existing screens)
+
+The shadcn migration retains these flows. Review/hunk tabs support arrow keys; review modes activate explicitly with Enter/Space. Desktop panels keep their flat workbench surfaces; narrower panels use modal Sheets. Selecting a file closes the explorer and focuses its heading. Escape closes sheets/dialogs and restores the trigger. The inspector's original-record Dialog shows original evidence JSON; its Dropdown Menu offers copy and provenance inspection. Copy retains the existing selectable Textarea fallback. No review write, language/reading expansion or automatic refresh is added.
 
 | Screen | Purpose | Link | Outgoing navigation |
 | --- | --- | --- | --- |

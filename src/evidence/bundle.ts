@@ -26,7 +26,7 @@ function normalized(repository: RepositoryStatus): RepositoryStatus {
   return repo;
 }
 function patchArguments(repo: RepositoryStatus, comparison: RepositoryStatus['comparisons'][number], patch: boolean): string[] {
-  const head = repo.revisions!.head.oid;
+  const head = comparison.scope === 'branch' ? comparison.after.oid : repo.revisions!.head.oid;
   const endpoints = comparison.scope === 'branch' ? [comparison.before.oid!, comparison.after.oid!] : comparison.scope === 'staged' ? ['--cached', ...head ? [head] : []] : comparison.scope === 'all' ? [comparison.before.oid!] : [];
   return [...(comparison.scope === 'branch' || comparison.scope === 'staged') && head ? [`--attr-source=${head}`] : [], 'diff', ...patch ? patchOptions : diffOptions, ...comparison.reasons.includes('RENAME_LIMIT') ? ['--no-renames'] : [], ...patch ? [] : ['--raw', '-z'], ...endpoints, '--'];
 }
@@ -38,7 +38,7 @@ function repositoryFacts(repo: RepositoryStatus) {
     state: repo.state, reasons: repo.reasons, snapshot, revisions, workingTree: repo.workingTree, fingerprints: repo.fingerprints, capabilities: repo.capabilities, repositoryEvidenceId: null, comparisons: [], untrackedEvidenceIds: [], conflictEvidenceIds: [], excludedUntrackedCount: repo.excludedUntrackedCount,
   };
   if (snapshot.consistency !== 'verified-optimistic' || !snapshot.snapshotId || !revisions) return { summary, evidence };
-  const inputOids = unique([revisions.head.oid, revisions.base.oid, revisions.mergeBase.oid].filter((oid): oid is string => oid !== null));
+  const inputOids = unique([revisions.head.oid, revisions.base.oid, revisions.mergeBase.oid, ...repo.comparisons.flatMap(comparison => [comparison.before.oid, comparison.after.oid])].filter((oid): oid is string => oid !== null));
   const gitSource = (method: Extract<Source, { kind: 'git' }>['method'], commands: string[][], origins: string[], executed = true): Source => ({ kind: 'git', method, executed, arguments: commands, inputOids, originatingEvidenceIds: origins });
   const add = (kind: Evidence['kind'], data: unknown, comparisonId: string | null, subject: Subject, source: Source): string => {
     const entry = { repositoryId, snapshotId: snapshot.snapshotId!, comparisonId, kind, subject, data, source, confidence: 'fact' };

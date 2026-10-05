@@ -10,9 +10,24 @@ Primary user: a developer checking an exported snapshot across many repositories
 
 ## Layout decision and tokens
 
+The current shadcn/ui brief updates controls and surfaces incrementally. Existing language/reading presentation remains preserved code; expanding bilingual switching or Bionic Reading remains a later milestone.
+
+| Existing interaction | shadcn/ui implementation | Preserved contract |
+| --- | --- | --- |
+| Refresh, navigation, selection, copy | Button | Existing actions, disabled/loading states and evidence IDs |
+| Review modes and inline/split view | Tabs | Atomic accepted comparison; custom hunk rendering |
+| Paths, comparison ref, existing preferences, handoff | Input, Native Select, Label, Textarea | Thai/native keyboard entry and read-only handoff |
+| Explorer/inspector desktop surfaces | Card with flat workbench styling | Existing widths, palette and landmarks |
+| Responsive panels | Sheet | One mounted panel, Escape, focus restoration and selected file |
+| Original record/provenance | Dialog | Original JSON, untrusted content as text, bounded scrolling |
+| Evidence actions | Dropdown Menu | Copy or inspect only; no review acknowledgments |
+| Supplemental control explanation | Tooltip | Keyboard access without changing source or actions |
+
+Components are owned source from the official new-york registry, with Native Select from new-york-v4. Tailwind 4's Vite plugin compiles utilities into bundled production assets. The existing CSS palette maps to shadcn theme variables; no network styles/fonts or runtime component downloads. The authoritative hunk/line renderer stays custom, with its original characters, coordinates, uncollected gaps and provenance. Radix-generated scroll-lock styles receive the session CSP nonce; arbitrary inline styles and eval remain disallowed. The existing [workspace wireframe](ux-flows/wireframes/workspace.html) includes the record/sheet surfaces.
+
 Compare [three-column wireframe](ux-flows/wireframes/workspace.html) with [wide-diff/bottom-inspector wireframe](ux-flows/wireframes/wide.html). Choose the three-column workspace at desktop widths: declaration ranges and coverage stay visible while reading. The wide alternative gives more code width but requires vertical movement to compare provenance. Both use synthetic content and are reusable static HTML, not collector integration. The working React UI implements the chosen layout.
 
-At 1440/1280px: 248px explorer, flexible diff, 328px inspector. At 1024px: inspector is an explicit collapsible region. At 768/375px: explorer and inspector are toggled sections; reading remains central. Code scrolls inside its own region; the page never forces horizontal scrolling. Controls remain reachable with text zoom.
+At 1440/1280px: 248px explorer, flexible diff, 328px inspector. At 1024px: inspector opens in an explicit shadcn Sheet. At 768/375px: explorer and inspector open as sheets; reading remains central. Each panel has only one mounted copy. Code scrolls inside its own region; the page never forces horizontal scrolling. Controls remain reachable with text zoom.
 
 | Token | Dark | Light | Purpose |
 | --- | --- | --- | --- |
@@ -45,13 +60,21 @@ Bare `dr` resolves the current worktree, serves bundled assets immediately and o
 
 The browser opener receives only the server's loopback URL, uses no shell or repository commands, and runs once. Failure prints that URL while the server stays attached to the terminal. Ctrl+C aborts collection and closes the listener. Local sessions last until terminal shutdown; explicit exported sessions keep their 30-minute bound. Existing language and Bionic controls are preserved without adding follow-up work.
 
-Keyboard: skip links to viewer/inspector, native buttons/selects/details, logical tab order, visible focus, Enter/Space activation, explicit previous/next hunk and responsive region controls. New file selection focuses its heading on narrow screens. Copy failure never steals evidence selection. Screen reader status uses a polite live region. Source values are plain text even when they contain HTML.
+Keyboard: skip links to viewer/inspector, shadcn buttons and native selects/details, logical tab order, visible focus, Enter/Space activation, explicit previous/next hunk and responsive sheets. Tabs use arrow keys; review mode activation requires Enter/Space so moving focus alone does not start expensive collection. Dialogs/sheets manage modal focus, Escape and trigger restoration through Radix. New file selection instead focuses its heading on narrow screens. Copy failure never steals evidence selection. Screen reader status uses a polite live region. Source values are plain text even when they contain HTML.
 
 See [use cases and navigation](ux-flows/UX-FLOWS.md). Actual browser verification and screenshot references are recorded in `docs/progress.md` after checks finish.
 
-## Reading preference
+## Local commit review
 
-Keep the existing review workbench and tokens. Add one native pressed-state button in the preferences group: `[Bionic Reading off/on] [Language] [Theme]`. It is off on each new session; keyboard Space/Enter toggles it and mobile controls wrap. No settings file, storage, network dependency or collector option is needed.
+Keep the existing workbench, type and color tokens. Two shadcn tabs sit below the persistent repository strip: **Uncommitted changes** / **Unpushed commits**. Only the latter exposes a bounded, scrollable commit list above the explorer/hunks/inspector. Each row shows abbreviated SHA, untrusted subject as plain text, author/date and parent-comparison policy. Keyboard Enter/Space selects a row. On narrow screens row metadata stacks without page overflow.
+
+The comparison panel shows the full captured upstream/chosen-ref ID, HEAD, ahead/behind/divergence and the local-only freshness limitation. Missing/no upstream and detached HEAD offer a native select populated only from local refs. A chosen ref stays labelled as chosen. Aggregate is a separate action: unique merge base → HEAD net diff. No/multiple merge bases disable that action while valid commit rows remain available. First-parent merge and empty-tree root labels display actual parent IDs; shallow missing parents explicitly withhold the view. Empty outgoing ranges clear historical hunks, rather than leaving old content beneath an empty label.
+
+Mode/commit changes use the same authenticated loopback session and atomic projection preparation as Refresh. The accepted comparison metadata and files/hunks/inspector replace together; in-flight changes keep the previous labels and evidence until validation finishes. Refresh recaptures local refs; selecting an existing row uses captured IDs. Historical source always comes from raw-diff blob IDs. Copy handoff carries commit selection/comparison IDs and unverified remote freshness. No automatic fetch, source synthesis, review write or repository mutation is introduced.
+
+## Reading preference (existing behavior)
+
+Keep the existing review workbench and tokens. The preserved pressed-state shadcn Button remains in the preferences group: `[Bionic Reading off/on] [Language] [Theme]`. It is off on each new session; keyboard Space/Enter toggles it and mobile controls wrap. No settings file, storage, network dependency or collector option is needed. This describes already implemented behavior, not authorization to expand the deferred milestone.
 
 Emphasize the first half of each word's grapheme clusters in source lines and explanatory notes, using the existing 700 weight. Use Thai word segmentation for mixed Thai/English text, preserving all original characters and whitespace; attach a Thai leading vowel to the following consonant at the emphasis boundary. Use presentation spans rather than semantic emphasis or HTML parsing. Source remains selectable as the same text, and the inspector's raw JSON and copy handoff use untouched original records. Keep IDs, hashes, paths, coordinates and controls plain.
 
