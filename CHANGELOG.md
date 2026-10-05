@@ -2,6 +2,12 @@
 
 ## Unreleased — v0.1 preparation
 
+### Bionic Reading presentation
+
+- Added an off-by-default keyboard-accessible reading toggle for English/Thai collected hunks and explanatory notes, in inline/split views and both themes.
+- Kept original source characters, whitespace/CRLF, evidence IDs, raw records and copy handoff unchanged; word/grapheme segmentation avoids splitting combining marks and Thai leading vowels from their consonant.
+- Added bounded plain-text fallback and synthetic segmentation/browser assertions. No new dependencies or reading-performance claims.
+
 ### Java syntax and local export UI
 
 - Added pinned Java grammar 0.23.5 on runtime 0.21.1 and independent schema 1.3.0, authoritative before/after declarations/ranges/hunk citations, explicit overload ambiguity and parsing limits. Historical readers and default Git facts/IDs remain intact.

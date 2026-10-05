@@ -25,7 +25,7 @@ The [MIT source repository](https://github.com/jolynestarchaser/Diff-learn) is p
 - **Git 2.49 or newer** on PATH.
 - Optional **ripgrep (`rg`)** for reference and potential-test candidate searches. It is not needed for Git collection, Java declarations, or the UI.
 
-Native Tree-sitter grammars are pinned and load from shipped prebuilds. Loading and parsing have been verified on Windows with Node 24.20.0; other platforms remain unverified here. If a native runtime cannot load, Git evidence remains available and syntax coverage reports the limitation.
+Native Tree-sitter grammars are pinned and load from shipped prebuilds. Java loading/parsing and its regression fixtures have been verified on Windows and hosted Ubuntu with Node 24.20.0; macOS remains unverified. If a native runtime cannot load, Git evidence remains available and syntax coverage reports the limitation.
 
 ### Install from source
 
@@ -109,7 +109,7 @@ To try a synthetic Java/Thai export directly from the source checkout:
 node dist/cli/main.js ui --evidence tests/fixtures/ui/java.json
 ```
 
-Fixtures are not included in the installed package. Further Thai/English switching work and Bionic Reading for both languages are recorded separately from the completed Java/UI milestone.
+Fixtures are not included in the installed package. Use the **Bionic Reading** button to emphasize word beginnings in collected hunks and reading notes, in both Thai and English. It starts off, works in inline/split views and both themes, and keeps source text, selection/copy, raw records, and evidence handoff unchanged. Thai word/grapheme segmentation keeps combining marks together. Unsupported browsers or individual text blocks longer than 16,384 UTF-16 code units display plain text. This is an optional reading presentation; no reading-speed or comprehension benefit is claimed.
 
 ### Agent handoff and review acknowledgments
 
@@ -147,7 +147,7 @@ npm run verify:artifact
 
 Tests use temporary synthetic Git repositories. Browser checks use installed Edge on Windows; other platforms need a Playwright-compatible Chromium (see [CONTRIBUTING](CONTRIBUTING.md)). `verify:artifact` builds, packs a real tarball, installs exact runtime dependencies offline with scripts disabled, and exercises the installed CLI, Java parser, and UI. Run dependency installation first to populate npm's cache. `verify:package` only inspects the dry-run package list.
 
-The latest completed local Windows milestone passed **105/105 tests**, typecheck/build, production browser checks, and an actual **67-file packed artifact** verification. Hosted Windows/Linux verification of these changes is still pending; these local results do not establish green hosted CI or native Linux/macOS support. Source-checkout verification records are in `docs/progress.md`.
+The Java/UI foundation passed **105/105 local Windows tests**, typecheck/build, production browser checks, and an actual **67-file packed artifact** verification. [Hosted run 37269223456](https://github.com/jolynestarchaser/Diff-learn/actions/runs/37269223456), for commit `3cc3fcb` before Bionic Reading, passed Windows including artifact verification. Ubuntu passed build/typecheck and 102/105 tests, including the Java and index-preservation regressions, but failed two candidate-discovery fixtures and one review-matching fixture; its artifact steps were skipped. The full hosted matrix is not green, and hosted browser/Bionic Reading and macOS execution remain unverified. Source-checkout verification records are in `docs/progress.md`.
 
 For an isolated local installation after building:
 

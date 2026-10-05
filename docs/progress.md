@@ -1,5 +1,21 @@
 # Progress
 
+## Bionic Reading follow-up — 5 October 2026
+
+The user's subsequent instruction authorizes Bionic Reading after committing/pushing the completed Java/UI milestone. Commit `3cc3fcb` was pushed to `origin/main`; README now leads with overview, prerequisites, source setup, first review, UTF-8 exports and local UI usage. Its actual 67-file packed artifact passed again before that commit. The supplied development-plan file and unrelated local files remain untouched. Earlier deferred-language statements below describe the foundation milestone's scope, not a continuing prohibition after this new authorization.
+
+Implemented a session-local, off-by-default Bionic Reading button for English/Thai collected hunk text and explanatory notes. Native keyboard/pressed states, inline/split views, both themes and narrow-screen wrapping use the existing UI design. Thai word and grapheme segmentation preserves combining marks; a Thai leading vowel at an emphasis boundary remains with the following consonant. Plain presentation spans preserve every source character, whitespace/CRLF and selection text. Original records, IDs, source hashes, raw JSON and copy handoff remain unchanged. Text blocks above 16,384 UTF-16 code units and browsers without Intl.Segmenter stay plain. No persistence, dependencies, reading-performance claims, collector/schema changes, Java heuristics, review writes or live refresh were added.
+
+The full local Windows suite passed **108/108 tests**, with no failures, cancellations or skips (586,250 ms), including three new reading regressions and all existing Git/index/Java/review/bridge fixtures. Strict typecheck/build and production Edge browser verification passed. Browser assertions cover both languages, word-prefix emphasis, exact original inline/split text, unchanged handoff, keyboard toggle/off restoration, missing-segmenter fallback, untrusted HTML-as-text, both themes and 1440/1024/768/375 px layouts. English/Thai desktop and mobile screenshots were visually inspected in ignored `.difflearn/ui-verification/`.
+
+Final `npm run verify:artifact` passed with **67 intended files**: actual tarball and isolated offline install of exact runtime dependencies with scripts disabled; installed Windows `dr.cmd` commands, native Java load/parse, protected UI APIs, original IDs and unchanged export all passed. Installed UI HTML/JS/CSS served successfully; each JS/CSS response matched the browser-verified production asset byte-for-byte as UTF-8 text, including the Bionic Reading control. No frontend development dependencies were installed in the consumer. Temporary artifact/installation/fixtures were cleaned up. Whitespace, script syntax and manifest/lock alignment checks passed; the private publication guard remains intact. Hosted execution of the reading change is pending; the earlier foundation CI failures below remain open.
+
+## Hosted follow-up after Java/UI push — 5 October 2026
+
+Read actual [run 37269223456](https://github.com/jolynestarchaser/Diff-learn/actions/runs/37269223456) at `3cc3fcbdc52d3549b6b40d19a27c1a315c934f94`, before any Bionic Reading changes. Hosted Windows passed build/typecheck, all 105 tests, package inspection and actual artifact verification. Hosted Ubuntu (Node 24.20.0, Git 2.55.0) passed build/typecheck and 102/105 tests; package/artifact steps were skipped after test failure. All seven Java fixtures passed, including actual grammar load/parse, Unicode records, all scopes/CRLF/ranges/hash/hunk/ID preservation, nested declarations, deletion/ambiguity/errors, bounds/mutation and historical-reader/schema checks. The former status/index regressions and physical replacement guard passed too.
+
+Three remaining Linux failures are demonstrated by logs: candidate `scope after endpoints use exact HEAD/index/working bytes and preserve syntax/Git evidence` expected complete but received partial with `SYMBOL_PATCH_SOURCE_MISMATCH`; candidate `changed working snapshots withhold candidates, history errors and query limits disclose partial coverage` retained no symbol; review `repeated identical hunks and competing acknowledgments remain unseen and cannot be implicitly marked` dereferenced a missing hunk. Their exact root causes have not been reproduced or proven here. They are not Bionic Reading regressions. Preserve them as open CI follow-up rather than relaxing completeness, evidence or mutation guards. Native Linux remains unavailable locally; hosted browser/reading checks and macOS are unverified. The matrix is not green and no npm publication occurred.
+
 ## Java analyzer and usable local export UI — 5 October 2026
 
 Active priority is the user's updated Java/UI vertical slice; it supersedes earlier single-milestone ordering. The prior P0 index/path fixes and the supplied untracked development plan are preserved. Hosted Linux verification stays explicitly pending and does not gate this feature work. Foundation work was not reopened. The initial checkout matched the reported P0 changes; its strict typecheck passed. The prior entry's 94/94 and 49-file artifact result describes that earlier local Windows state.
@@ -22,11 +38,11 @@ Final `npm run verify:artifact` passed: **67 intended files**, real tarball, iso
 
 Follow-up: hosted Windows/Linux execution, Java reference/JUnit heuristics, UI review writes and live refresh. Syntax remains syntactic evidence only; raw source/hunk normalization and existing optimistic snapshot limits still apply. Native Linux is not available in this environment; no machine settings, reviewed workspaces, remotes or publication state were changed.
 
-### Backlog: bilingual UI and Bionic Reading — deferred, not started as a milestone
+### Backlog recorded at the foundation handoff
 
 - Thai/English UI language switching: preserve the existing implementation; further work and acceptance belong to the later language/reading milestone.
-- Bionic Reading for **both Thai and English**: implement and verify only in that later milestone. Preserve original source text/bytes, identifiers, ranges, evidence IDs and copy handoff; reading presentation must not alter authoritative evidence.
-- Dependency: complete and verify Java analysis plus the usable read-only local UI first. That prerequisite is complete with the local results above; hosted Linux remains pending. Do not begin the language/Bionic Reading milestone without a subsequent request.
+- Bionic Reading for **both Thai and English** was deferred here, then authorized and completed in the subsequent milestone above. Original text/bytes, identifiers, ranges, evidence IDs and copy handoff remain intact.
+- Dependency: Java analysis plus the usable read-only local UI were completed and verified before reading work began. Subsequent authorization superseded the earlier restriction; further language-switching enhancements, Java reference/JUnit heuristics, UI review writes/live refresh, and the three hosted Linux failures remain follow-up work.
 
 ## CI correctness and physical index preservation — 5 October 2026
 

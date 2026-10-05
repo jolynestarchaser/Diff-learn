@@ -120,7 +120,11 @@ try {
     const session = await (await api('/api/session')).json(); assert.equal(session.schemaVersion, '1.3.0'); assert.equal(session.freshness, 'not-verified'); assert.equal((await fetch(new URL('/api/session', ready.url))).status, 403);
     const original = java.evidence.find(entry => entry.kind === 'symbol' && entry.data.name === 'ข้อความ'); const inspected = await (await api(`/api/inspect?evidenceId=${original.id}`)).json(); assert.deepEqual(inspected.entry, original);
     const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/gu)].map(match => match[1]); assert.equal(assets.length, 2);
-    for (const asset of assets) { const result = await fetch(new URL(asset, ready.url)); assert.equal(result.status, 200); assert.ok((await result.text()).length > 100); }
+    for (const asset of assets) {
+      const result = await fetch(new URL(asset, ready.url)); assert.equal(result.status, 200); const content = await result.text(); assert.ok(content.length > 100);
+      assert.equal(content, await readFile(path.join(workspace, 'dist', 'ui-assets', asset.slice(1)), 'utf8'), 'Installed viewer must serve the exact production assets verified in the browser');
+      if (asset.endsWith('.js')) assert.ok(content.includes('Bionic Reading'), 'Installed production viewer includes the reading control');
+    }
     assert.deepEqual(JSON.parse(await readFile(javaExport, 'utf8')), java, 'UI must leave its input export unchanged');
   } finally {
     if (child.exitCode === null && child.pid) { if (process.platform === 'win32') execute('taskkill.exe', ['/PID', String(child.pid), '/T', '/F'], installation); else child.kill('SIGINT'); }

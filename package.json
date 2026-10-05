@@ -44,7 +44,7 @@
     "setup": "npm ci --ignore-scripts --no-audit --no-fund && npm run build && npm link --ignore-scripts --no-audit --no-fund",
     "build": "tsc -p tsconfig.build.json && vite build --config ui/vite.config.ts",
     "typecheck": "tsc -p tsconfig.json && tsc -p ui/tsconfig.json",
-    "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=4 .test-dist/tests/cli.test.js .test-dist/tests/config.test.js .test-dist/tests/discovery.test.js .test-dist/tests/status.test.js .test-dist/tests/diff.test.js .test-dist/tests/evidence.test.js .test-dist/tests/language.test.js .test-dist/tests/java.test.js .test-dist/tests/ui.test.js .test-dist/tests/candidates.test.js .test-dist/tests/review.test.js",
+    "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=4 .test-dist/tests/cli.test.js .test-dist/tests/config.test.js .test-dist/tests/discovery.test.js .test-dist/tests/status.test.js .test-dist/tests/diff.test.js .test-dist/tests/evidence.test.js .test-dist/tests/language.test.js .test-dist/tests/java.test.js .test-dist/tests/ui.test.js .test-dist/tests/reading.test.js .test-dist/tests/candidates.test.js .test-dist/tests/review.test.js",
     "verify:ui": "npm run build && node scripts/verify-ui.mjs",
     "schema": "npm run build && node scripts/generate-schema.mjs",
     "verify:package": "npm run build && npm pack --dry-run --json",

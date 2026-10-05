@@ -4,6 +4,8 @@ This read-only vertical slice follows the current user brief. Use cases are appr
 
 Later scope clarification: bilingual language switching and Bionic Reading for Thai and English belong to a follow-up milestone, not the Java/UI acceptance scope. The selector implemented before that clarification is preserved as existing work; no further language/reading work is started here. Thai/Unicode evidence must remain readable and lossless in the core viewer. See the [deferred backlog](progress.md).
 
+Subsequent authorization on 5 October 2026 starts the Bionic Reading follow-up after the Java/UI milestone was verified, committed and pushed. The earlier scope clarification remains the foundation milestone's boundary.
+
 Primary user: a developer checking an exported snapshot across many repositories, then copying cited evidence into a terminal agent. Primary task: read authoritative changed lines together with their declarations, provenance and limitations. The focal point is the hunk text; navigation and inspection use quieter surfaces. All input/source is untrusted data.
 
 ## Layout decision and tokens
@@ -40,3 +42,11 @@ Empty complete exports say no changes in the requested comparison. Failed/partia
 Keyboard: skip links to viewer/inspector, native buttons/selects/details, logical tab order, visible focus, Enter/Space activation, explicit previous/next hunk and responsive region controls. New file selection focuses its heading on narrow screens. Copy failure never steals evidence selection. Screen reader status uses a polite live region. Source values are plain text even when they contain HTML.
 
 See [use cases and navigation](ux-flows/UX-FLOWS.md). Actual browser verification and screenshot references are recorded in `docs/progress.md` after checks finish.
+
+## Reading preference
+
+Keep the existing review workbench and tokens. Add one native pressed-state button in the preferences group: `[Bionic Reading off/on] [Language] [Theme]`. It is off on each new session; keyboard Space/Enter toggles it and mobile controls wrap. No settings file, storage, network dependency or collector option is needed.
+
+Emphasize the first half of each word's grapheme clusters in source lines and explanatory notes, using the existing 700 weight. Use Thai word segmentation for mixed Thai/English text, preserving all original characters and whitespace; attach a Thai leading vowel to the following consonant at the emphasis boundary. Use presentation spans rather than semantic emphasis or HTML parsing. Source remains selectable as the same text, and the inspector's raw JSON and copy handoff use untouched original records. Keep IDs, hashes, paths, coordinates and controls plain.
+
+Both inline/split layouts and themes use the same preference, independently of UI language. Without Intl.Segmenter, or for a text block exceeding 16,384 UTF-16 code units, show plain text. Browser dictionaries/font shaping may vary; this is a visual preference, not a proven reading-speed or comprehension aid. All existing partial/historical/security policies remain in force.
