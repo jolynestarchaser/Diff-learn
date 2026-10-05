@@ -13,12 +13,14 @@ import { diffOptions, patchOptions, type Scope } from '../git/adapter.js';
 import { buildBundle } from '../evidence/bundle.js';
 import { errorSchema } from '../evidence/schema.js';
 import { extendSyntaxBundle } from '../evidence/syntax.js';
+import { extendJavaSyntaxBundle } from '../evidence/java-syntax.js';
 import { extendCandidateBundle } from '../candidates/collect.js';
 import { discoveryDefaults } from '../candidates/contracts.js';
 import { discoveryRequestSchema } from '../evidence/candidates.js';
 import { renderContext } from '../output/context.js';
 import { messages, diagnosticMessage, type Locale } from '../output/locale.js';
 import { registerReview } from './review.js';
+import { registerUi } from './ui.js';
 
 const { version } = JSON.parse(await readFile(new URL('../../package.json', import.meta.url), 'utf8')) as { version: string };
 const jsonRequested = process.argv[2] === 'evidence' || process.argv.slice(2).some(arg => arg === '--json');
@@ -31,7 +33,7 @@ const program = new Command().name('dr').description('difflearn: local Git disco
   .argument('[command]', 'reserved for future commands')
   .allowExcessArguments(false).exitOverride()
   .configureOutput({ writeErr: () => { /* errors are rendered once by the catch boundary */ } })
-  .addHelpText('after', '\nImplemented: scan, status, diff, evidence, context, review, --help, --version.\nEvidence emits validated JSON by default. Context emits escaped English/Thai Markdown.\nv0.1 provides Git/filesystem/diff facts; symbols, references, impact and test coverage analysis are unsupported.\nOpt-in evidence/context --symbols adds v0.2 syntax declarations for TS/TSX/JS only; no semantic references or behavior claims.\nreview mark/list/reset manage explicit local acknowledgments separately from evidence.')
+  .addHelpText('after', '\nImplemented: scan, status, diff, evidence, context, review, ui, --help, --version.\nEvidence emits validated JSON by default. Context emits escaped English/Thai Markdown.\nDefault collection provides Git/filesystem/diff facts. Semantic references, behavior, impact and test coverage analysis are unsupported.\nOpt-in evidence/context --symbols adds TS/TSX/JS and Java declarations (Java schema 1.3.0); no semantic references or behavior claims.\nreview mark/list/reset manage explicit local acknowledgments separately from evidence.\nui --evidence opens a validated captured export in a read-only loopback viewer.')
   .action((command: string | undefined) => {
     if (command !== undefined) throw new ScanError('COMMAND_UNAVAILABLE', `Command ${JSON.stringify(command)} is not implemented. Run dr --help.`);
     program.help();
@@ -48,7 +50,7 @@ const command = program.command(kind).description(kind === 'scan' ? 'Discover re
   .option('--concurrency <n>', 'maximum subprocess concurrency (1..32)');
 if (kind !== 'context') command.option('--json', kind === 'evidence' ? 'explicit JSON mode (already the default)' : 'emit one English-keyed JSON report');
 if (kind !== 'scan') command.option('--base <revision>', 'explicit base for every selected repository; never fetches or guesses');
-if (kind === 'evidence' || kind === 'context') command.option('--symbols', 'opt in to bounded TS/TSX/JS syntax declarations (schema 1.1.0); no semantic references')
+if (kind === 'evidence' || kind === 'context') command.option('--symbols', 'bounded TS/TSX/JS and Java syntax declarations (Java schema 1.3.0); no semantic references')
   .option('--references', 'fixed-string reference candidates across selected repository snapshots; implies --symbols (schema 1.2.0)')
   .option('--related-tests', 'potential tests from filename/text/import heuristics; not run; implies --symbols')
   .option('--history', 'bounded literal-path history from pinned HEAD; implies --symbols')
@@ -90,7 +92,7 @@ command.action(async (options: Options) => {
     const candidateInput = { references: options.references ?? false, relatedTests: options.relatedTests ?? false, history: options.history ?? false, ...discoveryDefaults };
     for (const [key, raw] of [['maxSymbols', options.maxSymbols], ['maxResults', options.maxResults], ['maxHistory', options.maxHistory]] as const) if (raw !== undefined) { if (!/^\d+$/u.test(raw) || !candidateRequested) throw new ScanError('ARGUMENT_INVALID', `${key} requires an integer and a candidate/history flag`); candidateInput[key] = Number(raw); }
     const validatedDiscovery = discoveryRequestSchema.safeParse(candidateInput); if (!validatedDiscovery.success) throw new ScanError('ARGUMENT_INVALID', 'Candidate limits exceed their documented bounds');
-    const diffRequest = kind !== 'scan' && kind !== 'status' ? { scope: scope as Scope, includeUntracked: options.includeUntracked ?? false, symbols: Boolean(options.symbols || candidateRequested) } : undefined;
+    const diffRequest = kind !== 'scan' && kind !== 'status' ? { scope: scope as Scope, includeUntracked: options.includeUntracked ?? false, symbols: Boolean(options.symbols || candidateRequested), java: !candidateRequested } : undefined;
     const start = new Date().toISOString();
     const git = await runGit(root, ['--version'], limits, controller.signal);
     const gitVersion = git.stdout.toString('utf8').trim();
@@ -123,8 +125,10 @@ command.action(async (options: Options) => {
       const collectedReport = { schemaVersion: '1.0.0', reportKind: kind, collector: { name: 'difflearn', version, gitVersion }, collection: { startedAt: start, endedAt: new Date().toISOString() }, request: { root, configPath: loaded.configPath, repositories: selections, base: options.base ?? null, scopes: diffRequest ? [diffRequest.scope] : ['branch', 'staged', 'unstaged', 'all'], contentPolicy: diffRequest?.includeUntracked ? 'opt-in-text' : 'metadata-only', comparisonOptions: diffRequest ? patchOptions : diffOptions, immutableAttributeSource: 'captured-head', limits }, discovery: result.discovery, repositories, diagnostics, completeness: { state, reasons, repositoryStates: repositories.map(repo => ({ repositoryId: repo.repositoryId, state: repo.state })), omittedCount: state === 'complete' ? 0 : null }, evidence: [] };
       if (kind === 'evidence' || kind === 'context') {
         const gitBundle = buildBundle({ ...collectedReport, discoveryCompleteness: result.completeness });
-        const syntaxBundle = diffRequest?.symbols ? extendSyntaxBundle(gitBundle, repositories) : null;
-        const bundle = candidateRequested && syntaxBundle ? await extendCandidateBundle(syntaxBundle, repositories, config, limits, budget, validatedDiscovery.data, options.base, controller.signal) : syntaxBundle ?? gitBundle; report = bundle;
+        const historicalSyntax = diffRequest?.symbols && candidateRequested ? extendSyntaxBundle(gitBundle, repositories) : null;
+        const hasJava = repositories.some(repo => repo.comparisons.some(comparison => comparison.files.some(file => file.languageAnalysis?.sources.some(source => source.language === 'java'))));
+        const syntaxBundle = diffRequest?.symbols && !candidateRequested ? hasJava ? extendJavaSyntaxBundle(gitBundle, repositories) : extendSyntaxBundle(gitBundle, repositories) : null;
+        const bundle = candidateRequested && historicalSyntax ? await extendCandidateBundle(historicalSyntax, repositories, config, limits, budget, validatedDiscovery.data, options.base, controller.signal) : syntaxBundle ?? gitBundle; report = bundle;
         if (kind === 'context') {
           const context = renderContext(bundle, humanLocale); rendered = context.markdown;
           renderingPartial = context.omittedEvidenceIds.length > 0 || context.omittedDiagnostics > 0;
@@ -143,6 +147,7 @@ command.action(async (options: Options) => {
 }
 
 registerReview(program, controller.signal);
+registerUi(program, controller.signal);
 try { await program.parseAsync(process.argv); }
 catch (error: unknown) {
   if (error instanceof CommanderError && error.exitCode === 0) process.exitCode = 0;

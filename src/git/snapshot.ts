@@ -239,7 +239,8 @@ export async function capture(adapter: GitAdapter, config: Config, budget: Snaps
   // The physical index is only an optimistic guard, never deterministic identity.
   const physicalIndex = await fingerprint(path.join(adapter.repository.gitDirectory!, 'index'), true);
   const shared = await adapter.required(['rev-parse', '--shared-index-path']); const sharedName = text(shared).trimEnd();
-  const sharedIndex = sharedName ? await fingerprint(path.resolve(root, sharedName), true) : null;
+  // The runner reports its disposable shared-index locator. Guard the real file.
+  const sharedIndex = sharedName ? await fingerprint(path.join(adapter.repository.gitDirectory!, path.basename(sharedName)), true) : null;
   const effectiveConfiguration = [...configuration.values].filter(([key]) => /^(?:core\.(?:filemode|symlinks|autocrlf|eol|safecrlf|checkroundtripencoding|sparsecheckout|sparsecheckoutcone|ignorecase)$|filter\.|diff\..+\.(?:binary|wordregex|xfuncname|funcname)$|extensions\.(?:objectformat|worktreeconfig)$|submodule\..*\.(?:ignore|active)$|status\.)/u.test(key)).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0);
   const semantic = { revisions, index, flags, intentToAdd, configurationHash: digest(effectiveConfiguration), attributes: attributes.map(({ key, fingerprint: file }) => ({ key, ...file, guard: undefined })), working: working.map(({ pathBytes, fingerprint: file }) => ({ pathBytes, ...file, guard: undefined })), status, untracked: untracked.map(item => ({ ...item, content: item.content ? { ...item.content, text: undefined, bytes: undefined } : undefined })), restrictedPaths };
   const guard = digest({ semantic, working, attributes, untrackedGuards, physicalIndex, sharedIndex, submoduleGuards });

@@ -23,13 +23,16 @@ test('the built binary has an LF shebang for Unix executable compatibility', () 
   assert.ok(readFileSync(entrypoint, 'utf8').startsWith('#!/usr/bin/env node\n'));
 });
 
-test('help explicitly lists implemented v0.1 commands and unsupported analysis', () => {
+test('help lists implemented commands, Java syntax and read-only UI with unsupported semantic claims', () => {
   const result = run('--help');
   assert.equal(result.status, 0);
   assert.equal(result.stderr, '');
   assert.match(result.stdout, /Usage: dr/);
-  assert.match(result.stdout, /Implemented: scan, status, diff, evidence, context, review, --help, --version/);
+  assert.match(result.stdout, /Implemented: scan, status, diff, evidence, context, review, ui, --help, --version/);
   assert.match(result.stdout, /analysis are unsupported/);
+  assert.match(result.stdout, /Java declarations \(Java schema 1\.3\.0\)/u);
+  assert.match(result.stdout, /ui --evidence.*read-only loopback viewer/u);
+  const ui = run('ui', '--help'); assert.equal(ui.status, 0); assert.equal(ui.stderr, ''); assert.match(ui.stdout, /127\.0\.0\.1/u); assert.match(ui.stdout, /no Git collection, review writes or live refresh/u);
 });
 
 test('version matches package metadata with no diagnostics', () => {

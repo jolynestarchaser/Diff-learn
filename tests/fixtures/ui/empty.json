@@ -1,0 +1,452 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportKind": "evidence",
+  "collector": {
+    "name": "difflearn",
+    "version": "0.1.0-dev.0",
+    "gitVersion": "git version 2.53.0.windows.1"
+  },
+  "collection": {
+    "startedAt": "2026-10-05T04:40:13.135Z",
+    "endedAt": "2026-10-05T04:40:18.893Z"
+  },
+  "request": {
+    "root": "C:/synthetic/ui-workspace",
+    "configPath": null,
+    "repositories": [],
+    "base": "base",
+    "scopes": [
+      "staged"
+    ],
+    "contentPolicy": "metadata-only",
+    "comparisonOptions": [
+      "--no-ext-diff",
+      "--no-textconv",
+      "--no-color",
+      "--no-relative",
+      "--diff-algorithm=myers",
+      "--no-indent-heuristic",
+      "--find-renames=50%",
+      "-l1000",
+      "-O/dev/null",
+      "--submodule=short",
+      "--ignore-submodules=none",
+      "--src-prefix=a/",
+      "--dst-prefix=b/",
+      "--unified=3",
+      "--full-index",
+      "--abbrev=64",
+      "--ita-visible-in-index",
+      "--inter-hunk-context=0",
+      "--patch"
+    ],
+    "immutableAttributeSource": "captured-head",
+    "limits": {
+      "maxDepth": 8,
+      "maxDirectories": 50000,
+      "maxRepositories": 128,
+      "concurrency": 4,
+      "gitTimeoutMs": 30000,
+      "repoTimeoutMs": 120000,
+      "maxMetadataBytes": 16777216,
+      "maxFiles": 10000,
+      "maxHunks": 20000,
+      "maxFileBytes": 2097152,
+      "maxPatchBytes": 16777216,
+      "maxBundleBytes": 67108864,
+      "maxSnapshotBytes": 268435456,
+      "maxWorkspaceSnapshotBytes": 1073741824
+    }
+  },
+  "discovery": {
+    "visitedDirectories": 2,
+    "readableDirectories": 2,
+    "candidateCount": 1,
+    "discoveredCount": 1,
+    "selectedCount": 1,
+    "remainingCount": 0,
+    "subprocessConcurrency": 1,
+    "excludeDirectories": [
+      ".agents",
+      ".aws",
+      ".codex",
+      ".difflearn",
+      ".git",
+      ".ssh",
+      ".test-dist",
+      "build",
+      "coverage",
+      "dist",
+      "node_modules",
+      "vendor"
+    ],
+    "excludePaths": [],
+    "submodulePolicy": "parent-only",
+    "symlinkPolicy": "do-not-follow",
+    "skippedCount": 1,
+    "omittedDetails": 0,
+    "skipped": [
+      {
+        "path": "synthetic-service/.git",
+        "reason": "excluded"
+      }
+    ],
+    "incompleteSubtrees": []
+  },
+  "repositories": [
+    {
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "key": "synthetic-service",
+      "path": "synthetic-service",
+      "kind": "worktree",
+      "topLevel": "C:/synthetic/ui-workspace\\synthetic-service",
+      "gitDirectory": "C:/synthetic/ui-workspace\\synthetic-service\\.git",
+      "commonDirectory": "C:/synthetic/ui-workspace\\synthetic-service\\.git",
+      "linkedWorktree": false,
+      "objectFormat": "sha1",
+      "baseConfiguration": {
+        "input": null,
+        "source": null,
+        "state": "not-resolved"
+      },
+      "submodules": [],
+      "state": "complete",
+      "reasons": [],
+      "snapshot": {
+        "snapshotId": "49a48f18ab80df0c4c31d1007bd56824402ff015d40ac211d0c8ef6e4c4ed406",
+        "consistency": "verified-optimistic",
+        "attempts": 1,
+        "startedAt": "2026-10-05T04:40:13.899Z",
+        "endedAt": "2026-10-05T04:40:18.893Z",
+        "bytesHashed": 2234
+      },
+      "revisions": {
+        "head": {
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "branch": "main",
+          "state": "attached"
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "mergeBase": {
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "candidates": [
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+          ],
+          "reason": null,
+          "shallow": false
+        }
+      },
+      "workingTree": {
+        "available": true,
+        "clean": true,
+        "reasons": [],
+        "headers": {
+          "branch.oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "branch.head": "main"
+        },
+        "untracked": [],
+        "entries": []
+      },
+      "fingerprints": {
+        "index": "d77f0669822fdcb7145954469d50e519e64df10fd3e884d2180980f93534d59b",
+        "workingTree": "a1434bc05ad6c7917f98dd5c06a52036f57792d9f19c87cf29c822edfc0029de",
+        "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+        "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+      },
+      "capabilities": {
+        "sparseCheckout": false,
+        "restrictedPaths": [],
+        "activeFilterPaths": [],
+        "intentToAddPaths": [],
+        "intentToAddPolicy": "experimental-visible-in-index"
+      },
+      "repositoryEvidenceId": "5632fd8ef0571a96ff5088189c660e64b06be970ac83227e96f6d19879398d7b",
+      "untrackedEvidenceIds": [],
+      "conflictEvidenceIds": [],
+      "excludedUntrackedCount": 0,
+      "comparisons": [
+        {
+          "scope": "staged",
+          "state": "complete",
+          "before": {
+            "kind": "commit",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+          },
+          "after": {
+            "kind": "index",
+            "oid": null
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "reasons": [],
+          "omittedCount": 0,
+          "fileCount": 0,
+          "patchCoverage": {
+            "source": "git",
+            "retainedBytes": 0,
+            "observedBytesLowerBound": 0,
+            "totalBytes": 0,
+            "truncated": false,
+            "observedHunks": 0,
+            "omittedHunks": 0
+          },
+          "comparisonId": "ee2f5edf768f67b89a340e609507da96ba5460b839025c80b2b4bfef1fe4bd37",
+          "evidenceId": "8370da72390b27d2e90e42f08f48ffcee8920f8446ffc8166438dfdc61c57d33",
+          "fileEvidenceIds": []
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "5632fd8ef0571a96ff5088189c660e64b06be970ac83227e96f6d19879398d7b",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "49a48f18ab80df0c4c31d1007bd56824402ff015d40ac211d0c8ef6e4c4ed406",
+      "comparisonId": null,
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "snapshot-metadata",
+        "executed": true,
+        "arguments": [
+          [
+            "rev-parse",
+            "--verify",
+            "--end-of-options",
+            "HEAD^{commit}"
+          ],
+          [
+            "ls-files",
+            "--stage",
+            "-z"
+          ],
+          [
+            "status",
+            "--porcelain=v2",
+            "-z",
+            "--branch",
+            "--untracked-files=all",
+            "--ignore-submodules=none"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": []
+      },
+      "confidence": "fact",
+      "kind": "repository",
+      "data": {
+        "key": "synthetic-service",
+        "path": "synthetic-service",
+        "objectFormat": "sha1",
+        "linkedWorktree": false,
+        "submodules": [],
+        "revisions": {
+          "head": {
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "branch": "main",
+            "state": "attached"
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "mergeBase": {
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "candidates": [
+              "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+            ],
+            "reason": null,
+            "shallow": false
+          }
+        },
+        "workingTree": {
+          "available": true,
+          "clean": true,
+          "reasons": [],
+          "headers": {
+            "branch.oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "branch.head": "main"
+          },
+          "untracked": [],
+          "entries": []
+        },
+        "fingerprints": {
+          "index": "d77f0669822fdcb7145954469d50e519e64df10fd3e884d2180980f93534d59b",
+          "workingTree": "a1434bc05ad6c7917f98dd5c06a52036f57792d9f19c87cf29c822edfc0029de",
+          "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+          "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+        },
+        "capabilities": {
+          "sparseCheckout": false,
+          "restrictedPaths": [],
+          "activeFilterPaths": [],
+          "intentToAddPaths": [],
+          "intentToAddPolicy": "experimental-visible-in-index"
+        }
+      }
+    },
+    {
+      "id": "8370da72390b27d2e90e42f08f48ffcee8920f8446ffc8166438dfdc61c57d33",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "49a48f18ab80df0c4c31d1007bd56824402ff015d40ac211d0c8ef6e4c4ed406",
+      "comparisonId": "ee2f5edf768f67b89a340e609507da96ba5460b839025c80b2b4bfef1fe4bd37",
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "5632fd8ef0571a96ff5088189c660e64b06be970ac83227e96f6d19879398d7b"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "comparison",
+      "data": {
+        "scope": "staged",
+        "state": "complete",
+        "before": {
+          "kind": "commit",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        },
+        "after": {
+          "kind": "index",
+          "oid": null
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "reasons": [],
+        "omittedCount": 0,
+        "fileCount": 0,
+        "patchCoverage": {
+          "source": "git",
+          "retainedBytes": 0,
+          "observedBytesLowerBound": 0,
+          "totalBytes": 0,
+          "truncated": false,
+          "observedHunks": 0,
+          "omittedHunks": 0
+        }
+      }
+    }
+  ],
+  "diagnostics": [],
+  "completeness": {
+    "state": "complete",
+    "reasons": [],
+    "repositoryStates": [
+      {
+        "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+        "state": "complete"
+      }
+    ],
+    "requestedRepositories": 1,
+    "collectedRepositories": 1,
+    "collectedEvidence": 2,
+    "omittedCount": 0
+  },
+  "analysis": {
+    "policy": "git-facts-only",
+    "unsupported": [
+      "changed-symbols",
+      "references",
+      "behavior",
+      "return-types",
+      "impact",
+      "test-coverage",
+      "history",
+      "review-state"
+    ]
+  },
+  "trust": {
+    "repositoryContent": "untrusted-agent-input",
+    "export": "explicit-command-stdout-only"
+  }
+}

@@ -2,15 +2,15 @@ import Parser from 'tree-sitter';
 import { createRequire } from 'node:module';
 import JavaScript from 'tree-sitter-javascript';
 import { createHash } from 'node:crypto';
-import { languageCapabilities, languageForPath, type LanguageAnalyzer, type LanguageResult, type SourceRange, type SymbolObservation } from './contracts.js';
+import { languageCapabilities, javaLanguageCapabilities, languageForPath, type Language, type LanguageAnalyzer, type LanguageResult, type SourceRange, type SymbolObservation } from './contracts.js';
+import { javaDeclaration, type Declaration } from './java.js';
 // Upstream 0.23.2 has an invalid ambient export assignment under TS 6.
 // Load its two opaque grammar handles without weakening project type checking.
 const TypeScript = createRequire(import.meta.url)('tree-sitter-typescript') as { typescript: unknown; tsx: unknown };
-export function createLanguageParser(language: 'typescript' | 'tsx' | 'javascript') { const parser = new Parser(); parser.setLanguage(language === 'typescript' ? TypeScript.typescript : language === 'tsx' ? TypeScript.tsx : JavaScript); parser.setTimeoutMicros(250_000); return parser; }
+export function createLanguageParser(language: Language) { const parser = new Parser(); parser.setLanguage(language === 'java' ? createRequire(import.meta.url)('tree-sitter-java') : language === 'typescript' ? TypeScript.typescript : language === 'tsx' ? TypeScript.tsx : JavaScript); parser.setTimeoutMicros(250_000); return parser; }
 
 const hash = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
 type Node = Parser.SyntaxNode;
-type Declaration = { node: Node; kind: SymbolObservation['kind']; name: string | null; scope: SymbolObservation['scope'] };
 function kind(node: Node): SymbolObservation['kind'] | null {
   if (!node.isNamed) return null;
   const types: Record<string, SymbolObservation['kind']> = { class_declaration: 'class', abstract_class_declaration: 'class', class: 'class', function_declaration: 'function', generator_function_declaration: 'function', function_signature: 'function', method_definition: 'method', method_signature: 'method', abstract_method_signature: 'method', interface_declaration: 'interface', type_alias_declaration: 'type-alias', enum_declaration: 'enum', internal_module: 'namespace', import_statement: 'import' };
@@ -18,14 +18,14 @@ function kind(node: Node): SymbolObservation['kind'] | null {
   return types[node.type] ?? null;
 }
 export class TreeSitterAnalyzer implements LanguageAnalyzer {
-  constructor() {
+  constructor(private readonly includeJava = true) {
     const require = createRequire(import.meta.url);
-    for (const [name, version] of [['tree-sitter', '0.21.1'], ['tree-sitter-typescript', '0.23.2'], ['tree-sitter-javascript', '0.23.1']]) {
+    for (const [name, version] of [['tree-sitter', '0.21.1'], ['tree-sitter-typescript', '0.23.2'], ['tree-sitter-javascript', '0.23.1'], ...includeJava ? [['tree-sitter-java', '0.23.5']] : []]) {
       if ((require(`${name}/package.json`) as { version: string }).version !== version) throw new Error('Installed parser/grammar version differs from the pinned compatibility contract');
     }
   }
-  readonly capabilities = languageCapabilities;
-  languageForPath = languageForPath;
+  get capabilities() { return this.includeJava ? javaLanguageCapabilities : languageCapabilities; }
+  languageForPath = (filename: string | null) => { const language = languageForPath(filename); return !this.includeJava && language === 'java' ? null : language; };
   analyze({ sources, patch, maxSymbols }: Parameters<LanguageAnalyzer['analyze']>[0]): LanguageResult {
     const result: LanguageResult = { state: 'complete', reasons: [], sources: sources.map(source => source.snapshot), symbols: [], diagnostics: [], unmappedChangedLines: 0, omittedSymbols: 0, changeInterpretation: 'syntax-only', references: 'unavailable', behavior: 'unavailable', contracts: 'unavailable' };
     const declarationCounts = new Map<string, number>();
@@ -47,16 +47,20 @@ export class TreeSitterAnalyzer implements LanguageAnalyzer {
       const sourceLines = bytes.toString('utf8').split('\n');
       const mismatch = patch.hunks.some(hunk => hunk.lines.some(line => { const number = snapshot.side === 'before' ? line.oldLine : line.newLine; return number !== null && Buffer.from(sourceLines[number - 1] ?? '').toString('base64') !== line.contentBytes; }));
       if (mismatch) { diagnostic('SYMBOL_PATCH_SOURCE_MISMATCH', snapshot.side, null, 'Git patch lines differ from retained source; normalization or source disagreement prevents analysis'); continue; }
-      const parser = createLanguageParser(snapshot.language);
       let tree: Parser.Tree;
-      try { tree = parser.parse(text); if (!tree) throw new Error(); } catch { diagnostic('SYMBOL_PARSE_FAILED', snapshot.side, null, 'Parser failed or exceeded its time bound'); continue; }
+      try { const parser = createLanguageParser(snapshot.language); tree = parser.parse(text); if (!tree) throw new Error(); } catch { diagnostic('SYMBOL_PARSE_FAILED', snapshot.side, null, 'Parser could not load, failed or exceeded its time bound'); continue; }
       const deadline = performance.now() + this.capabilities.parseTimeoutMs;
       const declarations: Declaration[] = []; const errors: Node[] = []; const stack: { node: Node; scope: SymbolObservation['scope'] }[] = [{ node: tree.rootNode, scope: [] }]; let visited = 0;
       while (stack.length && visited++ < this.capabilities.maxNodes) {
         if (visited % 1024 === 0 && performance.now() > deadline) break;
         const { node, scope } = stack.pop()!; if (node.isError || node.isMissing) errors.push(node);
-        const declarationKind = kind(node); let nestedScope = scope;
-        if (declarationKind) {
+        const declarationKind = snapshot.language === 'java' ? null : kind(node); let nestedScope = scope;
+        if (snapshot.language === 'java') {
+          const extracted = javaDeclaration(node, scope); declarations.push(...extracted);
+          // Annotations and record components do not enclose sibling members.
+          const enclosing = extracted.find(item => !['annotation', 'record-component', 'package', 'import', 'field'].includes(item.kind));
+          if (enclosing) nestedScope = [...scope, { kind: enclosing.kind, name: enclosing.name }];
+        } else if (declarationKind) {
           const nameNode = node.childForFieldName(declarationKind === 'import' ? 'source' : 'name'); const name = nameNode && ['identifier', 'type_identifier', 'property_identifier', 'private_property_identifier', 'string'].includes(nameNode.type) ? nameNode.text : null;
           declarations.push({ node, kind: declarationKind, name, scope }); nestedScope = [...scope, { kind: declarationKind, name }];
         }
@@ -73,13 +77,17 @@ export class TreeSitterAnalyzer implements LanguageAnalyzer {
         const overlaps = (node: Node) => node.startIndex < end && node.endIndex > start || node.startIndex === node.endIndex && node.startIndex >= start && node.startIndex <= end;
         if (errors.some(overlaps)) { result.unmappedChangedLines++; continue; }
         const candidates = declarations.filter(declaration => overlaps(declaration.node) && !declaration.node.hasError);
-        const inner = candidates.filter(declaration => !candidates.some(other => other !== declaration && other.node.startIndex >= declaration.node.startIndex && other.node.endIndex <= declaration.node.endIndex));
-        for (const declaration of inner.length ? inner : [top]) { const hunks = selected.get(declaration) ?? new Set<number>(); hunks.add(line.hunk); selected.set(declaration, hunks); }
+        const inner = candidates.filter(declaration => !candidates.some(other => other !== declaration && other.node.startIndex >= declaration.node.startIndex && other.node.endIndex <= declaration.node.endIndex && (other.node.startIndex > declaration.node.startIndex || other.node.endIndex < declaration.node.endIndex)));
+        // A Java header can share a line with annotations, components or a
+        // nested member. Keep each intersecting header as well as the innermost
+        // containing declaration; body-only edits do not imply a type change.
+        const mapped = snapshot.language === 'java' ? candidates.filter(declaration => inner.includes(declaration) || ['anonymous-class', 'lambda', 'initializer'].includes(declaration.kind) || ['class', 'interface', 'record', 'enum', 'annotation-type', 'method', 'constructor'].includes(declaration.kind) && declaration.node.startIndex < end && (declaration.node.childForFieldName('body')?.startIndex ?? declaration.node.endIndex) > start) : inner;
+        for (const declaration of mapped.length ? mapped : [top]) { const hunks = selected.get(declaration) ?? new Set<number>(); hunks.add(line.hunk); selected.set(declaration, hunks); }
       }
       for (const [declaration, hunks] of [...selected].sort(([a], [b]) => a.node.startIndex - b.node.startIndex || a.node.endIndex - b.node.endIndex)) {
         if (result.symbols.length >= maxSymbols || performance.now() > deadline) { result.omittedSymbols++; continue; }
         const location = declaration.kind === 'top-level' ? { startByte: 0, endByte: bytes.length, startLine: 1, endLine: sourceLines.length, startColumn: 0, endColumn: Buffer.byteLength(sourceLines.at(-1)!) } : range(declaration.node);
-        result.symbols.push({ ordinal: result.symbols.length + 1, side: snapshot.side, language: snapshot.language, kind: declaration.kind, name: declaration.name, scope: declaration.scope, range: location, contentHash: hash(bytes.subarray(location.startByte, location.endByte)), hunkOrdinals: [...hunks].sort((a, b) => a - b), matching: declaration.name === null || declaration.kind === 'import' || declaration.kind === 'top-level' ? 'not-applicable' : 'unmatched', counterpartOrdinal: null });
+        result.symbols.push({ ordinal: result.symbols.length + 1, side: snapshot.side, language: snapshot.language, kind: declaration.kind, name: declaration.name, scope: declaration.scope, range: location, contentHash: hash(bytes.subarray(location.startByte, location.endByte)), hunkOrdinals: [...hunks].sort((a, b) => a - b), matching: declaration.name === null || ['import', 'package', 'annotation', 'top-level'].includes(declaration.kind) ? 'not-applicable' : 'unmatched', counterpartOrdinal: null, ...(declaration.signatureDisplay !== undefined ? { signatureDisplay: declaration.signatureDisplay } : {}) });
       }
     }
     const groups = new Map<string, SymbolObservation[]>();
@@ -87,7 +95,7 @@ export class TreeSitterAnalyzer implements LanguageAnalyzer {
     for (const symbol of result.symbols.filter(item => item.matching !== 'not-applicable')) {
       const key = matchingKey(symbol); const other = groups.get(key)!.filter(item => item.side !== symbol.side);
       if ((declarationCounts.get(JSON.stringify([symbol.side, key])) ?? 0) > 1 || (declarationCounts.get(JSON.stringify([symbol.side === 'before' ? 'after' : 'before', key])) ?? 0) > 1) symbol.matching = 'ambiguous';
-      else if (other.length === 1) { symbol.matching = 'candidate'; symbol.counterpartOrdinal = other[0]!.ordinal; }
+      else if (other.length === 1 && (symbol.language !== 'java' || symbol.signatureDisplay === other[0]!.signatureDisplay)) { symbol.matching = 'candidate'; symbol.counterpartOrdinal = other[0]!.ordinal; }
     }
     if (result.symbols.some(symbol => symbol.matching === 'ambiguous')) diagnostic('SYMBOL_MATCH_AMBIGUOUS', null, null, 'Repeated kind/name/scope cannot establish a unique syntactic pairing; occurrences remain separate');
     if (result.unmappedChangedLines && !result.reasons.includes('SYMBOL_SYNTAX_ERROR') && !result.reasons.includes('SYMBOL_ANALYSIS_TIMEOUT')) diagnostic('SYMBOL_MAPPING_INCOMPLETE', null, null, 'Some changed lines could not be mapped to the parsed source');

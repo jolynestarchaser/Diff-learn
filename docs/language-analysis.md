@@ -1,6 +1,6 @@
-# First v0.2 language-analysis milestone
+# Syntax language analysis
 
-`dr evidence --symbols` and `dr context --symbols` add bounded syntax observations for changed tracked TypeScript/TSX and JavaScript files. The flag is opt-in. Without it, commands still emit/render v0.1 `1.0.0` Git evidence. With it, the bundle uses `1.1.0`, preserves the original Git evidence entries/IDs and adds `language-analysis` coverage and `symbol` observation entries. The original JSON Schema/validator remain available; [syntax-evidence.schema.json](syntax-evidence.schema.json) describes both versions and handled errors. `validateSyntaxBundle` also validates the unchanged v0.1 projection and cross-record syntax references. Package naming/version remain unpublished development metadata.
+`dr evidence --symbols` and `dr context --symbols` add bounded syntax observations for changed tracked TypeScript/TSX and JavaScript files. The flag is opt-in. Without it, commands still emit/render v0.1 `1.0.0` Git evidence. For the historical TS/TSX/JS profile, the bundle uses `1.1.0`, preserves the original Git evidence entries/IDs and adds `language-analysis` coverage and `symbol` observation entries. The original JSON Schema/validator remain available; [syntax-evidence.schema.json](syntax-evidence.schema.json) describes both versions and handled errors. `validateSyntaxBundle` also validates the unchanged v0.1 projection and cross-record syntax references. Package naming/version remain unpublished development metadata.
 
 ```sh
 node dist/cli/main.js evidence --root . --base refs/heads/main --scope branch --symbols --json
@@ -9,7 +9,11 @@ node dist/cli/main.js context --root . --base HEAD --scope unstaged --symbols --
 node dist/cli/main.js evidence --root . --base refs/heads/main --scope all --symbols --json
 ```
 
-These examples choose explicit existing local bases. `--symbols` is accepted only by evidence/context; scan/status/diff retain their v0.1 contracts. There is no LSP, type checker, semantic reference resolver, project configuration execution or additional grammar. Separate schema 1.2.0 [candidate/history opt-ins](candidate-analysis.md) add bounded text/test candidates and Git path history; `--symbols` alone does not enable them.
+These examples choose explicit existing local bases. `--symbols` is accepted only by evidence/context; scan/status/diff retain their v0.1 contracts. There is no LSP, type checker, semantic reference resolver or project configuration execution. Separate schema 1.2.0 [candidate/history opt-ins](candidate-analysis.md) keep their historical TS/TSX/JS profile; `--symbols` alone does not enable them.
+
+Java extends syntax evidence through **1.3.0**, emitted when a Java endpoint is analyzed. [java-syntax-evidence.schema.json](java-syntax-evidence.schema.json) and `validateJavaSyntaxBundle` are separate from historical 1.0.0/1.1.0/1.2.0 schemas. The shared version dispatcher reads all four without loading native parsers. Java recognizes packages/imports, classes/interfaces/records/enums, annotation types/usages/elements, methods/constructors/compact constructors, fields (including multiple declarators), record components, enum constants and nested declarations. Initializers, anonymous classes and lambdas preserve unnamed boundaries. Local variables are not reported as fields. A changed type/member header can coexist with its annotations/record components; a body change does not imply a changed enclosing type header.
+
+Exact parameter text is display evidence, not an overload key or resolved type. Duplicate overloads remain ambiguous even when one lies outside retained hunks. Unique method/constructor pairing additionally requires unchanged parameter display; changed signatures remain unmatched. Unicode byte offsets, CRLF, deleted before-only occurrences, errors, unsupported peers and bounded partial evidence use the same authoritative source/hunk checks. Pure renames and mode-only changes do not invent declarations without changed lines. Java syntax proves neither behavior nor semantic callers nor JUnit/test coverage. See [ADR 0002](adr/0002-java-and-export-ui.md).
 
 ## Runtime/grammar compatibility
 
@@ -18,6 +22,9 @@ These examples choose explicit existing local bases. `--symbols` is accepted onl
 | `tree-sitter` | 0.21.1 | Node binding with Node-API prebuilds; runtime ABI 13–14 |
 | `tree-sitter-typescript` | 0.23.2 | TypeScript and TSX grammars, ABI 14; optional native runtime peer `^0.21.0` |
 | `tree-sitter-javascript` | 0.23.1 | JavaScript/JSX grammar, ABI 14; optional native runtime peer `^0.21.1` |
+| `tree-sitter-java` | 0.23.5 | Java grammar, ABI 14; optional runtime peer `^0.21.1`; actually loaded and parsed on Node 24.20.0 Windows x64 |
+
+Java compatibility was checked against the installed parser's `LANGUAGE_VERSION 14`, actual native loading and Unicode record/compact-constructor parsing with the existing runtime. Primary sources: [pinned Java package](https://github.com/tree-sitter/tree-sitter-java/blob/v0.23.5/package.json), [pinned parser](https://github.com/tree-sitter/tree-sitter-java/blob/v0.23.5/src/parser.c). Linux prebuilds are distributed, but native Linux/hosted execution of this change is pending; peer ranges alone are not execution evidence.
 
 Primary sources: [runtime package/build configuration](https://github.com/tree-sitter/node-tree-sitter/blob/v0.21.1/package.json), [runtime compatibility constants/API](https://github.com/tree-sitter/node-tree-sitter/blob/v0.21.1/vendor/tree-sitter/lib/include/tree_sitter/api.h), [native parser usage](https://github.com/tree-sitter/node-tree-sitter/blob/v0.21.1/README.md), [TypeScript package/peer requirements](https://github.com/tree-sitter/tree-sitter-typescript/blob/v0.23.2/package.json), [JavaScript package/peer requirements](https://github.com/tree-sitter/tree-sitter-javascript/blob/v0.23.1/package.json). Installed primary parser sources declare `LANGUAGE_VERSION 14`; tests assert those constants and load all three grammars on the declared Node baseline. Newer grammar/runtime releases are not substituted: JavaScript 0.25.0 requires a different native peer range. These grammar versions do not establish complete support for a particular TypeScript compiler version or every future syntax proposal.
 

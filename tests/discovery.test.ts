@@ -163,11 +163,17 @@ test('directory/repository budgets are deterministic and preserve the retained p
 
 test('a worktree can use external Git metadata while outside worktrees are never enumerated', async () => fixture(async root => {
   await fixture(async outside => {
-    const main = await repo(outside, 'main'); git(main, 'commit', '--allow-empty', '-m', 'synthetic');
+    // Windows fixture locators may use a different case from realpath's spelling.
+    const locator = process.platform === 'win32' ? outside.toLowerCase() : outside;
+    const main = await repo(locator, 'main'); git(main, 'commit', '--allow-empty', '-m', 'synthetic');
     git(main, 'worktree', 'add', '-b', 'inside', path.join(root, 'inside'));
     const result = scan(root); assert.equal(result.status, 0, result.stderr);
     assert.deepEqual(result.report.repositories.map(item => item.path), ['inside']);
-    assert.ok(result.report.repositories[0]!.commonDirectory!.startsWith(outside));
+    const canonicalOutside = await realpath(locator);
+    const commonDirectory = result.report.repositories[0]!.commonDirectory!;
+    assert.equal(commonDirectory, await realpath(path.join(main, '.git')));
+    const relative = path.relative(canonicalOutside, commonDirectory);
+    assert.ok(relative && relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative));
   });
 }));
 

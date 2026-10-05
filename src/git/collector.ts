@@ -12,7 +12,7 @@ import { analyzeFile } from '../language/collect.js';
 export type CollectionDiagnostic = { code: string; severity: 'warning'; stage: 'discovery' | 'collection'; repositoryId: string; path: string | null; scope: Scope | null; message: string };
 type Endpoint = { kind: 'commit' | 'index' | 'working-tree' | 'empty-tree'; oid: string | null };
 export type Comparison = { scope: Scope; comparisonId: string | null; state: 'complete' | 'partial' | 'unavailable'; before: Endpoint; after: Endpoint; files: (FileChange & { patch?: FilePatch; languageAnalysis?: LanguageResult })[]; reasons: string[]; omittedCount: number | null; patchCoverage?: { source: 'git'; retainedBytes: number; observedBytesLowerBound: number; totalBytes: number | null; truncated: boolean; observedHunks: number; omittedHunks: number | null } };
-export type DiffRequest = { scope: Scope; includeUntracked: boolean; symbols?: boolean };
+export type DiffRequest = { scope: Scope; includeUntracked: boolean; symbols?: boolean; java?: boolean };
 export type Conflict = GitPath & { xy: string | null; stages: { base: { mode: string; oid: string } | null; ours: { mode: string; oid: string } | null; theirs: { mode: string; oid: string } | null } };
 export type RepositoryStatus = Repository & {
   state: 'complete' | 'partial' | 'failed'; reasons: string[]; revisions: Revisions | null;
@@ -85,7 +85,7 @@ export async function collectRepository(repository: Repository, config: Config, 
       }
       if (diff?.symbols) {
         try {
-          const { TreeSitterAnalyzer } = await import('../language/tree-sitter.js'); const analyzer = new TreeSitterAnalyzer(); const analysisBudget = { bytes: 0, symbols: 0 };
+          const { TreeSitterAnalyzer } = await import('../language/tree-sitter.js'); const analyzer = new TreeSitterAnalyzer(diff.java !== false); const analysisBudget = { bytes: 0, symbols: 0 };
           for (const comparison of comparisons) for (const file of comparison.files) if (file.patch) file.languageAnalysis = await analyzeFile(adapter, analyzer, file, file.patch, before, comparison.after.kind === 'working-tree', analysisBudget);
         } catch { diagnostics.push({ code: 'SYMBOL_RUNTIME_UNAVAILABLE', message: 'Language runtime could not load or analyze; Git evidence is retained', scope: diff.scope }); }
       }

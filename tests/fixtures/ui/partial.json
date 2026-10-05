@@ -1,0 +1,2214 @@
+{
+  "schemaVersion": "1.3.0",
+  "reportKind": "evidence",
+  "collector": {
+    "name": "difflearn",
+    "version": "0.1.0-dev.0",
+    "gitVersion": "git version 2.53.0.windows.1"
+  },
+  "collection": {
+    "startedAt": "2026-10-05T04:40:26.377Z",
+    "endedAt": "2026-10-05T04:40:31.782Z"
+  },
+  "request": {
+    "root": "C:/synthetic/ui-workspace",
+    "configPath": null,
+    "repositories": [],
+    "base": "base",
+    "scopes": [
+      "staged"
+    ],
+    "contentPolicy": "metadata-only",
+    "comparisonOptions": [
+      "--no-ext-diff",
+      "--no-textconv",
+      "--no-color",
+      "--no-relative",
+      "--diff-algorithm=myers",
+      "--no-indent-heuristic",
+      "--find-renames=50%",
+      "-l1000",
+      "-O/dev/null",
+      "--submodule=short",
+      "--ignore-submodules=none",
+      "--src-prefix=a/",
+      "--dst-prefix=b/",
+      "--unified=3",
+      "--full-index",
+      "--abbrev=64",
+      "--ita-visible-in-index",
+      "--inter-hunk-context=0",
+      "--patch"
+    ],
+    "immutableAttributeSource": "captured-head",
+    "limits": {
+      "maxDepth": 8,
+      "maxDirectories": 50000,
+      "maxRepositories": 128,
+      "concurrency": 4,
+      "gitTimeoutMs": 30000,
+      "repoTimeoutMs": 120000,
+      "maxMetadataBytes": 16777216,
+      "maxFiles": 10000,
+      "maxHunks": 20000,
+      "maxFileBytes": 64,
+      "maxPatchBytes": 16777216,
+      "maxBundleBytes": 67108864,
+      "maxSnapshotBytes": 268435456,
+      "maxWorkspaceSnapshotBytes": 1073741824
+    }
+  },
+  "discovery": {
+    "visitedDirectories": 3,
+    "readableDirectories": 3,
+    "candidateCount": 2,
+    "discoveredCount": 2,
+    "selectedCount": 2,
+    "remainingCount": null,
+    "subprocessConcurrency": 1,
+    "excludeDirectories": [
+      ".agents",
+      ".aws",
+      ".codex",
+      ".difflearn",
+      ".git",
+      ".ssh",
+      ".test-dist",
+      "build",
+      "coverage",
+      "dist",
+      "node_modules",
+      "vendor"
+    ],
+    "excludePaths": [],
+    "submodulePolicy": "parent-only",
+    "symlinkPolicy": "do-not-follow",
+    "skippedCount": 1,
+    "omittedDetails": 0,
+    "skipped": [
+      {
+        "path": "synthetic-service/.git",
+        "reason": "excluded"
+      }
+    ],
+    "incompleteSubtrees": [
+      "failed-peer"
+    ]
+  },
+  "repositories": [
+    {
+      "repositoryId": "fc6e039789a0a83663f137ec8e0745da9d46b2d03e6084699a7d8a496b4aa62a",
+      "key": "failed-peer",
+      "path": "failed-peer",
+      "kind": "failed",
+      "topLevel": null,
+      "gitDirectory": null,
+      "commonDirectory": null,
+      "linkedWorktree": null,
+      "objectFormat": null,
+      "baseConfiguration": {
+        "input": null,
+        "source": null,
+        "state": "not-resolved"
+      },
+      "submodules": [],
+      "state": "failed",
+      "reasons": [
+        "REPOSITORY_INVALID"
+      ],
+      "snapshot": {
+        "snapshotId": null,
+        "consistency": "unverified",
+        "attempts": 0,
+        "startedAt": "2026-10-05T04:40:27.272Z",
+        "endedAt": "2026-10-05T04:40:27.272Z",
+        "bytesHashed": 0
+      },
+      "revisions": null,
+      "workingTree": null,
+      "fingerprints": null,
+      "capabilities": null,
+      "repositoryEvidenceId": null,
+      "untrackedEvidenceIds": [],
+      "conflictEvidenceIds": [],
+      "excludedUntrackedCount": null,
+      "comparisons": []
+    },
+    {
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "key": "synthetic-service",
+      "path": "synthetic-service",
+      "kind": "worktree",
+      "topLevel": "C:/synthetic/ui-workspace\\synthetic-service",
+      "gitDirectory": "C:/synthetic/ui-workspace\\synthetic-service\\.git",
+      "commonDirectory": "C:/synthetic/ui-workspace\\synthetic-service\\.git",
+      "linkedWorktree": false,
+      "objectFormat": "sha1",
+      "baseConfiguration": {
+        "input": null,
+        "source": null,
+        "state": "not-resolved"
+      },
+      "submodules": [],
+      "state": "partial",
+      "reasons": [
+        "PATCH_FILE_LIMIT"
+      ],
+      "snapshot": {
+        "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+        "consistency": "verified-optimistic",
+        "attempts": 1,
+        "startedAt": "2026-10-05T04:40:27.273Z",
+        "endedAt": "2026-10-05T04:40:31.781Z",
+        "bytesHashed": 2344
+      },
+      "revisions": {
+        "head": {
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "branch": "main",
+          "state": "attached"
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "mergeBase": {
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "candidates": [
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+          ],
+          "reason": null,
+          "shallow": false
+        }
+      },
+      "workingTree": {
+        "available": true,
+        "clean": false,
+        "reasons": [],
+        "headers": {
+          "branch.oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "branch.head": "main"
+        },
+        "untracked": [],
+        "entries": [
+          {
+            "path": "Broken.java",
+            "pathBytes": "QnJva2VuLmphdmE=",
+            "kind": "ordinary",
+            "xy": "A.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "Deleted.java",
+            "pathBytes": "RGVsZXRlZC5qYXZh",
+            "kind": "ordinary",
+            "xy": "D.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "empty.txt",
+            "pathBytes": "ZW1wdHkudHh0",
+            "kind": "ordinary",
+            "xy": "A.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "image.bin",
+            "pathBytes": "aW1hZ2UuYmlu",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "mode.txt",
+            "pathBytes": "bW9kZS50eHQ=",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "unsupported.py",
+            "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "บริการ.java",
+            "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          }
+        ]
+      },
+      "fingerprints": {
+        "index": "23e30bb1f1d46c75d02a3cb84ac00098ab6d5fa2227ff8af45c9618049207ff2",
+        "workingTree": "0ef014a4944340ba037eb33e6d4204bdfc208c598596451c6aa3b0e67cae0649",
+        "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+        "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+      },
+      "capabilities": {
+        "sparseCheckout": false,
+        "restrictedPaths": [],
+        "activeFilterPaths": [],
+        "intentToAddPaths": [],
+        "intentToAddPolicy": "experimental-visible-in-index"
+      },
+      "repositoryEvidenceId": "cc1f3aa81db21554174c9d1fdcbf51cb73e33fef7d56da061209aa0ddd9e77a1",
+      "untrackedEvidenceIds": [],
+      "conflictEvidenceIds": [],
+      "excludedUntrackedCount": 0,
+      "comparisons": [
+        {
+          "scope": "staged",
+          "state": "partial",
+          "before": {
+            "kind": "commit",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+          },
+          "after": {
+            "kind": "index",
+            "oid": null
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "reasons": [
+            "PATCH_FILE_LIMIT"
+          ],
+          "omittedCount": 0,
+          "fileCount": 7,
+          "patchCoverage": {
+            "source": "git",
+            "retainedBytes": 1992,
+            "observedBytesLowerBound": 1992,
+            "totalBytes": 1992,
+            "truncated": false,
+            "observedHunks": 5,
+            "omittedHunks": 5
+          },
+          "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+          "evidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+          "fileEvidenceIds": [
+            "bf8c50fb866e55b25d746e67657023deadbf2cb8eaf292211b169a598d589c0c",
+            "e192cd96f2a90667316e75ba40a3610865f6c40032523054a20311805c209a83",
+            "c72f882f071019d36c1b7cdfd0ec4dc1da70ea6d09114f6293a335efdc7aeae7",
+            "cfbfb35efaa7029a9005a41529a0c1301d3c813a4e3fbf15cf19fcd59b6c662d",
+            "0cc65b13e5a2b0c87fe4cd67ef71fbc59f325dfda40793cb71a34830a39c44f4",
+            "af6ff04d2a183e0c5464402c6cab9af2772292901c8fdb42ee5115dd2ea426a3",
+            "8705bbe6e32a1fdbb7a4940f84945d3a66492fd2c4dfbd719706b626bb1f1387"
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "cc1f3aa81db21554174c9d1fdcbf51cb73e33fef7d56da061209aa0ddd9e77a1",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": null,
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "snapshot-metadata",
+        "executed": true,
+        "arguments": [
+          [
+            "rev-parse",
+            "--verify",
+            "--end-of-options",
+            "HEAD^{commit}"
+          ],
+          [
+            "ls-files",
+            "--stage",
+            "-z"
+          ],
+          [
+            "status",
+            "--porcelain=v2",
+            "-z",
+            "--branch",
+            "--untracked-files=all",
+            "--ignore-submodules=none"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": []
+      },
+      "confidence": "fact",
+      "kind": "repository",
+      "data": {
+        "key": "synthetic-service",
+        "path": "synthetic-service",
+        "objectFormat": "sha1",
+        "linkedWorktree": false,
+        "submodules": [],
+        "revisions": {
+          "head": {
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "branch": "main",
+            "state": "attached"
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "mergeBase": {
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "candidates": [
+              "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+            ],
+            "reason": null,
+            "shallow": false
+          }
+        },
+        "workingTree": {
+          "available": true,
+          "clean": false,
+          "reasons": [],
+          "headers": {
+            "branch.oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "branch.head": "main"
+          },
+          "untracked": [],
+          "entries": [
+            {
+              "path": "Broken.java",
+              "pathBytes": "QnJva2VuLmphdmE=",
+              "kind": "ordinary",
+              "xy": "A.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "Deleted.java",
+              "pathBytes": "RGVsZXRlZC5qYXZh",
+              "kind": "ordinary",
+              "xy": "D.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "empty.txt",
+              "pathBytes": "ZW1wdHkudHh0",
+              "kind": "ordinary",
+              "xy": "A.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "image.bin",
+              "pathBytes": "aW1hZ2UuYmlu",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "mode.txt",
+              "pathBytes": "bW9kZS50eHQ=",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "unsupported.py",
+              "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "บริการ.java",
+              "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            }
+          ]
+        },
+        "fingerprints": {
+          "index": "23e30bb1f1d46c75d02a3cb84ac00098ab6d5fa2227ff8af45c9618049207ff2",
+          "workingTree": "0ef014a4944340ba037eb33e6d4204bdfc208c598596451c6aa3b0e67cae0649",
+          "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+          "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+        },
+        "capabilities": {
+          "sparseCheckout": false,
+          "restrictedPaths": [],
+          "activeFilterPaths": [],
+          "intentToAddPaths": [],
+          "intentToAddPolicy": "experimental-visible-in-index"
+        }
+      }
+    },
+    {
+      "id": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "cc1f3aa81db21554174c9d1fdcbf51cb73e33fef7d56da061209aa0ddd9e77a1"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "comparison",
+      "data": {
+        "scope": "staged",
+        "state": "partial",
+        "before": {
+          "kind": "commit",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        },
+        "after": {
+          "kind": "index",
+          "oid": null
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "reasons": [
+          "PATCH_FILE_LIMIT"
+        ],
+        "omittedCount": 0,
+        "fileCount": 7,
+        "patchCoverage": {
+          "source": "git",
+          "retainedBytes": 1992,
+          "observedBytesLowerBound": 1992,
+          "totalBytes": 1992,
+          "truncated": false,
+          "observedHunks": 5,
+          "omittedHunks": 5
+        }
+      }
+    },
+    {
+      "id": "bf8c50fb866e55b25d746e67657023deadbf2cb8eaf292211b169a598d589c0c",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "QnJva2VuLmphdmE=",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "Broken.java",
+        "destinationPath": "Broken.java",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "destinationPathBytes": "QnJva2VuLmphdmE=",
+        "status": "A",
+        "similarity": null,
+        "oldMode": "000000",
+        "newMode": "100644",
+        "oldOid": null,
+        "newOid": "e159aa9683cbe1e694485ad44e59c52a334ad359",
+        "kind": "file",
+        "binary": false,
+        "added": 3,
+        "deleted": 0,
+        "patch": {
+          "state": "partial",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 0,
+          "omittedHunks": 1,
+          "reasons": [
+            "PATCH_FILE_LIMIT"
+          ]
+        }
+      }
+    },
+    {
+      "id": "e192cd96f2a90667316e75ba40a3610865f6c40032523054a20311805c209a83",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "Deleted.java",
+        "destinationPath": "Deleted.java",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "destinationPathBytes": "RGVsZXRlZC5qYXZh",
+        "status": "D",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "000000",
+        "oldOid": "a52a84791b7347091b682248b992bb13fac4f2ee",
+        "newOid": null,
+        "kind": "file",
+        "binary": false,
+        "added": 0,
+        "deleted": 3,
+        "patch": {
+          "state": "partial",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 0,
+          "omittedHunks": 1,
+          "reasons": [
+            "PATCH_FILE_LIMIT"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c72f882f071019d36c1b7cdfd0ec4dc1da70ea6d09114f6293a335efdc7aeae7",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "ZW1wdHkudHh0",
+        "originalPathBytes": "ZW1wdHkudHh0",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "empty.txt",
+        "destinationPath": "empty.txt",
+        "originalPathBytes": "ZW1wdHkudHh0",
+        "destinationPathBytes": "ZW1wdHkudHh0",
+        "status": "A",
+        "similarity": null,
+        "oldMode": "000000",
+        "newMode": "100644",
+        "oldOid": null,
+        "newOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "kind": "file",
+        "binary": false,
+        "added": 0,
+        "deleted": 0,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 0,
+          "collectedHunks": 0,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "cfbfb35efaa7029a9005a41529a0c1301d3c813a4e3fbf15cf19fcd59b6c662d",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "aW1hZ2UuYmlu",
+        "originalPathBytes": "aW1hZ2UuYmlu",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "image.bin",
+        "destinationPath": "image.bin",
+        "originalPathBytes": "aW1hZ2UuYmlu",
+        "destinationPathBytes": "aW1hZ2UuYmlu",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "8352675d67aed6625ece79af41c27fdb4ee2e867",
+        "newOid": "6d5b70e046595c49ed0f36eddbd2b2f5e6714087",
+        "kind": "file",
+        "binary": true,
+        "added": null,
+        "deleted": null,
+        "patch": {
+          "state": "metadata-only",
+          "representation": "binary",
+          "observedHunks": 0,
+          "collectedHunks": 0,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "0cc65b13e5a2b0c87fe4cd67ef71fbc59f325dfda40793cb71a34830a39c44f4",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "bW9kZS50eHQ=",
+        "originalPathBytes": "bW9kZS50eHQ=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "mode.txt",
+        "destinationPath": "mode.txt",
+        "originalPathBytes": "bW9kZS50eHQ=",
+        "destinationPathBytes": "bW9kZS50eHQ=",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100755",
+        "oldOid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+        "newOid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+        "kind": "file",
+        "binary": false,
+        "added": 0,
+        "deleted": 0,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 0,
+          "collectedHunks": 0,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "af6ff04d2a183e0c5464402c6cab9af2772292901c8fdb42ee5115dd2ea426a3",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "unsupported.py",
+        "destinationPath": "unsupported.py",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "destinationPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "50042191c3f66e72db61c3d4a83f1582ff317bd5",
+        "newOid": "755335fa36ed557405f872a10a6978ffdabf4d30",
+        "kind": "file",
+        "binary": false,
+        "added": 1,
+        "deleted": 1,
+        "patch": {
+          "state": "partial",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 0,
+          "omittedHunks": 1,
+          "reasons": [
+            "PATCH_FILE_LIMIT"
+          ]
+        }
+      }
+    },
+    {
+      "id": "8705bbe6e32a1fdbb7a4940f84945d3a66492fd2c4dfbd719706b626bb1f1387",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "89d67317b9a7645f477153d9de666d77e5260667434a1ed957844c9f16b63cde",
+        "originalPath": "บริการ.java",
+        "destinationPath": "บริการ.java",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "destinationPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "8044ea037e0d3a4dddea2a2f046da6c62c3fa4c5",
+        "newOid": "ddfeb6455824e86f0c6d96ac00d4e538b198dcc3",
+        "kind": "file",
+        "binary": false,
+        "added": 2,
+        "deleted": 2,
+        "patch": {
+          "state": "partial",
+          "representation": "unified",
+          "observedHunks": 2,
+          "collectedHunks": 0,
+          "omittedHunks": 2,
+          "reasons": [
+            "PATCH_FILE_LIMIT"
+          ]
+        }
+      }
+    },
+    {
+      "id": "9fd903d1a9fdba64309033a9a74e116cc10c733288ce6a673a9169595bb79e64",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "QnJva2VuLmphdmE=",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10"
+        ],
+        "originatingEvidenceIds": [
+          "bf8c50fb866e55b25d746e67657023deadbf2cb8eaf292211b169a598d589c0c"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_PATCH_INCOMPLETE",
+          "SYMBOL_SYNTAX_ERROR"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "Broken.java",
+            "pathBytes": "QnJva2VuLmphdmE=",
+            "language": "java",
+            "origin": "absent",
+            "oid": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "byteLength": 0,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "Broken.java",
+            "pathBytes": "QnJva2VuLmphdmE=",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "e159aa9683cbe1e694485ad44e59c52a334ad359",
+            "sha256": "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10",
+            "byteLength": 37,
+            "state": "available",
+            "reason": null
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_PATCH_INCOMPLETE",
+            "side": null,
+            "range": null,
+            "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+          },
+          {
+            "code": "SYMBOL_SYNTAX_ERROR",
+            "side": "after",
+            "range": {
+              "startByte": 32,
+              "endByte": 32,
+              "startLine": 2,
+              "endLine": 2,
+              "startColumn": 17,
+              "endColumn": 17
+            },
+            "message": "Syntax errors or missing tokens; affected declarations are withheld"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "bf8c50fb866e55b25d746e67657023deadbf2cb8eaf292211b169a598d589c0c",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "73a24f24853885422f02e63e8880f31a026e9373f0e3e85f0dd53d27c529a899",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "originatingEvidenceIds": [
+          "e192cd96f2a90667316e75ba40a3610865f6c40032523054a20311805c209a83"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_PATCH_INCOMPLETE"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "Deleted.java",
+            "pathBytes": "RGVsZXRlZC5qYXZh",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "a52a84791b7347091b682248b992bb13fac4f2ee",
+            "sha256": "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495",
+            "byteLength": 35,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "Deleted.java",
+            "pathBytes": "RGVsZXRlZC5qYXZh",
+            "language": "java",
+            "origin": "absent",
+            "oid": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "byteLength": 0,
+            "state": "available",
+            "reason": null
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_PATCH_INCOMPLETE",
+            "side": null,
+            "range": null,
+            "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "e192cd96f2a90667316e75ba40a3610865f6c40032523054a20311805c209a83",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "0f1bfdf8f0b2b128356654b0169b72d682324b43abf55b2b57f20417aa0777c9",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "ZW1wdHkudHh0",
+        "originalPathBytes": "ZW1wdHkudHh0",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "originatingEvidenceIds": [
+          "c72f882f071019d36c1b7cdfd0ec4dc1da70ea6d09114f6293a335efdc7aeae7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "empty.txt",
+            "pathBytes": "ZW1wdHkudHh0",
+            "language": null,
+            "origin": "absent",
+            "oid": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "byteLength": 0,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "empty.txt",
+            "pathBytes": "ZW1wdHkudHh0",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "c72f882f071019d36c1b7cdfd0ec4dc1da70ea6d09114f6293a335efdc7aeae7",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "54ccee105516c3943cf55fda2dccb27e083a9a322e495130e168805bb4a4a159",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "aW1hZ2UuYmlu",
+        "originalPathBytes": "aW1hZ2UuYmlu",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "cfbfb35efaa7029a9005a41529a0c1301d3c813a4e3fbf15cf19fcd59b6c662d"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED",
+          "SYMBOL_PATCH_INCOMPLETE"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "image.bin",
+            "pathBytes": "aW1hZ2UuYmlu",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "8352675d67aed6625ece79af41c27fdb4ee2e867",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          },
+          {
+            "side": "after",
+            "path": "image.bin",
+            "pathBytes": "aW1hZ2UuYmlu",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "6d5b70e046595c49ed0f36eddbd2b2f5e6714087",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_PATCH_INCOMPLETE",
+            "side": null,
+            "range": null,
+            "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "cfbfb35efaa7029a9005a41529a0c1301d3c813a4e3fbf15cf19fcd59b6c662d",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "4aa9deca016eea82924c21e6b08c0683d30300471c783502e0eef04d5864be5e",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "bW9kZS50eHQ=",
+        "originalPathBytes": "bW9kZS50eHQ=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "0cc65b13e5a2b0c87fe4cd67ef71fbc59f325dfda40793cb71a34830a39c44f4"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "mode.txt",
+            "pathBytes": "bW9kZS50eHQ=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          },
+          {
+            "side": "after",
+            "path": "mode.txt",
+            "pathBytes": "bW9kZS50eHQ=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "0cc65b13e5a2b0c87fe4cd67ef71fbc59f325dfda40793cb71a34830a39c44f4",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "de391406495bf481089e8a83d4389a096d8f503c56d68caaccbffe102ca29109",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "af6ff04d2a183e0c5464402c6cab9af2772292901c8fdb42ee5115dd2ea426a3"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED",
+          "SYMBOL_PATCH_INCOMPLETE"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "unsupported.py",
+            "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "50042191c3f66e72db61c3d4a83f1582ff317bd5",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          },
+          {
+            "side": "after",
+            "path": "unsupported.py",
+            "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "755335fa36ed557405f872a10a6978ffdabf4d30",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_PATCH_INCOMPLETE",
+            "side": null,
+            "range": null,
+            "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "af6ff04d2a183e0c5464402c6cab9af2772292901c8fdb42ee5115dd2ea426a3",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "f7b9870e5f20dfc8e789882e43031878538e2e67d9d81152db30be3952e5e5dd",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "8705bbe6e32a1fdbb7a4940f84945d3a66492fd2c4dfbd719706b626bb1f1387"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_PATCH_INCOMPLETE",
+          "SYMBOL_SOURCE_LIMIT"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "บริการ.java",
+            "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "8044ea037e0d3a4dddea2a2f046da6c62c3fa4c5",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_SOURCE_LIMIT"
+          },
+          {
+            "side": "after",
+            "path": "บริการ.java",
+            "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "ddfeb6455824e86f0c6d96ac00d4e538b198dcc3",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_SOURCE_LIMIT"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_PATCH_INCOMPLETE",
+            "side": null,
+            "range": null,
+            "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+          },
+          {
+            "code": "SYMBOL_SOURCE_LIMIT",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_SOURCE_LIMIT",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "8705bbe6e32a1fdbb7a4940f84945d3a66492fd2c4dfbd719706b626bb1f1387",
+        "symbolCount": 0
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "REPOSITORY_INVALID",
+      "severity": "warning",
+      "stage": "discovery",
+      "repositoryId": "fc6e039789a0a83663f137ec8e0745da9d46b2d03e6084699a7d8a496b4aa62a",
+      "path": "failed-peer",
+      "scope": null,
+      "message": "Git verification failed (exit 128): fatal: not a git repository: C:/Users/Jstarc/AppData/Local/Temp/difflearn-ui-fixture-GHP1VV/workspace/failed-peer/missing-synthetic-metadata\n"
+    },
+    {
+      "code": "PATCH_FILE_LIMIT",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "synthetic-service",
+      "scope": "staged",
+      "message": "\"Broken.java\": Whole hunk omitted: PATCH_FILE_LIMIT"
+    },
+    {
+      "code": "PATCH_FILE_LIMIT",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "synthetic-service",
+      "scope": "staged",
+      "message": "\"Deleted.java\": Whole hunk omitted: PATCH_FILE_LIMIT"
+    },
+    {
+      "code": "PATCH_FILE_LIMIT",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "synthetic-service",
+      "scope": "staged",
+      "message": "\"unsupported.py\": Whole hunk omitted: PATCH_FILE_LIMIT"
+    },
+    {
+      "code": "PATCH_FILE_LIMIT",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "synthetic-service",
+      "scope": "staged",
+      "message": "\"บริการ.java\": Whole hunk omitted: PATCH_FILE_LIMIT"
+    },
+    {
+      "code": "SYMBOL_PATCH_INCOMPLETE",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "Broken.java",
+      "scope": "staged",
+      "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+    },
+    {
+      "code": "SYMBOL_SYNTAX_ERROR",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "Broken.java",
+      "scope": "staged",
+      "message": "Syntax errors or missing tokens; affected declarations are withheld"
+    },
+    {
+      "code": "SYMBOL_PATCH_INCOMPLETE",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "Deleted.java",
+      "scope": "staged",
+      "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "empty.txt",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_PATCH_INCOMPLETE",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "image.bin",
+      "scope": "staged",
+      "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "image.bin",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "image.bin",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "mode.txt",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "mode.txt",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_PATCH_INCOMPLETE",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "unsupported.py",
+      "scope": "staged",
+      "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "unsupported.py",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "unsupported.py",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_PATCH_INCOMPLETE",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "บริการ.java",
+      "scope": "staged",
+      "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+    },
+    {
+      "code": "SYMBOL_SOURCE_LIMIT",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "บริการ.java",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_SOURCE_LIMIT",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "บริการ.java",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    }
+  ],
+  "completeness": {
+    "state": "partial",
+    "reasons": [
+      "PATCH_FILE_LIMIT",
+      "REPOSITORY_INVALID",
+      "SYMBOL_GIT_COVERAGE_INCOMPLETE",
+      "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "SYMBOL_PATCH_INCOMPLETE",
+      "SYMBOL_SOURCE_LIMIT",
+      "SYMBOL_SYNTAX_ERROR"
+    ],
+    "repositoryStates": [
+      {
+        "repositoryId": "fc6e039789a0a83663f137ec8e0745da9d46b2d03e6084699a7d8a496b4aa62a",
+        "state": "failed"
+      },
+      {
+        "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+        "state": "partial"
+      }
+    ],
+    "requestedRepositories": 2,
+    "collectedRepositories": 1,
+    "collectedEvidence": 16,
+    "omittedCount": null
+  },
+  "analysis": {
+    "policy": "git-and-syntax-facts",
+    "unsupported": [
+      "references",
+      "behavior",
+      "return-types",
+      "impact",
+      "test-coverage",
+      "history",
+      "review-state"
+    ]
+  },
+  "trust": {
+    "repositoryContent": "untrusted-agent-input",
+    "export": "explicit-command-stdout-only"
+  },
+  "languageAnalysis": {
+    "requested": true,
+    "capabilities": {
+      "analyzer": "tree-sitter",
+      "runtime": "0.21.1",
+      "grammarAbi": 14,
+      "grammars": [
+        {
+          "language": "typescript",
+          "package": "tree-sitter-typescript",
+          "version": "0.23.2"
+        },
+        {
+          "language": "tsx",
+          "package": "tree-sitter-typescript",
+          "version": "0.23.2"
+        },
+        {
+          "language": "javascript",
+          "package": "tree-sitter-javascript",
+          "version": "0.23.1"
+        },
+        {
+          "language": "java",
+          "package": "tree-sitter-java",
+          "version": "0.23.5"
+        }
+      ],
+      "declarations": true,
+      "imports": true,
+      "topLevel": true,
+      "syntacticMatching": true,
+      "semanticReferences": false,
+      "typeChecking": false,
+      "inferredBehavior": false,
+      "inferredContracts": false,
+      "maxNodes": 100000,
+      "parseTimeoutMs": 250
+    },
+    "state": "unavailable",
+    "reasons": [
+      "SYMBOL_GIT_COVERAGE_INCOMPLETE",
+      "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "SYMBOL_PATCH_INCOMPLETE",
+      "SYMBOL_SOURCE_LIMIT",
+      "SYMBOL_SYNTAX_ERROR"
+    ],
+    "filesRequested": 7,
+    "filesAnalyzed": 0,
+    "omittedFiles": 0,
+    "evidenceIds": [
+      "9fd903d1a9fdba64309033a9a74e116cc10c733288ce6a673a9169595bb79e64",
+      "73a24f24853885422f02e63e8880f31a026e9373f0e3e85f0dd53d27c529a899",
+      "0f1bfdf8f0b2b128356654b0169b72d682324b43abf55b2b57f20417aa0777c9",
+      "54ccee105516c3943cf55fda2dccb27e083a9a322e495130e168805bb4a4a159",
+      "4aa9deca016eea82924c21e6b08c0683d30300471c783502e0eef04d5864be5e",
+      "de391406495bf481089e8a83d4389a096d8f503c56d68caaccbffe102ca29109",
+      "f7b9870e5f20dfc8e789882e43031878538e2e67d9d81152db30be3952e5e5dd"
+    ],
+    "limits": {
+      "maxSourceBytes": 16777216,
+      "maxSymbols": 20000,
+      "maxNodes": 100000,
+      "parseTimeoutMs": 250
+    },
+    "gitCompleteness": {
+      "state": "partial",
+      "reasons": [
+        "PATCH_FILE_LIMIT",
+        "REPOSITORY_INVALID"
+      ],
+      "omittedCount": null
+    }
+  }
+}

@@ -1,0 +1,1057 @@
+{
+  "schemaVersion": "1.2.0",
+  "reportKind": "evidence",
+  "collector": {
+    "name": "difflearn",
+    "version": "0.1.0-dev.0",
+    "gitVersion": "git version 2.53.0.windows.1"
+  },
+  "collection": {
+    "startedAt": "2026-10-05T04:06:28.938Z",
+    "endedAt": "2026-10-05T04:06:40.087Z"
+  },
+  "request": {
+    "root": "C:/synthetic/difflearn-historical",
+    "configPath": null,
+    "repositories": [],
+    "base": "base",
+    "scopes": [
+      "staged"
+    ],
+    "contentPolicy": "metadata-only",
+    "comparisonOptions": [
+      "--no-ext-diff",
+      "--no-textconv",
+      "--no-color",
+      "--no-relative",
+      "--diff-algorithm=myers",
+      "--no-indent-heuristic",
+      "--find-renames=50%",
+      "-l1000",
+      "-O/dev/null",
+      "--submodule=short",
+      "--ignore-submodules=none",
+      "--src-prefix=a/",
+      "--dst-prefix=b/",
+      "--unified=3",
+      "--full-index",
+      "--abbrev=64",
+      "--ita-visible-in-index",
+      "--inter-hunk-context=0",
+      "--patch"
+    ],
+    "immutableAttributeSource": "captured-head",
+    "limits": {
+      "maxDepth": 8,
+      "maxDirectories": 50000,
+      "maxRepositories": 128,
+      "concurrency": 4,
+      "gitTimeoutMs": 30000,
+      "repoTimeoutMs": 120000,
+      "maxMetadataBytes": 16777216,
+      "maxFiles": 10000,
+      "maxHunks": 20000,
+      "maxFileBytes": 2097152,
+      "maxPatchBytes": 16777216,
+      "maxBundleBytes": 67108864,
+      "maxSnapshotBytes": 268435456,
+      "maxWorkspaceSnapshotBytes": 1073741824
+    }
+  },
+  "discovery": {
+    "visitedDirectories": 1,
+    "readableDirectories": 1,
+    "candidateCount": 1,
+    "discoveredCount": 1,
+    "selectedCount": 1,
+    "remainingCount": 0,
+    "subprocessConcurrency": 1,
+    "excludeDirectories": [
+      ".agents",
+      ".aws",
+      ".codex",
+      ".difflearn",
+      ".git",
+      ".ssh",
+      ".test-dist",
+      "build",
+      "coverage",
+      "dist",
+      "node_modules",
+      "vendor"
+    ],
+    "excludePaths": [],
+    "submodulePolicy": "parent-only",
+    "symlinkPolicy": "do-not-follow",
+    "skippedCount": 1,
+    "omittedDetails": 0,
+    "skipped": [
+      {
+        "path": ".git",
+        "reason": "excluded"
+      }
+    ],
+    "incompleteSubtrees": []
+  },
+  "repositories": [
+    {
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "key": ".",
+      "path": ".",
+      "kind": "worktree",
+      "topLevel": "C:/synthetic/difflearn-historical",
+      "gitDirectory": "C:/synthetic/difflearn-historical\\.git",
+      "commonDirectory": "C:/synthetic/difflearn-historical\\.git",
+      "linkedWorktree": false,
+      "objectFormat": "sha1",
+      "baseConfiguration": {
+        "input": null,
+        "source": null,
+        "state": "not-resolved"
+      },
+      "submodules": [],
+      "state": "complete",
+      "reasons": [],
+      "snapshot": {
+        "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+        "consistency": "verified-optimistic",
+        "attempts": 1,
+        "startedAt": "2026-10-05T04:06:30.192Z",
+        "endedAt": "2026-10-05T04:06:40.086Z",
+        "bytesHashed": 796
+      },
+      "revisions": {
+        "head": {
+          "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "branch": "main",
+          "state": "attached"
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "mergeBase": {
+          "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "candidates": [
+            "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+          ],
+          "reason": null,
+          "shallow": false
+        }
+      },
+      "workingTree": {
+        "available": true,
+        "clean": false,
+        "reasons": [],
+        "headers": {
+          "branch.oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "branch.head": "main"
+        },
+        "untracked": [],
+        "entries": [
+          {
+            "path": "sample.ts",
+            "pathBytes": "c2FtcGxlLnRz",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          }
+        ]
+      },
+      "fingerprints": {
+        "index": "451e48f4f66da4dacb490b3c652b1bc8cd4fe98dd08bfa1980a74fb5b9b72d19",
+        "workingTree": "01a3d3cdec47fd247d3e1e92e8fc7e6d75560d59c2b86cb460f256941fd9f774",
+        "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+        "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+      },
+      "capabilities": {
+        "sparseCheckout": false,
+        "restrictedPaths": [],
+        "activeFilterPaths": [],
+        "intentToAddPaths": [],
+        "intentToAddPolicy": "experimental-visible-in-index"
+      },
+      "repositoryEvidenceId": "953bc6db945d90adfdc51023d93909807366386e58f28cc30ab372476ea37099",
+      "untrackedEvidenceIds": [],
+      "conflictEvidenceIds": [],
+      "excludedUntrackedCount": 0,
+      "comparisons": [
+        {
+          "scope": "staged",
+          "state": "complete",
+          "before": {
+            "kind": "commit",
+            "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+          },
+          "after": {
+            "kind": "index",
+            "oid": null
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "reasons": [],
+          "omittedCount": 0,
+          "fileCount": 1,
+          "patchCoverage": {
+            "source": "git",
+            "retainedBytes": 257,
+            "observedBytesLowerBound": 257,
+            "totalBytes": 257,
+            "truncated": false,
+            "observedHunks": 1,
+            "omittedHunks": 0
+          },
+          "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+          "evidenceId": "9480fe1deb2f26318238b0fc16eeef82df80a912ee5a77f53544957a651c87d7",
+          "fileEvidenceIds": [
+            "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210"
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "953bc6db945d90adfdc51023d93909807366386e58f28cc30ab372476ea37099",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": null,
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "snapshot-metadata",
+        "executed": true,
+        "arguments": [
+          [
+            "rev-parse",
+            "--verify",
+            "--end-of-options",
+            "HEAD^{commit}"
+          ],
+          [
+            "ls-files",
+            "--stage",
+            "-z"
+          ],
+          [
+            "status",
+            "--porcelain=v2",
+            "-z",
+            "--branch",
+            "--untracked-files=all",
+            "--ignore-submodules=none"
+          ]
+        ],
+        "inputOids": [
+          "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+        ],
+        "originatingEvidenceIds": []
+      },
+      "confidence": "fact",
+      "kind": "repository",
+      "data": {
+        "key": ".",
+        "path": ".",
+        "objectFormat": "sha1",
+        "linkedWorktree": false,
+        "submodules": [],
+        "revisions": {
+          "head": {
+            "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "branch": "main",
+            "state": "attached"
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "mergeBase": {
+            "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "candidates": [
+              "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+            ],
+            "reason": null,
+            "shallow": false
+          }
+        },
+        "workingTree": {
+          "available": true,
+          "clean": false,
+          "reasons": [],
+          "headers": {
+            "branch.oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "branch.head": "main"
+          },
+          "untracked": [],
+          "entries": [
+            {
+              "path": "sample.ts",
+              "pathBytes": "c2FtcGxlLnRz",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            }
+          ]
+        },
+        "fingerprints": {
+          "index": "451e48f4f66da4dacb490b3c652b1bc8cd4fe98dd08bfa1980a74fb5b9b72d19",
+          "workingTree": "01a3d3cdec47fd247d3e1e92e8fc7e6d75560d59c2b86cb460f256941fd9f774",
+          "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+          "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+        },
+        "capabilities": {
+          "sparseCheckout": false,
+          "restrictedPaths": [],
+          "activeFilterPaths": [],
+          "intentToAddPaths": [],
+          "intentToAddPolicy": "experimental-visible-in-index"
+        }
+      }
+    },
+    {
+      "id": "9480fe1deb2f26318238b0fc16eeef82df80a912ee5a77f53544957a651c87d7",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "--"
+          ],
+          [
+            "--attr-source=03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+        ],
+        "originatingEvidenceIds": [
+          "953bc6db945d90adfdc51023d93909807366386e58f28cc30ab372476ea37099"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "comparison",
+      "data": {
+        "scope": "staged",
+        "state": "complete",
+        "before": {
+          "kind": "commit",
+          "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+        },
+        "after": {
+          "kind": "index",
+          "oid": null
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "reasons": [],
+        "omittedCount": 0,
+        "fileCount": 1,
+        "patchCoverage": {
+          "source": "git",
+          "retainedBytes": 257,
+          "observedBytesLowerBound": 257,
+          "totalBytes": 257,
+          "truncated": false,
+          "observedHunks": 1,
+          "omittedHunks": 0
+        }
+      }
+    },
+    {
+      "id": "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": "c2FtcGxlLnRz",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "--"
+          ],
+          [
+            "--attr-source=03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+        ],
+        "originatingEvidenceIds": [
+          "9480fe1deb2f26318238b0fc16eeef82df80a912ee5a77f53544957a651c87d7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "9480fe1deb2f26318238b0fc16eeef82df80a912ee5a77f53544957a651c87d7",
+        "originalPath": "sample.ts",
+        "destinationPath": "sample.ts",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "destinationPathBytes": "c2FtcGxlLnRz",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "26f635e1db3860dd59f06b7fff719d5ccd16593c",
+        "newOid": "d0eaf82b9c0e20413d6aa59534cecb4fe56aac54",
+        "kind": "file",
+        "binary": false,
+        "added": 1,
+        "deleted": 1,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 1,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "b0dce203a2f353598ff82ba48b6861fcebc6c597345fc6f7722a8c2ee108205a",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": "c2FtcGxlLnRz",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "diff-parser",
+        "method": "unified-two-sided",
+        "arguments": [
+          "--attr-source=03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "diff",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-color",
+          "--no-relative",
+          "--diff-algorithm=myers",
+          "--no-indent-heuristic",
+          "--find-renames=50%",
+          "-l1000",
+          "-O/dev/null",
+          "--submodule=short",
+          "--ignore-submodules=none",
+          "--src-prefix=a/",
+          "--dst-prefix=b/",
+          "--unified=3",
+          "--full-index",
+          "--abbrev=64",
+          "--ita-visible-in-index",
+          "--inter-hunk-context=0",
+          "--patch",
+          "--cached",
+          "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "--"
+        ],
+        "inputOids": [
+          "03be94f0671d1efab8e691e0fba4a966bb0bc1ed"
+        ],
+        "originatingEvidenceIds": [
+          "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+          "9480fe1deb2f26318238b0fc16eeef82df80a912ee5a77f53544957a651c87d7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "hunk",
+      "data": {
+        "fileEvidenceId": "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+        "ordinal": 1,
+        "oldStart": 1,
+        "oldCount": 1,
+        "newStart": 1,
+        "newCount": 1,
+        "heading": "",
+        "headingBytes": "",
+        "lines": [
+          {
+            "kind": "remove",
+            "content": "export function example() { return 1; }",
+            "contentBytes": "ZXhwb3J0IGZ1bmN0aW9uIGV4YW1wbGUoKSB7IHJldHVybiAxOyB9",
+            "oldLine": 1,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "add",
+            "content": "export function example() { return 2; }",
+            "contentBytes": "ZXhwb3J0IGZ1bmN0aW9uIGV4YW1wbGUoKSB7IHJldHVybiAyOyB9",
+            "oldLine": null,
+            "newLine": 1,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          }
+        ],
+        "noNewlineMarkers": []
+      }
+    },
+    {
+      "id": "ac3282532c7571cb13a0dadc1883b72749bdcb9c32f9b771204057e63b3b496f",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": "c2FtcGxlLnRz",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "910d4321ee43f78490c2575c84ffb9ec0fbe2602974c54944ba158f78e43bce0",
+          "b69718bb2bdfcc7cceeaa9978d2677261e333365b88fb70ee7f6021620e38190"
+        ],
+        "originatingEvidenceIds": [
+          "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "complete",
+        "reasons": [],
+        "sources": [
+          {
+            "side": "before",
+            "path": "sample.ts",
+            "pathBytes": "c2FtcGxlLnRz",
+            "language": "typescript",
+            "origin": "git-blob",
+            "oid": "26f635e1db3860dd59f06b7fff719d5ccd16593c",
+            "sha256": "910d4321ee43f78490c2575c84ffb9ec0fbe2602974c54944ba158f78e43bce0",
+            "byteLength": 40,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "sample.ts",
+            "pathBytes": "c2FtcGxlLnRz",
+            "language": "typescript",
+            "origin": "git-blob",
+            "oid": "d0eaf82b9c0e20413d6aa59534cecb4fe56aac54",
+            "sha256": "b69718bb2bdfcc7cceeaa9978d2677261e333365b88fb70ee7f6021620e38190",
+            "byteLength": 40,
+            "state": "available",
+            "reason": null
+          }
+        ],
+        "diagnostics": [],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+        "symbolCount": 2
+      }
+    },
+    {
+      "id": "023441801bdd556d633891d7e3c3413cc273a2ef94540d28b93202221f882af4",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": "c2FtcGxlLnRz",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "910d4321ee43f78490c2575c84ffb9ec0fbe2602974c54944ba158f78e43bce0",
+          "b69718bb2bdfcc7cceeaa9978d2677261e333365b88fb70ee7f6021620e38190"
+        ],
+        "originatingEvidenceIds": [
+          "ac3282532c7571cb13a0dadc1883b72749bdcb9c32f9b771204057e63b3b496f",
+          "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+          "b0dce203a2f353598ff82ba48b6861fcebc6c597345fc6f7722a8c2ee108205a"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 1,
+        "side": "before",
+        "language": "typescript",
+        "kind": "function",
+        "name": "example",
+        "scope": [],
+        "range": {
+          "startByte": 7,
+          "endByte": 39,
+          "startLine": 1,
+          "endLine": 1,
+          "startColumn": 7,
+          "endColumn": 39
+        },
+        "contentHash": "06ec044a5d77bf36fd0065d4df7e63e08bc697c230c4d7995da10773b5bcdfca",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "candidate",
+        "counterpartOrdinal": 2,
+        "fileEvidenceId": "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+        "analysisEvidenceId": "ac3282532c7571cb13a0dadc1883b72749bdcb9c32f9b771204057e63b3b496f",
+        "hunkEvidenceIds": [
+          "b0dce203a2f353598ff82ba48b6861fcebc6c597345fc6f7722a8c2ee108205a"
+        ],
+        "sourceSha256": "910d4321ee43f78490c2575c84ffb9ec0fbe2602974c54944ba158f78e43bce0"
+      }
+    },
+    {
+      "id": "74c8f84ecc56da030a41394296f394b27bb530fb9e5ee8edb13ab8a612438be6",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": "c2FtcGxlLnRz",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "ordinal": 2
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "910d4321ee43f78490c2575c84ffb9ec0fbe2602974c54944ba158f78e43bce0",
+          "b69718bb2bdfcc7cceeaa9978d2677261e333365b88fb70ee7f6021620e38190"
+        ],
+        "originatingEvidenceIds": [
+          "ac3282532c7571cb13a0dadc1883b72749bdcb9c32f9b771204057e63b3b496f",
+          "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+          "b0dce203a2f353598ff82ba48b6861fcebc6c597345fc6f7722a8c2ee108205a"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 2,
+        "side": "after",
+        "language": "typescript",
+        "kind": "function",
+        "name": "example",
+        "scope": [],
+        "range": {
+          "startByte": 7,
+          "endByte": 39,
+          "startLine": 1,
+          "endLine": 1,
+          "startColumn": 7,
+          "endColumn": 39
+        },
+        "contentHash": "42cf08ce88bb2079fce8a213ffc8afcf2281976b3b4f6c1da6a97a95a07d0ca2",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "candidate",
+        "counterpartOrdinal": 1,
+        "fileEvidenceId": "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+        "analysisEvidenceId": "ac3282532c7571cb13a0dadc1883b72749bdcb9c32f9b771204057e63b3b496f",
+        "hunkEvidenceIds": [
+          "b0dce203a2f353598ff82ba48b6861fcebc6c597345fc6f7722a8c2ee108205a"
+        ],
+        "sourceSha256": "b69718bb2bdfcc7cceeaa9978d2677261e333365b88fb70ee7f6021620e38190"
+      }
+    },
+    {
+      "id": "d8734423e4128cb52453552e5a800b505ee7624cf41b27ae05ac0a40a7b39680",
+      "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+      "snapshotId": "8b82b0d8c82e1c4e39f9bdd2bd5b21ee44e0d4af96e8515d3c8ec0a96837503d",
+      "comparisonId": "eaf81261ce4eb41eae4a431b3f5dc93d231c6c8c004d7f73df52399ad6f323b1",
+      "subject": {
+        "pathBytes": "c2FtcGxlLnRz",
+        "originalPathBytes": "c2FtcGxlLnRz",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "candidate-discovery",
+        "method": "git-path-history",
+        "executed": true,
+        "arguments": [
+          [
+            "--literal-pathspecs",
+            "-c",
+            "log.follow=false",
+            "-c",
+            "log.showRoot=true",
+            "log",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-patch",
+            "--no-color",
+            "--no-abbrev-commit",
+            "--no-use-mailmap",
+            "--no-decorate",
+            "--no-show-signature",
+            "--no-notes",
+            "--no-renames",
+            "--topo-order",
+            "--max-count=21",
+            "--format=%H%x00%P",
+            "-z",
+            "--end-of-options",
+            "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "--",
+            "sample.ts"
+          ]
+        ],
+        "originatingEvidenceIds": [
+          "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "history",
+      "data": {
+        "fileEvidenceId": "fc9582d52aae8b61298c772e21badb963677198bbb02ba05dca31d50321fb210",
+        "outcome": "commits",
+        "headOid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+        "paths": [
+          "sample.ts"
+        ],
+        "arguments": [
+          "--literal-pathspecs",
+          "-c",
+          "log.follow=false",
+          "-c",
+          "log.showRoot=true",
+          "log",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-patch",
+          "--no-color",
+          "--no-abbrev-commit",
+          "--no-use-mailmap",
+          "--no-decorate",
+          "--no-show-signature",
+          "--no-notes",
+          "--no-renames",
+          "--topo-order",
+          "--max-count=21",
+          "--format=%H%x00%P",
+          "-z",
+          "--end-of-options",
+          "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+          "--",
+          "sample.ts"
+        ],
+        "commits": [
+          {
+            "oid": "03be94f0671d1efab8e691e0fba4a966bb0bc1ed",
+            "parents": []
+          }
+        ],
+        "truncated": false,
+        "shallow": false,
+        "reasons": [],
+        "querySemantics": "pinned-head-reachable-literal-path-history-no-follow-topological-order",
+        "runtimeBehavior": "not-inferred"
+      }
+    }
+  ],
+  "diagnostics": [],
+  "completeness": {
+    "state": "complete",
+    "reasons": [],
+    "repositoryStates": [
+      {
+        "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+        "state": "complete"
+      }
+    ],
+    "requestedRepositories": 1,
+    "collectedRepositories": 1,
+    "collectedEvidence": 8,
+    "omittedCount": 0
+  },
+  "analysis": {
+    "policy": "git-syntax-and-candidate-facts",
+    "unsupported": [
+      "references",
+      "behavior",
+      "return-types",
+      "impact",
+      "test-coverage",
+      "review-state"
+    ]
+  },
+  "trust": {
+    "repositoryContent": "untrusted-agent-input",
+    "export": "explicit-command-stdout-only"
+  },
+  "languageAnalysis": {
+    "requested": true,
+    "capabilities": {
+      "analyzer": "tree-sitter",
+      "runtime": "0.21.1",
+      "grammarAbi": 14,
+      "grammars": [
+        {
+          "language": "typescript",
+          "package": "tree-sitter-typescript",
+          "version": "0.23.2"
+        },
+        {
+          "language": "tsx",
+          "package": "tree-sitter-typescript",
+          "version": "0.23.2"
+        },
+        {
+          "language": "javascript",
+          "package": "tree-sitter-javascript",
+          "version": "0.23.1"
+        }
+      ],
+      "declarations": true,
+      "imports": true,
+      "topLevel": true,
+      "syntacticMatching": true,
+      "semanticReferences": false,
+      "typeChecking": false,
+      "inferredBehavior": false,
+      "inferredContracts": false,
+      "maxNodes": 100000,
+      "parseTimeoutMs": 250
+    },
+    "state": "complete",
+    "reasons": [],
+    "filesRequested": 1,
+    "filesAnalyzed": 1,
+    "omittedFiles": 0,
+    "evidenceIds": [
+      "ac3282532c7571cb13a0dadc1883b72749bdcb9c32f9b771204057e63b3b496f",
+      "023441801bdd556d633891d7e3c3413cc273a2ef94540d28b93202221f882af4",
+      "74c8f84ecc56da030a41394296f394b27bb530fb9e5ee8edb13ab8a612438be6"
+    ],
+    "limits": {
+      "maxSourceBytes": 16777216,
+      "maxSymbols": 20000,
+      "maxNodes": 100000,
+      "parseTimeoutMs": 250
+    },
+    "gitCompleteness": {
+      "state": "complete",
+      "reasons": [],
+      "omittedCount": 0
+    }
+  },
+  "discoveryAnalysis": {
+    "request": {
+      "references": false,
+      "relatedTests": false,
+      "history": true,
+      "maxSymbols": 32,
+      "maxResults": 50,
+      "maxHistory": 20
+    },
+    "limits": {
+      "maxCorpusFiles": 500,
+      "maxCorpusBytes": 16777216,
+      "maxFileBytes": 2097152,
+      "maxQueryBytes": 4194304,
+      "queryTimeoutMs": 10000,
+      "analysisTimeoutMs": 120000
+    },
+    "corpus": {
+      "state": "not-requested",
+      "reasons": [],
+      "snapshotIds": [],
+      "files": [],
+      "excludedFiles": 0,
+      "omittedFiles": 0
+    },
+    "references": {
+      "requested": false,
+      "state": "not-requested",
+      "reasons": [],
+      "queriesRequested": 0,
+      "queriesCollected": 0,
+      "omittedQueries": 0,
+      "evidenceIds": []
+    },
+    "relatedTests": {
+      "requested": false,
+      "state": "not-requested",
+      "reasons": [],
+      "queriesRequested": 0,
+      "queriesCollected": 0,
+      "omittedQueries": 0,
+      "evidenceIds": []
+    },
+    "history": {
+      "requested": true,
+      "state": "complete",
+      "reasons": [],
+      "queriesRequested": 1,
+      "queriesCollected": 1,
+      "omittedQueries": 0,
+      "evidenceIds": [
+        "d8734423e4128cb52453552e5a800b505ee7624cf41b27ae05ac0a40a7b39680"
+      ]
+    },
+    "syntaxCompleteness": {
+      "state": "complete",
+      "reasons": [],
+      "repositoryStates": [
+        {
+          "repositoryId": "0a8f31a6615976e800b221a872500e5ed8bac18c5a84bd4a7584aa198ef34b7e",
+          "state": "complete"
+        }
+      ],
+      "requestedRepositories": 1,
+      "collectedRepositories": 1,
+      "collectedEvidence": 7,
+      "omittedCount": 0
+    }
+  }
+}

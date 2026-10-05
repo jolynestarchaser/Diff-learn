@@ -2,6 +2,18 @@
 
 ## Unreleased — v0.1 preparation
 
+### Java syntax and local export UI
+
+- Added pinned Java grammar 0.23.5 on runtime 0.21.1 and independent schema 1.3.0, authoritative before/after declarations/ranges/hunk citations, explicit overload ambiguity and parsing limits. Historical readers and default Git facts/IDs remain intact.
+- Added read-only `dr ui --evidence` with validated loopback sessions and bundled production assets, repository/file explorer, inline/split hunks, declarations/provenance/diagnostics/coverage, English/Thai, keyboard/responsive layout and evidence-copy fallback.
+- Added synthetic historical/Java/partial/empty fixtures, production browser checks and installed-package Java/UI verification. Java reference/JUnit heuristics, UI review writes and live refresh remain follow-up work. Hosted Linux verification is pending.
+
+### CI correctness fixes
+
+- Isolated Git index readers and diff refresh in disposable copies while retaining content-aware raw/numstat/patch semantics and strict physical-index mutation guards.
+- Added byte/metadata preservation assertions for ordinary and split indexes, cancellation, intent-to-add/modes, attributes and byte-identical index replacement.
+- Canonicalized the Windows external-worktree fixture with path-aware containment; corrected public-source and hosted-CI documentation.
+
 ### Explicit local-review milestone
 
 - Added `review mark/list/reset` over explicitly exported concrete evidence snapshots, with independent schema 1.0.0 local state/output and English/Thai human messages.
@@ -21,7 +33,7 @@
 - Added scope-correct blob/index/retained-working source analysis inside snapshot verification, syntax declarations/imports/top-level mapping, deleted occurrences, ranges/hashes and explicit errors/ambiguous pairing.
 - Added `evidence/context --symbols`, schema 1.1.0 syntax coverage/observations and cited localized context, preserving default v0.1 data/schema. Behavior/contracts, semantic references, LSP and other grammars remain unsupported.
 
-Current package version: `0.1.0-dev.0`. No public GitHub or npm release has been made.
+Current package version: `0.1.0-dev.0`. The source repository is public; npm publication remains guarded by `private: true`.
 
 - Added single strict TypeScript package and `dr` commands: scan, status, diff, evidence, context, help and version.
 - Added validated workspace configuration, per-repository bases, bounded repository discovery and distinct worktree identities.

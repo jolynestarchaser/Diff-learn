@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -27,7 +27,11 @@ async function files(directory, prefix = '') {
 try {
   await writeFile(env.GIT_CONFIG_GLOBAL, '');
   const sourceFiles = (await files(path.join(workspace, 'src'))).filter(file => file.endsWith('.ts')).map(file => 'dist/' + file.replace(/\.ts$/u, '.js'));
-  const expectedFiles = [...sourceFiles, ...manifest.files.filter(file => file !== 'dist/**/*.js'), 'package.json'].sort();
+  const uiFiles = (await files(path.join(workspace, 'dist', 'ui-assets'))).map(file => 'dist/ui-assets/' + file);
+  assert.ok(uiFiles.includes('dist/ui-assets/index.html'));
+  assert.ok(uiFiles.some(file => file.endsWith('.css')) && uiFiles.some(file => file.endsWith('.js')));
+  assert.ok(uiFiles.every(file => file === 'dist/ui-assets/index.html' || /^dist\/ui-assets\/assets\/[A-Za-z0-9_-]+\.(?:js|css)$/u.test(file)), 'Only hashed production assets are shipped');
+  const expectedFiles = [...sourceFiles, ...uiFiles.filter(file => !file.endsWith('.js')), ...manifest.files.filter(file => !file.startsWith('dist/')), 'package.json', ...uiFiles.filter(file => file.endsWith('.js'))].sort();
   const inspect = metadata => {
     assert.equal(metadata.name, manifest.name); assert.equal(metadata.version, manifest.version); assert.deepEqual(metadata.bundled, []);
     assert.deepEqual(metadata.files.map(file => file.path).sort(), expectedFiles, 'Package allowlist differs from intended runtime/public documentation');
@@ -52,8 +56,10 @@ try {
   const installed = path.join(installation, 'node_modules', manifest.name);
   assert.deepEqual((await files(installed)).sort(), expectedFiles, 'Installed tarball contents differ from inspected pack');
   const actualManifest = JSON.parse(await readFile(path.join(installed, 'package.json'), 'utf8')); assert.equal(actualManifest.version, manifest.version); assert.equal(actualManifest.license, 'MIT');
+  const notices = await readFile(path.join(installed, 'THIRD-PARTY-NOTICES.md'), 'utf8'); assert.equal(notices, await readFile(path.join(workspace, 'THIRD-PARTY-NOTICES.md'), 'utf8')); assert.match(notices, /Copyright \(c\) Meta Platforms/u); assert.match(notices, /VoidZero Inc\. and Vite contributors/u);
   for (const [name, version] of Object.entries(manifest.dependencies)) assert.equal(JSON.parse(await readFile(path.join(installation, 'node_modules', name, 'package.json'), 'utf8')).version, version);
-  assert.ok(!(await readdir(path.join(installation, 'node_modules'))).includes('typescript'), 'Dev dependencies leaked into consumer installation');
+  const installedModules = await readdir(path.join(installation, 'node_modules'));
+  for (const name of ['typescript', 'react', 'react-dom', 'vite', 'playwright', '@playwright']) assert.ok(!installedModules.includes(name), `${name} development dependency leaked into consumer installation`);
   const shim = path.join(installation, 'node_modules', '.bin', process.platform === 'win32' ? 'dr.cmd' : 'dr');
   const dr = (args, cwd = installation, expected = 0) => {
     if (process.platform !== 'win32') return execute(shim, args, cwd, expected);
@@ -64,7 +70,7 @@ try {
   };
   assert.match(dr(['--help']).stdout, /evidence/u); assert.equal(dr(['--version']).stdout.trim(), manifest.version);
   const repository = path.join(temporary, 'synthetic repo ไทย'); await mkdir(repository);
-  const git = (...args) => execute('git', ['-c', 'core.autocrlf=false', ...args], repository);
+  const git = (...args) => execute('git', ['-c', 'core.autocrlf=false', '-c', 'core.hooksPath=.git/no-fixture-hooks', ...args], repository);
   git('init', '-b', 'main'); git('config', 'user.name', 'Synthetic Fixture'); git('config', 'user.email', 'fixture@example.invalid'); git('config', 'commit.gpgSign', 'false');
   await writeFile(path.join(repository, '.git', 'fixture-ignore'), ''); await writeFile(path.join(repository, '.git', 'fixture-attributes'), '');
   git('config', 'core.excludesFile', '.git/fixture-ignore'); git('config', 'core.attributesFile', '.git/fixture-attributes');
@@ -95,6 +101,32 @@ try {
   assert.equal(candidates.schemaVersion, '1.2.0'); assert.ok(candidates.evidence.some(entry => entry.kind === 'reference-candidate' && entry.confidence === 'candidate')); assert.ok(candidates.evidence.some(entry => entry.kind === 'history' && entry.data.commits.length)); assert.ok(candidates.evidence.filter(entry => entry.kind === 'related-test-query').every(entry => entry.data.testExecution === 'not-run'));
   await writeFile(reviewExport, JSON.stringify(candidates)); const candidateReview = JSON.parse(dr(['review', 'list', '--root', repository, '--evidence', reviewExport, '--json'], installation, 1).stdout); reviewOutputSchema.parse(candidateReview); assert.equal(candidateReview.reportKind, 'review'); assert.ok(candidateReview.rows.length > 0); assert.equal(candidateReview.inputCompleteness, 'partial');
   const candidateContext = dr(['context', '--root', repository, '--base', 'baseline', '--scope', 'staged', '--references', '--related-tests', '--history'], installation, 1).stdout; assert.match(candidateContext, /not confirm callers or dependencies/u); assert.match(candidateContext, /missing test nor a coverage gap/u);
+  await writeFile(path.join(repository, 'บริการ.java'), 'package synthetic; record บริการ(String ชื่อ) { String ข้อความ() { return "ไทย😀"; } }\r\n'); git('add', '--', 'บริการ.java');
+  const java = JSON.parse(dr(['evidence', '--root', repository, '--base', 'baseline', '--scope', 'staged', '--symbols', '--json'], installation, 1).stdout);
+  const { validateJavaSyntaxBundle } = await import(pathToFileURL(path.join(installed, 'dist', 'evidence', 'java-syntax.js')).href); validateJavaSyntaxBundle(java);
+  assert.equal(java.schemaVersion, '1.3.0'); assert.ok(java.evidence.some(entry => entry.kind === 'symbol' && entry.data.kind === 'record' && entry.data.name === 'บริการ')); assert.ok(java.evidence.some(entry => entry.kind === 'symbol' && entry.data.name === 'ข้อความ'));
+  const javaExport = path.join(temporary, 'java export ไทย.json'); await writeFile(javaExport, JSON.stringify(java));
+  assert.equal(JSON.parse(dr(['ui', '--evidence', path.join(temporary, 'absent.json'), '--json'], installation, 2).stdout).diagnostics[0].code, 'UI_EVIDENCE_INVALID');
+  const uiArgs = ['ui', '--evidence', javaExport, '--json'];
+  const literal = value => `'${value.replaceAll("'", "''")}'`;
+  const command = `$ErrorActionPreference = 'Stop'; [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); & ${[shim, ...uiArgs].map(literal).join(' ')}; exit $LASTEXITCODE`;
+  const child = process.platform === 'win32' ? spawn('powershell.exe', ['-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand', Buffer.from(command, 'utf16le').toString('base64')], { cwd: installation, env, shell: false, windowsHide: true }) : spawn(shim, uiArgs, { cwd: installation, env, shell: false });
+  try {
+    const ready = await new Promise((resolve, reject) => { let stdout = '', stderr = ''; const timer = setTimeout(() => reject(new Error('Installed UI did not become ready')), 20000); child.stderr.on('data', bytes => { stderr += bytes; }); child.on('error', reject); child.once('exit', code => { clearTimeout(timer); reject(new Error(`Installed UI exited ${code}: ${stderr}`)); }); child.stdout.on('data', bytes => { stdout += bytes; if (stdout.includes('\n')) { clearTimeout(timer); try { resolve(JSON.parse(stdout.trim())); } catch (error) { reject(error); } } }); });
+    assert.equal(ready.schemaVersion, '1.3.0'); assert.equal(ready.readOnly, true); assert.ok(!JSON.stringify(ready).includes('token'));
+    const response = await fetch(ready.url), html = await response.text(); assert.equal(response.status, 200); assert.match(response.headers.get('content-security-policy'), /frame-ancestors 'none'/u);
+    const bootstrap = /<script id="difflearn-bootstrap"[^>]*>([^<]+)<\/script>/u.exec(html); assert.ok(bootstrap); const { token } = JSON.parse(bootstrap[1]);
+    const api = route => fetch(new URL(route, ready.url), { headers: { 'X-Difflearn-Session': token } });
+    const session = await (await api('/api/session')).json(); assert.equal(session.schemaVersion, '1.3.0'); assert.equal(session.freshness, 'not-verified'); assert.equal((await fetch(new URL('/api/session', ready.url))).status, 403);
+    const original = java.evidence.find(entry => entry.kind === 'symbol' && entry.data.name === 'ข้อความ'); const inspected = await (await api(`/api/inspect?evidenceId=${original.id}`)).json(); assert.deepEqual(inspected.entry, original);
+    const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/gu)].map(match => match[1]); assert.equal(assets.length, 2);
+    for (const asset of assets) { const result = await fetch(new URL(asset, ready.url)); assert.equal(result.status, 200); assert.ok((await result.text()).length > 100); }
+    assert.deepEqual(JSON.parse(await readFile(javaExport, 'utf8')), java, 'UI must leave its input export unchanged');
+  } finally {
+    if (child.exitCode === null && child.pid) { if (process.platform === 'win32') execute('taskkill.exe', ['/PID', String(child.pid), '/T', '/F'], installation); else child.kill('SIGINT'); }
+    if (child.exitCode === null) await new Promise(resolve => child.once('exit', resolve));
+  }
+  console.log('Installed Java grammar loaded/parsed; actual dr ui shim served validated 1.3.0 evidence, original symbol IDs and production JS/CSS without development dependencies.');
   console.log(`Installed ${manifest.name}@${manifest.version}: actual ${path.basename(shim)} help/version, scan/status/diff/evidence, Thai context, JSON error, syntax/candidate/history partial coverage and explicit review mark/list/reset verified on ${process.platform}; synthetic Thai/space paths.`);
 } finally {
   // Only remove the absolute directory returned by this mkdtemp call.

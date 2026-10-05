@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, mkdir, writeFile, readFile, rm, rename, symlink } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, rm, rename, symlink, stat, utimes, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -36,6 +36,14 @@ async function collect(root: string, base: string | null = 'base', config = defa
   return collectRepository(found.repositories[0]!, config, limits, { workspaceBytes: 0 }, base ?? undefined, undefined, runner);
 }
 function comparison(repo: RepositoryStatus, scope: string) { return repo.comparisons.find(item => item.scope === scope)!; }
+async function physicalIndex(root: string) {
+  const directory = path.join(root, '.git');
+  const names = (await readdir(directory)).filter(name => name === 'index' || name.startsWith('sharedindex.')).sort();
+  return Promise.all(names.map(async name => {
+    const filename = path.join(directory, name); const info = await stat(filename, { bigint: true });
+    return { name, bytes: await readFile(filename), dev: info.dev, ino: info.ino, size: info.size, mode: info.mode, mtimeNs: info.mtimeNs, ctimeNs: info.ctimeNs };
+  }));
+}
 function assertGitPaths(root: string, repo: RepositoryStatus) {
   const h = repo.revisions!.head.oid; const m = repo.revisions!.mergeBase.oid;
   for (const scope of ['branch', 'staged', 'unstaged', 'all']) {
@@ -53,16 +61,20 @@ test('four direct scopes match Git; clean worktree still reports committed branc
   const clean = await collect(root); assert.equal(clean.state, 'complete', JSON.stringify(clean.diagnostics)); assert.equal(clean.workingTree?.clean, true); assert.equal(comparison(clean, 'branch').files.length, 1); assert.equal(comparison(clean, 'staged').files.length, 0); assertGitPaths(root, clean);
   assert.equal(clean.revisions?.head.oid, git(root, 'rev-parse', 'HEAD').toString().trim()); assert.equal(clean.revisions?.base.oid, git(root, 'rev-parse', 'base').toString().trim()); assert.equal(clean.revisions?.mergeBase.oid, git(root, 'merge-base', 'base', 'HEAD').toString().trim());
   await writeFile(path.join(root, 'file.txt'), 'staged\n'); git(root, 'add', '--', 'file.txt'); await writeFile(path.join(root, 'file.txt'), 'base\n');
-  const indexBefore = await readFile(path.join(root, '.git', 'index')); const repo = await collect(root);
+  const indexBefore = await physicalIndex(root); const repo = await collect(root);
+  assert.deepEqual(await physicalIndex(root), indexBefore, 'collection preserves index bytes and physical metadata');
   assert.equal(repo.state, 'complete', JSON.stringify(repo.diagnostics)); assertGitPaths(root, repo);
   assert.equal(comparison(repo, 'all').files.length, 0, 'committed and local edits cancel in net comparison'); assert.equal(comparison(repo, 'staged').files[0]?.added, 1); assert.equal(comparison(repo, 'unstaged').files[0]?.deleted, 1); assert.equal(repo.workingTree?.entries[0]?.xy, 'MM');
-  assert.deepEqual(await readFile(path.join(root, '.git', 'index')), indexBefore, 'collection does not refresh index');
   const repeated = await collect(root); assert.equal(repeated.snapshot.snapshotId, repo.snapshot.snapshotId);
 }));
 
 test('staged/unstaged cancellation uses direct all comparison', async () => fixture(async root => {
   await init(root); await writeFile(path.join(root, 'file.txt'), 'changed\n'); git(root, 'add', '--', 'file.txt'); await writeFile(path.join(root, 'file.txt'), 'base\n');
-  const repo = await collect(root); assertGitPaths(root, repo); assert.equal(comparison(repo, 'all').files.length, 0); assert.equal(comparison(repo, 'staged').files.length, 1); assert.equal(comparison(repo, 'unstaged').files.length, 1);
+  await utimes(path.join(root, 'file.txt'), new Date(0), new Date(0));
+  const indexBefore = await physicalIndex(root); const repo = await collect(root);
+  assert.equal(repo.state, 'complete', JSON.stringify(repo.diagnostics)); assert.equal(repo.snapshot.attempts, 1);
+  assert.deepEqual(await physicalIndex(root), indexBefore);
+  assertGitPaths(root, repo); assert.equal(comparison(repo, 'all').files.length, 0); assert.equal(comparison(repo, 'staged').files.length, 1); assert.equal(comparison(repo, 'unstaged').files.length, 1);
 }));
 
 test('renames retain both paths, binary numstat is null, and untracked metadata stays separate', async () => fixture(async root => {
@@ -154,10 +166,66 @@ test('truncated raw/numstat and unsupported path encoding remain observable', ()
 
 test('intent-to-add follows explicit visible-index policy and mode changes preserve metadata', async () => fixture(async root => {
   await init(root); await writeFile(path.join(root, 'intent.txt'), 'worktree\n'); git(root, 'add', '-N', '--', 'intent.txt'); git(root, 'update-index', '--chmod=+x', 'file.txt');
-  const repo = await collect(root); assert.equal(repo.state, 'complete', JSON.stringify(repo.diagnostics)); assertGitPaths(root, repo);
+  const indexBefore = await physicalIndex(root); const repo = await collect(root); assert.equal(repo.state, 'complete', JSON.stringify(repo.diagnostics));
+  assert.deepEqual(await physicalIndex(root), indexBefore);
   assert.equal(repo.capabilities?.intentToAddPolicy, 'experimental-visible-in-index'); assert.equal(repo.capabilities?.intentToAddPaths[0]?.path, 'intent.txt');
   const addition = comparison(repo, 'staged').files.find(file => file.destinationPath === 'intent.txt')!; assert.equal(addition.status, 'A'); assert.equal(addition.added, 0);
   const executable = comparison(repo, 'staged').files.find(file => file.destinationPath === 'file.txt')!; assert.equal(executable.oldMode, '100644'); assert.equal(executable.newMode, '100755'); assert.equal(executable.added, 0);
+  git(root, 'update-index', '--split-index'); const patchIndexBefore = await physicalIndex(root);
+  const found = await discover(await canonicalRoot(root), defaultConfig, limits);
+  for (const scope of ['branch', 'staged', 'unstaged', 'all'] as const) {
+    const patched = await collectRepository(found.repositories[0]!, defaultConfig, limits, { workspaceBytes: 0 }, 'base', undefined, runGit, { scope, includeUntracked: false });
+    assert.equal(patched.state, 'complete', JSON.stringify(patched.diagnostics)); assert.equal(patched.snapshot.attempts, 1);
+    const files = comparison(patched, scope).files;
+    assert.deepEqual(files.map(({ patch, ...file }) => file), comparison(repo, scope).files);
+    assert.ok(files.every(file => file.patch?.state === 'complete'));
+    if (scope === 'staged') {
+      assert.equal(files.find(file => file.destinationPath === 'intent.txt')!.patch!.hunks.length, 0);
+      assert.equal(files.find(file => file.destinationPath === 'file.txt')!.patch!.hunks.length, 0);
+    }
+    assert.deepEqual(await physicalIndex(root), patchIndexBefore);
+  }
+  assertGitPaths(root, repo);
+}));
+
+test('stat-only and attribute-normalized changes preserve ordinary and split indexes across metadata and patches', async () => fixture(async root => {
+  await init(root); await writeFile(path.join(root, '.gitattributes'), 'file.txt text eol=crlf\n'); git(root, 'add', '.gitattributes'); git(root, 'commit', '-m', 'attributes'); git(root, 'branch', '-f', 'base', 'HEAD');
+  // Same normalized content, deliberately stale stat data. No timing race needed.
+  await writeFile(path.join(root, 'file.txt'), 'base\r\n'); await utimes(path.join(root, 'file.txt'), new Date(0), new Date(0));
+  for (const split of [false, true]) {
+    if (split) git(root, 'update-index', '--split-index');
+    for (const refresh of ['false', 'true']) {
+      git(root, 'config', 'diff.autoRefreshIndex', refresh);
+      const indexBefore = await physicalIndex(root); const repo = await collect(root);
+      assert.equal(repo.state, 'complete', JSON.stringify(repo.diagnostics)); assert.equal(repo.snapshot.attempts, 1);
+      assert.ok(repo.comparisons.every(item => item.files.length === 0));
+      assert.deepEqual(await physicalIndex(root), indexBefore);
+      const found = await discover(await canonicalRoot(root), defaultConfig, limits);
+      for (const scope of ['branch', 'staged', 'unstaged', 'all'] as const) {
+        const patched = await collectRepository(found.repositories[0]!, defaultConfig, limits, { workspaceBytes: 0 }, 'base', undefined, runGit, { scope, includeUntracked: false });
+        assert.equal(patched.state, 'complete', JSON.stringify(patched.diagnostics)); assert.equal(patched.snapshot.attempts, 1);
+        assert.equal(comparison(patched, scope).files.length, 0); assert.equal(comparison(patched, scope).patchCoverage?.totalBytes, 0);
+        assert.deepEqual(await physicalIndex(root), indexBefore, `${scope}, split=${split}, refresh=${refresh}`);
+      }
+    }
+  }
+}));
+
+test('byte-identical physical index replacement remains a real snapshot mutation', async () => fixture(async root => {
+  await init(root); let replacements = 0;
+  const replaceIndex: GitRunner = async (...args) => {
+    const result = await runGit(...args);
+    if (args[1].includes('--numstat')) {
+      const filename = path.join(root, '.git', 'index'); const temporary = path.join(root, '.git', `replacement-${++replacements}`);
+      await writeFile(temporary, await readFile(filename)); await rename(temporary, filename);
+    }
+    return result;
+  };
+  const indexBefore = (await physicalIndex(root))[0]!.bytes;
+  const repo = await collect(root, 'base', defaultConfig, replaceIndex);
+  assert.deepEqual((await physicalIndex(root))[0]!.bytes, indexBefore);
+  assert.equal(repo.state, 'failed'); assert.equal(repo.snapshot.attempts, 2); assert.equal(repo.snapshot.consistency, 'inconsistent');
+  assert.ok(repo.reasons.includes('SNAPSHOT_INCONSISTENT')); assert.deepEqual(repo.comparisons, []);
 }));
 
 test('multiple merge-bases are exposed instead of selecting an arbitrary ancestor', async () => fixture(async root => {

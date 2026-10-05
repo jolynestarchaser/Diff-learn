@@ -1,12 +1,11 @@
-import type { Evidence, EvidenceBundle } from '../evidence/schema.js';
-import type { SyntaxBundle } from '../evidence/syntax.js';
-import type { CandidateBundle } from '../evidence/candidates.js';
+import type { Evidence } from '../evidence/schema.js';
+import type { ReadEvidenceBundle } from '../evidence/read.js';
 import { ScanError } from '../config/load.js';
 import { digest } from '../git/snapshot.js';
 import { compareText } from '../git/identity.js';
 import { acknowledgmentId, contextId, reviewLimits, validateReviewState, type Acknowledgment, type ReviewState, type ReviewRow } from './schema.js';
 
-export type ReviewBundle = EvidenceBundle | SyntaxBundle | CandidateBundle;
+export type ReviewBundle = ReadEvidenceBundle;
 type Hunk = Extract<Evidence, { kind: 'hunk' }>;
 type File = Extract<Evidence, { kind: 'file-change' }>;
 type Current = { hunk: Hunk; file: File; acknowledgment: Acknowledgment; eligible: boolean; identical: boolean; beforeUnique: boolean };

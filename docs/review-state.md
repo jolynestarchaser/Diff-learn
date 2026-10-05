@@ -2,6 +2,8 @@
 
 `dr review mark`, `list`, and `reset` manage acknowledgments in `<root>/.difflearn/review-state.json`. This is local user state, separate from Git/file/hunk evidence, syntax/candidate facts, and their schemas. No collection or context command reads or writes acknowledgments. **Reviewed means a user explicitly acknowledged the cited hunk; it does not mean correct, safe, understood, tested, or approved for release.**
 
+Evidence loading accepts versioned 1.0.0/1.1.0/1.2.0 and Java 1.3.0 exports without loading native parsers. `dr ui --evidence` shares that validation but remains a read-only captured-export viewer: copy handoff does not acknowledge or update review state. Review writes and live refresh in the UI are follow-up work; use the explicit terminal commands below for acknowledgments.
+
 ## Commands and snapshots
 
 ```sh

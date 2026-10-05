@@ -1,0 +1,3051 @@
+{
+  "schemaVersion": "1.3.0",
+  "reportKind": "evidence",
+  "collector": {
+    "name": "difflearn",
+    "version": "0.1.0-dev.0",
+    "gitVersion": "git version 2.53.0.windows.1"
+  },
+  "collection": {
+    "startedAt": "2026-10-05T04:40:19.722Z",
+    "endedAt": "2026-10-05T04:40:25.855Z"
+  },
+  "request": {
+    "root": "C:/synthetic/ui-workspace",
+    "configPath": null,
+    "repositories": [],
+    "base": "base",
+    "scopes": [
+      "staged"
+    ],
+    "contentPolicy": "metadata-only",
+    "comparisonOptions": [
+      "--no-ext-diff",
+      "--no-textconv",
+      "--no-color",
+      "--no-relative",
+      "--diff-algorithm=myers",
+      "--no-indent-heuristic",
+      "--find-renames=50%",
+      "-l1000",
+      "-O/dev/null",
+      "--submodule=short",
+      "--ignore-submodules=none",
+      "--src-prefix=a/",
+      "--dst-prefix=b/",
+      "--unified=3",
+      "--full-index",
+      "--abbrev=64",
+      "--ita-visible-in-index",
+      "--inter-hunk-context=0",
+      "--patch"
+    ],
+    "immutableAttributeSource": "captured-head",
+    "limits": {
+      "maxDepth": 8,
+      "maxDirectories": 50000,
+      "maxRepositories": 128,
+      "concurrency": 4,
+      "gitTimeoutMs": 30000,
+      "repoTimeoutMs": 120000,
+      "maxMetadataBytes": 16777216,
+      "maxFiles": 10000,
+      "maxHunks": 20000,
+      "maxFileBytes": 2097152,
+      "maxPatchBytes": 16777216,
+      "maxBundleBytes": 67108864,
+      "maxSnapshotBytes": 268435456,
+      "maxWorkspaceSnapshotBytes": 1073741824
+    }
+  },
+  "discovery": {
+    "visitedDirectories": 3,
+    "readableDirectories": 3,
+    "candidateCount": 2,
+    "discoveredCount": 2,
+    "selectedCount": 2,
+    "remainingCount": null,
+    "subprocessConcurrency": 1,
+    "excludeDirectories": [
+      ".agents",
+      ".aws",
+      ".codex",
+      ".difflearn",
+      ".git",
+      ".ssh",
+      ".test-dist",
+      "build",
+      "coverage",
+      "dist",
+      "node_modules",
+      "vendor"
+    ],
+    "excludePaths": [],
+    "submodulePolicy": "parent-only",
+    "symlinkPolicy": "do-not-follow",
+    "skippedCount": 1,
+    "omittedDetails": 0,
+    "skipped": [
+      {
+        "path": "synthetic-service/.git",
+        "reason": "excluded"
+      }
+    ],
+    "incompleteSubtrees": [
+      "failed-peer"
+    ]
+  },
+  "repositories": [
+    {
+      "repositoryId": "fc6e039789a0a83663f137ec8e0745da9d46b2d03e6084699a7d8a496b4aa62a",
+      "key": "failed-peer",
+      "path": "failed-peer",
+      "kind": "failed",
+      "topLevel": null,
+      "gitDirectory": null,
+      "commonDirectory": null,
+      "linkedWorktree": null,
+      "objectFormat": null,
+      "baseConfiguration": {
+        "input": null,
+        "source": null,
+        "state": "not-resolved"
+      },
+      "submodules": [],
+      "state": "failed",
+      "reasons": [
+        "REPOSITORY_INVALID"
+      ],
+      "snapshot": {
+        "snapshotId": null,
+        "consistency": "unverified",
+        "attempts": 0,
+        "startedAt": "2026-10-05T04:40:20.669Z",
+        "endedAt": "2026-10-05T04:40:20.669Z",
+        "bytesHashed": 0
+      },
+      "revisions": null,
+      "workingTree": null,
+      "fingerprints": null,
+      "capabilities": null,
+      "repositoryEvidenceId": null,
+      "untrackedEvidenceIds": [],
+      "conflictEvidenceIds": [],
+      "excludedUntrackedCount": null,
+      "comparisons": []
+    },
+    {
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "key": "synthetic-service",
+      "path": "synthetic-service",
+      "kind": "worktree",
+      "topLevel": "C:/synthetic/ui-workspace\\synthetic-service",
+      "gitDirectory": "C:/synthetic/ui-workspace\\synthetic-service\\.git",
+      "commonDirectory": "C:/synthetic/ui-workspace\\synthetic-service\\.git",
+      "linkedWorktree": false,
+      "objectFormat": "sha1",
+      "baseConfiguration": {
+        "input": null,
+        "source": null,
+        "state": "not-resolved"
+      },
+      "submodules": [],
+      "state": "complete",
+      "reasons": [],
+      "snapshot": {
+        "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+        "consistency": "verified-optimistic",
+        "attempts": 1,
+        "startedAt": "2026-10-05T04:40:20.669Z",
+        "endedAt": "2026-10-05T04:40:25.855Z",
+        "bytesHashed": 2344
+      },
+      "revisions": {
+        "head": {
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "branch": "main",
+          "state": "attached"
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "mergeBase": {
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "candidates": [
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+          ],
+          "reason": null,
+          "shallow": false
+        }
+      },
+      "workingTree": {
+        "available": true,
+        "clean": false,
+        "reasons": [],
+        "headers": {
+          "branch.oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "branch.head": "main"
+        },
+        "untracked": [],
+        "entries": [
+          {
+            "path": "Broken.java",
+            "pathBytes": "QnJva2VuLmphdmE=",
+            "kind": "ordinary",
+            "xy": "A.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "Deleted.java",
+            "pathBytes": "RGVsZXRlZC5qYXZh",
+            "kind": "ordinary",
+            "xy": "D.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "empty.txt",
+            "pathBytes": "ZW1wdHkudHh0",
+            "kind": "ordinary",
+            "xy": "A.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "image.bin",
+            "pathBytes": "aW1hZ2UuYmlu",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "mode.txt",
+            "pathBytes": "bW9kZS50eHQ=",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "unsupported.py",
+            "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          },
+          {
+            "path": "บริการ.java",
+            "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+            "kind": "ordinary",
+            "xy": "M.",
+            "submodule": "N...",
+            "originalPath": null,
+            "originalPathBytes": null
+          }
+        ]
+      },
+      "fingerprints": {
+        "index": "23e30bb1f1d46c75d02a3cb84ac00098ab6d5fa2227ff8af45c9618049207ff2",
+        "workingTree": "0ef014a4944340ba037eb33e6d4204bdfc208c598596451c6aa3b0e67cae0649",
+        "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+        "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+      },
+      "capabilities": {
+        "sparseCheckout": false,
+        "restrictedPaths": [],
+        "activeFilterPaths": [],
+        "intentToAddPaths": [],
+        "intentToAddPolicy": "experimental-visible-in-index"
+      },
+      "repositoryEvidenceId": "cc1f3aa81db21554174c9d1fdcbf51cb73e33fef7d56da061209aa0ddd9e77a1",
+      "untrackedEvidenceIds": [],
+      "conflictEvidenceIds": [],
+      "excludedUntrackedCount": 0,
+      "comparisons": [
+        {
+          "scope": "staged",
+          "state": "complete",
+          "before": {
+            "kind": "commit",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+          },
+          "after": {
+            "kind": "index",
+            "oid": null
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "reasons": [],
+          "omittedCount": 0,
+          "fileCount": 7,
+          "patchCoverage": {
+            "source": "git",
+            "retainedBytes": 1992,
+            "observedBytesLowerBound": 1992,
+            "totalBytes": 1992,
+            "truncated": false,
+            "observedHunks": 5,
+            "omittedHunks": 0
+          },
+          "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+          "evidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+          "fileEvidenceIds": [
+            "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+            "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+            "1b81b47d4acf105e35c22e1c9fd810fc0c90dc7f1c80b5999cc94b1c47f94728",
+            "6cb600159c8fe8b58f98e6d0e6ed77206ced91ef91cf04da38201114e6aea4a7",
+            "725de007075709576a35263ebf78be5b42f0335773a7ef4ac2bdd2cee40f97ae",
+            "bd25cb12a1a4a9eb25d19c631fe2c1acf18bf7bd7b0a5febf68d9495102cd010",
+            "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f"
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "cc1f3aa81db21554174c9d1fdcbf51cb73e33fef7d56da061209aa0ddd9e77a1",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": null,
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "snapshot-metadata",
+        "executed": true,
+        "arguments": [
+          [
+            "rev-parse",
+            "--verify",
+            "--end-of-options",
+            "HEAD^{commit}"
+          ],
+          [
+            "ls-files",
+            "--stage",
+            "-z"
+          ],
+          [
+            "status",
+            "--porcelain=v2",
+            "-z",
+            "--branch",
+            "--untracked-files=all",
+            "--ignore-submodules=none"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": []
+      },
+      "confidence": "fact",
+      "kind": "repository",
+      "data": {
+        "key": "synthetic-service",
+        "path": "synthetic-service",
+        "objectFormat": "sha1",
+        "linkedWorktree": false,
+        "submodules": [],
+        "revisions": {
+          "head": {
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "branch": "main",
+            "state": "attached"
+          },
+          "base": {
+            "input": "base",
+            "resolutionSource": "cli",
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "reason": null,
+            "remoteFreshness": "not-verified"
+          },
+          "mergeBase": {
+            "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "candidates": [
+              "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+            ],
+            "reason": null,
+            "shallow": false
+          }
+        },
+        "workingTree": {
+          "available": true,
+          "clean": false,
+          "reasons": [],
+          "headers": {
+            "branch.oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "branch.head": "main"
+          },
+          "untracked": [],
+          "entries": [
+            {
+              "path": "Broken.java",
+              "pathBytes": "QnJva2VuLmphdmE=",
+              "kind": "ordinary",
+              "xy": "A.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "Deleted.java",
+              "pathBytes": "RGVsZXRlZC5qYXZh",
+              "kind": "ordinary",
+              "xy": "D.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "empty.txt",
+              "pathBytes": "ZW1wdHkudHh0",
+              "kind": "ordinary",
+              "xy": "A.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "image.bin",
+              "pathBytes": "aW1hZ2UuYmlu",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "mode.txt",
+              "pathBytes": "bW9kZS50eHQ=",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "unsupported.py",
+              "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            },
+            {
+              "path": "บริการ.java",
+              "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+              "kind": "ordinary",
+              "xy": "M.",
+              "submodule": "N...",
+              "originalPath": null,
+              "originalPathBytes": null
+            }
+          ]
+        },
+        "fingerprints": {
+          "index": "23e30bb1f1d46c75d02a3cb84ac00098ab6d5fa2227ff8af45c9618049207ff2",
+          "workingTree": "0ef014a4944340ba037eb33e6d4204bdfc208c598596451c6aa3b0e67cae0649",
+          "configuration": "56f56a4bbb3d911c5ceea20549b2f183f49f07865bdc426a1206c00c67e754cd",
+          "attributes": "0b3b9960bea20aba8480825e7c26a5af7c5f1c35e283c53b4ba61d010687bbec"
+        },
+        "capabilities": {
+          "sparseCheckout": false,
+          "restrictedPaths": [],
+          "activeFilterPaths": [],
+          "intentToAddPaths": [],
+          "intentToAddPolicy": "experimental-visible-in-index"
+        }
+      }
+    },
+    {
+      "id": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": null,
+        "originalPathBytes": null,
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "cc1f3aa81db21554174c9d1fdcbf51cb73e33fef7d56da061209aa0ddd9e77a1"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "comparison",
+      "data": {
+        "scope": "staged",
+        "state": "complete",
+        "before": {
+          "kind": "commit",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        },
+        "after": {
+          "kind": "index",
+          "oid": null
+        },
+        "base": {
+          "input": "base",
+          "resolutionSource": "cli",
+          "oid": "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "reason": null,
+          "remoteFreshness": "not-verified"
+        },
+        "reasons": [],
+        "omittedCount": 0,
+        "fileCount": 7,
+        "patchCoverage": {
+          "source": "git",
+          "retainedBytes": 1992,
+          "observedBytesLowerBound": 1992,
+          "totalBytes": 1992,
+          "truncated": false,
+          "observedHunks": 5,
+          "omittedHunks": 0
+        }
+      }
+    },
+    {
+      "id": "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "QnJva2VuLmphdmE=",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "Broken.java",
+        "destinationPath": "Broken.java",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "destinationPathBytes": "QnJva2VuLmphdmE=",
+        "status": "A",
+        "similarity": null,
+        "oldMode": "000000",
+        "newMode": "100644",
+        "oldOid": null,
+        "newOid": "e159aa9683cbe1e694485ad44e59c52a334ad359",
+        "kind": "file",
+        "binary": false,
+        "added": 3,
+        "deleted": 0,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 1,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "ec9e40650943c8a27a25adccf93349faf515ade4acbae54f3c1dcfd4cde75d0d",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "QnJva2VuLmphdmE=",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "diff-parser",
+        "method": "unified-two-sided",
+        "arguments": [
+          "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "diff",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-color",
+          "--no-relative",
+          "--diff-algorithm=myers",
+          "--no-indent-heuristic",
+          "--find-renames=50%",
+          "-l1000",
+          "-O/dev/null",
+          "--submodule=short",
+          "--ignore-submodules=none",
+          "--src-prefix=a/",
+          "--dst-prefix=b/",
+          "--unified=3",
+          "--full-index",
+          "--abbrev=64",
+          "--ita-visible-in-index",
+          "--inter-hunk-context=0",
+          "--patch",
+          "--cached",
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "--"
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "hunk",
+      "data": {
+        "fileEvidenceId": "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+        "ordinal": 1,
+        "oldStart": 0,
+        "oldCount": 0,
+        "newStart": 1,
+        "newCount": 3,
+        "heading": "",
+        "headingBytes": "",
+        "lines": [
+          {
+            "kind": "add",
+            "content": "class Broken {",
+            "contentBytes": "Y2xhc3MgQnJva2VuIHs=",
+            "oldLine": null,
+            "newLine": 1,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "add",
+            "content": " void incomplete( {",
+            "contentBytes": "IHZvaWQgaW5jb21wbGV0ZSggew==",
+            "oldLine": null,
+            "newLine": 2,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "add",
+            "content": "}",
+            "contentBytes": "fQ==",
+            "oldLine": null,
+            "newLine": 3,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          }
+        ],
+        "noNewlineMarkers": []
+      }
+    },
+    {
+      "id": "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "Deleted.java",
+        "destinationPath": "Deleted.java",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "destinationPathBytes": "RGVsZXRlZC5qYXZh",
+        "status": "D",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "000000",
+        "oldOid": "a52a84791b7347091b682248b992bb13fac4f2ee",
+        "newOid": null,
+        "kind": "file",
+        "binary": false,
+        "added": 0,
+        "deleted": 3,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 1,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "be7abfce1ff0ff73e65b1fc31632332ce1203f8cf5d4385345b7b44ac762021c",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "diff-parser",
+        "method": "unified-two-sided",
+        "arguments": [
+          "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "diff",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-color",
+          "--no-relative",
+          "--diff-algorithm=myers",
+          "--no-indent-heuristic",
+          "--find-renames=50%",
+          "-l1000",
+          "-O/dev/null",
+          "--submodule=short",
+          "--ignore-submodules=none",
+          "--src-prefix=a/",
+          "--dst-prefix=b/",
+          "--unified=3",
+          "--full-index",
+          "--abbrev=64",
+          "--ita-visible-in-index",
+          "--inter-hunk-context=0",
+          "--patch",
+          "--cached",
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "--"
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "hunk",
+      "data": {
+        "fileEvidenceId": "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+        "ordinal": 1,
+        "oldStart": 1,
+        "oldCount": 3,
+        "newStart": 0,
+        "newCount": 0,
+        "heading": "",
+        "headingBytes": "",
+        "lines": [
+          {
+            "kind": "remove",
+            "content": "class Deleted {",
+            "contentBytes": "Y2xhc3MgRGVsZXRlZCB7",
+            "oldLine": 1,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "remove",
+            "content": "  void gone() {}",
+            "contentBytes": "ICB2b2lkIGdvbmUoKSB7fQ==",
+            "oldLine": 2,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "remove",
+            "content": "}",
+            "contentBytes": "fQ==",
+            "oldLine": 3,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          }
+        ],
+        "noNewlineMarkers": []
+      }
+    },
+    {
+      "id": "1b81b47d4acf105e35c22e1c9fd810fc0c90dc7f1c80b5999cc94b1c47f94728",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "ZW1wdHkudHh0",
+        "originalPathBytes": "ZW1wdHkudHh0",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "empty.txt",
+        "destinationPath": "empty.txt",
+        "originalPathBytes": "ZW1wdHkudHh0",
+        "destinationPathBytes": "ZW1wdHkudHh0",
+        "status": "A",
+        "similarity": null,
+        "oldMode": "000000",
+        "newMode": "100644",
+        "oldOid": null,
+        "newOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "kind": "file",
+        "binary": false,
+        "added": 0,
+        "deleted": 0,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 0,
+          "collectedHunks": 0,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "6cb600159c8fe8b58f98e6d0e6ed77206ced91ef91cf04da38201114e6aea4a7",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "aW1hZ2UuYmlu",
+        "originalPathBytes": "aW1hZ2UuYmlu",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "image.bin",
+        "destinationPath": "image.bin",
+        "originalPathBytes": "aW1hZ2UuYmlu",
+        "destinationPathBytes": "aW1hZ2UuYmlu",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "8352675d67aed6625ece79af41c27fdb4ee2e867",
+        "newOid": "6d5b70e046595c49ed0f36eddbd2b2f5e6714087",
+        "kind": "file",
+        "binary": true,
+        "added": null,
+        "deleted": null,
+        "patch": {
+          "state": "metadata-only",
+          "representation": "binary",
+          "observedHunks": 0,
+          "collectedHunks": 0,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "725de007075709576a35263ebf78be5b42f0335773a7ef4ac2bdd2cee40f97ae",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "bW9kZS50eHQ=",
+        "originalPathBytes": "bW9kZS50eHQ=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "mode.txt",
+        "destinationPath": "mode.txt",
+        "originalPathBytes": "bW9kZS50eHQ=",
+        "destinationPathBytes": "bW9kZS50eHQ=",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100755",
+        "oldOid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+        "newOid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+        "kind": "file",
+        "binary": false,
+        "added": 0,
+        "deleted": 0,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 0,
+          "collectedHunks": 0,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "bd25cb12a1a4a9eb25d19c631fe2c1acf18bf7bd7b0a5febf68d9495102cd010",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "unsupported.py",
+        "destinationPath": "unsupported.py",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "destinationPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "50042191c3f66e72db61c3d4a83f1582ff317bd5",
+        "newOid": "755335fa36ed557405f872a10a6978ffdabf4d30",
+        "kind": "file",
+        "binary": false,
+        "added": 1,
+        "deleted": 1,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 1,
+          "collectedHunks": 1,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "105d0e75f9767eee6d108536394bb93a87b9cf93c8b99a90883c158ef6c44a1c",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "diff-parser",
+        "method": "unified-two-sided",
+        "arguments": [
+          "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "diff",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-color",
+          "--no-relative",
+          "--diff-algorithm=myers",
+          "--no-indent-heuristic",
+          "--find-renames=50%",
+          "-l1000",
+          "-O/dev/null",
+          "--submodule=short",
+          "--ignore-submodules=none",
+          "--src-prefix=a/",
+          "--dst-prefix=b/",
+          "--unified=3",
+          "--full-index",
+          "--abbrev=64",
+          "--ita-visible-in-index",
+          "--inter-hunk-context=0",
+          "--patch",
+          "--cached",
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "--"
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "bd25cb12a1a4a9eb25d19c631fe2c1acf18bf7bd7b0a5febf68d9495102cd010",
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "hunk",
+      "data": {
+        "fileEvidenceId": "bd25cb12a1a4a9eb25d19c631fe2c1acf18bf7bd7b0a5febf68d9495102cd010",
+        "ordinal": 1,
+        "oldStart": 1,
+        "oldCount": 1,
+        "newStart": 1,
+        "newCount": 1,
+        "heading": "",
+        "headingBytes": "",
+        "lines": [
+          {
+            "kind": "remove",
+            "content": "def example(): return 1",
+            "contentBytes": "ZGVmIGV4YW1wbGUoKTogcmV0dXJuIDE=",
+            "oldLine": 1,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "add",
+            "content": "def example(): return 2",
+            "contentBytes": "ZGVmIGV4YW1wbGUoKTogcmV0dXJuIDI=",
+            "oldLine": null,
+            "newLine": 1,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          }
+        ],
+        "noNewlineMarkers": []
+      }
+    },
+    {
+      "id": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "git",
+        "method": "diff-raw-numstat",
+        "executed": true,
+        "arguments": [
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--raw",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ],
+          [
+            "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-color",
+            "--no-relative",
+            "--diff-algorithm=myers",
+            "--no-indent-heuristic",
+            "--find-renames=50%",
+            "-l1000",
+            "-O/dev/null",
+            "--submodule=short",
+            "--ignore-submodules=none",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
+            "--unified=3",
+            "--no-patch",
+            "--full-index",
+            "--abbrev=64",
+            "--ita-visible-in-index",
+            "--numstat",
+            "-z",
+            "--cached",
+            "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+            "--"
+          ]
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "file-change",
+      "data": {
+        "comparisonEvidenceId": "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7",
+        "originalPath": "บริการ.java",
+        "destinationPath": "บริการ.java",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "destinationPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "status": "M",
+        "similarity": null,
+        "oldMode": "100644",
+        "newMode": "100644",
+        "oldOid": "8044ea037e0d3a4dddea2a2f046da6c62c3fa4c5",
+        "newOid": "ddfeb6455824e86f0c6d96ac00d4e538b198dcc3",
+        "kind": "file",
+        "binary": false,
+        "added": 2,
+        "deleted": 2,
+        "patch": {
+          "state": "complete",
+          "representation": "unified",
+          "observedHunks": 2,
+          "collectedHunks": 2,
+          "omittedHunks": 0,
+          "reasons": []
+        }
+      }
+    },
+    {
+      "id": "6f76c0c0f583dba6890acd0c7cd3f09d62c8aa2482ae31025a8e8773884609e0",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "diff-parser",
+        "method": "unified-two-sided",
+        "arguments": [
+          "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "diff",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-color",
+          "--no-relative",
+          "--diff-algorithm=myers",
+          "--no-indent-heuristic",
+          "--find-renames=50%",
+          "-l1000",
+          "-O/dev/null",
+          "--submodule=short",
+          "--ignore-submodules=none",
+          "--src-prefix=a/",
+          "--dst-prefix=b/",
+          "--unified=3",
+          "--full-index",
+          "--abbrev=64",
+          "--ita-visible-in-index",
+          "--inter-hunk-context=0",
+          "--patch",
+          "--cached",
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "--"
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "hunk",
+      "data": {
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "ordinal": 1,
+        "oldStart": 5,
+        "oldCount": 7,
+        "newStart": 5,
+        "newCount": 7,
+        "heading": " public class บริการ {",
+        "headingBytes": "IHB1YmxpYyBjbGFzcyDguJrguKPguLTguIHguLLguKMgew==",
+        "lines": [
+          {
+            "kind": "context",
+            "content": "  private int count = 1;\r",
+            "contentBytes": "ICBwcml2YXRlIGludCBjb3VudCA9IDE7DQ==",
+            "oldLine": 5,
+            "newLine": 5,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "\r",
+            "contentBytes": "DQ==",
+            "oldLine": 6,
+            "newLine": 6,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "  public String ชื่อ() {\r",
+            "contentBytes": "ICBwdWJsaWMgU3RyaW5nIOC4iuC4t+C5iOC4rSgpIHsN",
+            "oldLine": 7,
+            "newLine": 7,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "remove",
+            "content": "    return \"ก่อน😀 <img src=x onerror=alert(1)>\";\r",
+            "contentBytes": "ICAgIHJldHVybiAi4LiB4LmI4Lit4LiZ8J+YgCA8aW1nIHNyYz14IG9uZXJyb3I9YWxlcnQoMSk+IjsN",
+            "oldLine": 8,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "add",
+            "content": "    return \"หลัง😀 <img src=x onerror=alert(1)>\";\r",
+            "contentBytes": "ICAgIHJldHVybiAi4Lir4Lil4Lix4LiH8J+YgCA8aW1nIHNyYz14IG9uZXJyb3I9YWxlcnQoMSk+IjsN",
+            "oldLine": null,
+            "newLine": 8,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "  }\r",
+            "contentBytes": "ICB9DQ==",
+            "oldLine": 9,
+            "newLine": 9,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "\r",
+            "contentBytes": "DQ==",
+            "oldLine": 10,
+            "newLine": 10,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "\r",
+            "contentBytes": "DQ==",
+            "oldLine": 11,
+            "newLine": 11,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          }
+        ],
+        "noNewlineMarkers": []
+      }
+    },
+    {
+      "id": "60bb822ee26034cea7c6490f84ebebd1b4b09c64b0fac1b016ef3c1396caa1ab",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": 2
+      },
+      "source": {
+        "kind": "diff-parser",
+        "method": "unified-two-sided",
+        "arguments": [
+          "--attr-source=5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "diff",
+          "--no-ext-diff",
+          "--no-textconv",
+          "--no-color",
+          "--no-relative",
+          "--diff-algorithm=myers",
+          "--no-indent-heuristic",
+          "--find-renames=50%",
+          "-l1000",
+          "-O/dev/null",
+          "--submodule=short",
+          "--ignore-submodules=none",
+          "--src-prefix=a/",
+          "--dst-prefix=b/",
+          "--unified=3",
+          "--full-index",
+          "--abbrev=64",
+          "--ita-visible-in-index",
+          "--inter-hunk-context=0",
+          "--patch",
+          "--cached",
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce",
+          "--"
+        ],
+        "inputOids": [
+          "5f3dc222f4c2f8fc6c00d017000a25f333491fce"
+        ],
+        "originatingEvidenceIds": [
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+          "8b2a4d68a8211cd3ed8c475c8bc0bfd3a63905064d28902fee8f5637c6c150f7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "hunk",
+      "data": {
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "ordinal": 2,
+        "oldStart": 17,
+        "oldCount": 7,
+        "newStart": 17,
+        "newCount": 7,
+        "heading": " public class บริการ {",
+        "headingBytes": "IHB1YmxpYyBjbGFzcyDguJrguKPguLTguIHguLLguKMgew==",
+        "lines": [
+          {
+            "kind": "context",
+            "content": "\r",
+            "contentBytes": "DQ==",
+            "oldLine": 17,
+            "newLine": 17,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "\r",
+            "contentBytes": "DQ==",
+            "oldLine": 18,
+            "newLine": 18,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "  public int choose(int value) {\r",
+            "contentBytes": "ICBwdWJsaWMgaW50IGNob29zZShpbnQgdmFsdWUpIHsN",
+            "oldLine": 19,
+            "newLine": 19,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "remove",
+            "content": "    return 1;\r",
+            "contentBytes": "ICAgIHJldHVybiAxOw0=",
+            "oldLine": 20,
+            "newLine": null,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "add",
+            "content": "    return 2;\r",
+            "contentBytes": "ICAgIHJldHVybiAyOw0=",
+            "oldLine": null,
+            "newLine": 20,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "  }\r",
+            "contentBytes": "ICB9DQ==",
+            "oldLine": 21,
+            "newLine": 21,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "  public int choose(String value) { return 3; }\r",
+            "contentBytes": "ICBwdWJsaWMgaW50IGNob29zZShTdHJpbmcgdmFsdWUpIHsgcmV0dXJuIDM7IH0N",
+            "oldLine": 22,
+            "newLine": 22,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          },
+          {
+            "kind": "context",
+            "content": "}\r",
+            "contentBytes": "fQ0=",
+            "oldLine": 23,
+            "newLine": 23,
+            "oldNoNewline": false,
+            "newNoNewline": false
+          }
+        ],
+        "noNewlineMarkers": []
+      }
+    },
+    {
+      "id": "eb3e402cc94e38a5312d32ef021d33ddb028e7c56d8abb0dfc74a23fad9ddd74",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "QnJva2VuLmphdmE=",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10"
+        ],
+        "originatingEvidenceIds": [
+          "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "partial",
+        "reasons": [
+          "SYMBOL_SYNTAX_ERROR"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "Broken.java",
+            "pathBytes": "QnJva2VuLmphdmE=",
+            "language": "java",
+            "origin": "absent",
+            "oid": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "byteLength": 0,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "Broken.java",
+            "pathBytes": "QnJva2VuLmphdmE=",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "e159aa9683cbe1e694485ad44e59c52a334ad359",
+            "sha256": "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10",
+            "byteLength": 37,
+            "state": "available",
+            "reason": null
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_SYNTAX_ERROR",
+            "side": "after",
+            "range": {
+              "startByte": 32,
+              "endByte": 32,
+              "startLine": 2,
+              "endLine": 2,
+              "startColumn": 17,
+              "endColumn": 17
+            },
+            "message": "Syntax errors or missing tokens; affected declarations are withheld"
+          }
+        ],
+        "unmappedChangedLines": 2,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+        "symbolCount": 1
+      }
+    },
+    {
+      "id": "d2066984af82c155cc6ecea27132223a2d3a4d3d18531fd130d32d464ffeb5c4",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "QnJva2VuLmphdmE=",
+        "originalPathBytes": "QnJva2VuLmphdmE=",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10"
+        ],
+        "originatingEvidenceIds": [
+          "eb3e402cc94e38a5312d32ef021d33ddb028e7c56d8abb0dfc74a23fad9ddd74",
+          "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+          "ec9e40650943c8a27a25adccf93349faf515ade4acbae54f3c1dcfd4cde75d0d"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 1,
+        "side": "after",
+        "language": "java",
+        "kind": "top-level",
+        "name": null,
+        "scope": [],
+        "range": {
+          "startByte": 0,
+          "endByte": 37,
+          "startLine": 1,
+          "endLine": 4,
+          "startColumn": 0,
+          "endColumn": 0
+        },
+        "contentHash": "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "not-applicable",
+        "counterpartOrdinal": null,
+        "fileEvidenceId": "d64a97c03c8e952f30002c716ac62e40ae49fc10d37636bd56cdc25c409a9283",
+        "analysisEvidenceId": "eb3e402cc94e38a5312d32ef021d33ddb028e7c56d8abb0dfc74a23fad9ddd74",
+        "hunkEvidenceIds": [
+          "ec9e40650943c8a27a25adccf93349faf515ade4acbae54f3c1dcfd4cde75d0d"
+        ],
+        "sourceSha256": "1b0433ab212ce18feb858a0c2bfce4084572efbf9d3a607485dd91e0c2ab6c10"
+      }
+    },
+    {
+      "id": "f182d678c1fb554c49df3ec9c1de519c6a04eda77d08d6bcb8c5b7ac617f6aca",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "originatingEvidenceIds": [
+          "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "complete",
+        "reasons": [],
+        "sources": [
+          {
+            "side": "before",
+            "path": "Deleted.java",
+            "pathBytes": "RGVsZXRlZC5qYXZh",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "a52a84791b7347091b682248b992bb13fac4f2ee",
+            "sha256": "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495",
+            "byteLength": 35,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "Deleted.java",
+            "pathBytes": "RGVsZXRlZC5qYXZh",
+            "language": "java",
+            "origin": "absent",
+            "oid": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "byteLength": 0,
+            "state": "available",
+            "reason": null
+          }
+        ],
+        "diagnostics": [],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+        "symbolCount": 2
+      }
+    },
+    {
+      "id": "fd0e61a93bad776b3a2d4c9e2057341e8097237bdb07f8648e18e403690969a5",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "originatingEvidenceIds": [
+          "f182d678c1fb554c49df3ec9c1de519c6a04eda77d08d6bcb8c5b7ac617f6aca",
+          "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+          "be7abfce1ff0ff73e65b1fc31632332ce1203f8cf5d4385345b7b44ac762021c"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 1,
+        "side": "before",
+        "language": "java",
+        "kind": "class",
+        "name": "Deleted",
+        "scope": [],
+        "range": {
+          "startByte": 0,
+          "endByte": 34,
+          "startLine": 1,
+          "endLine": 3,
+          "startColumn": 0,
+          "endColumn": 1
+        },
+        "contentHash": "caeca579efd007c2b4b268d9df0db2584ba5f16ec00d00b0f2d7c685dc4cbc12",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "unmatched",
+        "counterpartOrdinal": null,
+        "fileEvidenceId": "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+        "analysisEvidenceId": "f182d678c1fb554c49df3ec9c1de519c6a04eda77d08d6bcb8c5b7ac617f6aca",
+        "hunkEvidenceIds": [
+          "be7abfce1ff0ff73e65b1fc31632332ce1203f8cf5d4385345b7b44ac762021c"
+        ],
+        "sourceSha256": "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495"
+      }
+    },
+    {
+      "id": "47165f6244599ea0901656f120c1a151dff469d08bd531fc12f443082c9db0ab",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "RGVsZXRlZC5qYXZh",
+        "originalPathBytes": "RGVsZXRlZC5qYXZh",
+        "ordinal": 2
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "originatingEvidenceIds": [
+          "f182d678c1fb554c49df3ec9c1de519c6a04eda77d08d6bcb8c5b7ac617f6aca",
+          "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+          "be7abfce1ff0ff73e65b1fc31632332ce1203f8cf5d4385345b7b44ac762021c"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 2,
+        "side": "before",
+        "language": "java",
+        "kind": "method",
+        "name": "gone",
+        "scope": [
+          {
+            "kind": "class",
+            "name": "Deleted"
+          }
+        ],
+        "range": {
+          "startByte": 18,
+          "endByte": 32,
+          "startLine": 2,
+          "endLine": 2,
+          "startColumn": 2,
+          "endColumn": 16
+        },
+        "contentHash": "dfeef95fd99b1a56d663fb8cad6ff1664268295a96aec89a73928c9fe68627b8",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "unmatched",
+        "counterpartOrdinal": null,
+        "signatureDisplay": "gone()",
+        "fileEvidenceId": "801865b4cd444b256c484a639547c71df0dc296f967156f5dee6eee9eca0761f",
+        "analysisEvidenceId": "f182d678c1fb554c49df3ec9c1de519c6a04eda77d08d6bcb8c5b7ac617f6aca",
+        "hunkEvidenceIds": [
+          "be7abfce1ff0ff73e65b1fc31632332ce1203f8cf5d4385345b7b44ac762021c"
+        ],
+        "sourceSha256": "cd1a2a6c5c08a02708316fdd17df9f11197cf5eb5bcb07132f0a6655696fa495"
+      }
+    },
+    {
+      "id": "d4098ca390ad8d2eb65b3c925d51de73c43be3661cbde4a5660feafc599a9bf3",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "ZW1wdHkudHh0",
+        "originalPathBytes": "ZW1wdHkudHh0",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "originatingEvidenceIds": [
+          "1b81b47d4acf105e35c22e1c9fd810fc0c90dc7f1c80b5999cc94b1c47f94728"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "empty.txt",
+            "pathBytes": "ZW1wdHkudHh0",
+            "language": null,
+            "origin": "absent",
+            "oid": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "byteLength": 0,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "empty.txt",
+            "pathBytes": "ZW1wdHkudHh0",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "1b81b47d4acf105e35c22e1c9fd810fc0c90dc7f1c80b5999cc94b1c47f94728",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "7127deb0c603fcd5fe24411f7f8a565e6e28526fbce14799c834a468cbb428aa",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "aW1hZ2UuYmlu",
+        "originalPathBytes": "aW1hZ2UuYmlu",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "6cb600159c8fe8b58f98e6d0e6ed77206ced91ef91cf04da38201114e6aea4a7"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED",
+          "SYMBOL_PATCH_INCOMPLETE"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "image.bin",
+            "pathBytes": "aW1hZ2UuYmlu",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "8352675d67aed6625ece79af41c27fdb4ee2e867",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          },
+          {
+            "side": "after",
+            "path": "image.bin",
+            "pathBytes": "aW1hZ2UuYmlu",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "6d5b70e046595c49ed0f36eddbd2b2f5e6714087",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_PATCH_INCOMPLETE",
+            "side": null,
+            "range": null,
+            "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "6cb600159c8fe8b58f98e6d0e6ed77206ced91ef91cf04da38201114e6aea4a7",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "874620d33219f80a54f835d3582d6f5df01423ecd7509c368e079b72dd208864",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "bW9kZS50eHQ=",
+        "originalPathBytes": "bW9kZS50eHQ=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "725de007075709576a35263ebf78be5b42f0335773a7ef4ac2bdd2cee40f97ae"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "mode.txt",
+            "pathBytes": "bW9kZS50eHQ=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          },
+          {
+            "side": "after",
+            "path": "mode.txt",
+            "pathBytes": "bW9kZS50eHQ=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "1275430f1765c63e539cb0452565563bd6aef6a6",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "725de007075709576a35263ebf78be5b42f0335773a7ef4ac2bdd2cee40f97ae",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "dddfb109ceb886b38b4fc6efa4172404753e9470093adf8790e78bb636290ea0",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "originalPathBytes": "dW5zdXBwb3J0ZWQucHk=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": false,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [],
+        "originatingEvidenceIds": [
+          "bd25cb12a1a4a9eb25d19c631fe2c1acf18bf7bd7b0a5febf68d9495102cd010"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "unavailable",
+        "reasons": [
+          "SYMBOL_LANGUAGE_UNSUPPORTED"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "unsupported.py",
+            "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "50042191c3f66e72db61c3d4a83f1582ff317bd5",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          },
+          {
+            "side": "after",
+            "path": "unsupported.py",
+            "pathBytes": "dW5zdXBwb3J0ZWQucHk=",
+            "language": null,
+            "origin": "git-blob",
+            "oid": "755335fa36ed557405f872a10a6978ffdabf4d30",
+            "sha256": null,
+            "byteLength": null,
+            "state": "unavailable",
+            "reason": "SYMBOL_LANGUAGE_UNSUPPORTED"
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "before",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          },
+          {
+            "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+            "side": "after",
+            "range": null,
+            "message": "Source side unavailable for declaration analysis"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "bd25cb12a1a4a9eb25d19c631fe2c1acf18bf7bd7b0a5febf68d9495102cd010",
+        "symbolCount": 0
+      }
+    },
+    {
+      "id": "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": null
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343",
+          "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+        ],
+        "originatingEvidenceIds": [
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "language-analysis",
+      "data": {
+        "state": "partial",
+        "reasons": [
+          "SYMBOL_MATCH_AMBIGUOUS"
+        ],
+        "sources": [
+          {
+            "side": "before",
+            "path": "บริการ.java",
+            "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "8044ea037e0d3a4dddea2a2f046da6c62c3fa4c5",
+            "sha256": "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343",
+            "byteLength": 353,
+            "state": "available",
+            "reason": null
+          },
+          {
+            "side": "after",
+            "path": "บริการ.java",
+            "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+            "language": "java",
+            "origin": "git-blob",
+            "oid": "ddfeb6455824e86f0c6d96ac00d4e538b198dcc3",
+            "sha256": "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55",
+            "byteLength": 353,
+            "state": "available",
+            "reason": null
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "SYMBOL_MATCH_AMBIGUOUS",
+            "side": null,
+            "range": null,
+            "message": "Repeated kind/name/scope cannot establish a unique syntactic pairing; occurrences remain separate"
+          }
+        ],
+        "unmappedChangedLines": 0,
+        "omittedSymbols": 0,
+        "changeInterpretation": "syntax-only",
+        "references": "unavailable",
+        "behavior": "unavailable",
+        "contracts": "unavailable",
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "symbolCount": 4
+      }
+    },
+    {
+      "id": "e523f4d4fbbffd86d4ea76cbcd74525f2b285ecefddf3c8ea873d6f574863f10",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": 1
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343",
+          "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+        ],
+        "originatingEvidenceIds": [
+          "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+          "6f76c0c0f583dba6890acd0c7cd3f09d62c8aa2482ae31025a8e8773884609e0"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 1,
+        "side": "before",
+        "language": "java",
+        "kind": "method",
+        "name": "ชื่อ",
+        "scope": [
+          {
+            "kind": "class",
+            "name": "บริการ"
+          }
+        ],
+        "range": {
+          "startByte": 131,
+          "endByte": 227,
+          "startLine": 7,
+          "endLine": 9,
+          "startColumn": 2,
+          "endColumn": 3
+        },
+        "contentHash": "df4b5aa3df4569562151559d3b61db57823411f842d922ea53fb20ee99f7f43f",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "candidate",
+        "counterpartOrdinal": 3,
+        "signatureDisplay": "ชื่อ()",
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "analysisEvidenceId": "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+        "hunkEvidenceIds": [
+          "6f76c0c0f583dba6890acd0c7cd3f09d62c8aa2482ae31025a8e8773884609e0"
+        ],
+        "sourceSha256": "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343"
+      }
+    },
+    {
+      "id": "c5af7b893cbce423512bbb2ffe8f1cf6eb24247ca94d21da4ac6dda9b177b7d9",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": 2
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343",
+          "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+        ],
+        "originatingEvidenceIds": [
+          "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+          "60bb822ee26034cea7c6490f84ebebd1b4b09c64b0fac1b016ef3c1396caa1ab"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 2,
+        "side": "before",
+        "language": "java",
+        "kind": "method",
+        "name": "choose",
+        "scope": [
+          {
+            "kind": "class",
+            "name": "บริการ"
+          }
+        ],
+        "range": {
+          "startByte": 249,
+          "endByte": 299,
+          "startLine": 19,
+          "endLine": 21,
+          "startColumn": 2,
+          "endColumn": 3
+        },
+        "contentHash": "8f284330c5f614a690747474c2dabc5da025fae271f1d4a9db9d45c103263e32",
+        "hunkOrdinals": [
+          2
+        ],
+        "matching": "ambiguous",
+        "counterpartOrdinal": null,
+        "signatureDisplay": "choose(int value)",
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "analysisEvidenceId": "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+        "hunkEvidenceIds": [
+          "60bb822ee26034cea7c6490f84ebebd1b4b09c64b0fac1b016ef3c1396caa1ab"
+        ],
+        "sourceSha256": "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343"
+      }
+    },
+    {
+      "id": "479d9cdfaa563abbe0ac9007d1c2a09070113076308212f0aad18054935506b1",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": 3
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343",
+          "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+        ],
+        "originatingEvidenceIds": [
+          "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+          "6f76c0c0f583dba6890acd0c7cd3f09d62c8aa2482ae31025a8e8773884609e0"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 3,
+        "side": "after",
+        "language": "java",
+        "kind": "method",
+        "name": "ชื่อ",
+        "scope": [
+          {
+            "kind": "class",
+            "name": "บริการ"
+          }
+        ],
+        "range": {
+          "startByte": 131,
+          "endByte": 227,
+          "startLine": 7,
+          "endLine": 9,
+          "startColumn": 2,
+          "endColumn": 3
+        },
+        "contentHash": "32b32cf5b1d4336f81aed4e413ca06ff9f4bb1bc349ae3629f852f9a6d5f109d",
+        "hunkOrdinals": [
+          1
+        ],
+        "matching": "candidate",
+        "counterpartOrdinal": 1,
+        "signatureDisplay": "ชื่อ()",
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "analysisEvidenceId": "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+        "hunkEvidenceIds": [
+          "6f76c0c0f583dba6890acd0c7cd3f09d62c8aa2482ae31025a8e8773884609e0"
+        ],
+        "sourceSha256": "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+      }
+    },
+    {
+      "id": "00ee8c17dded6a9f7682dd66687778ce71d118b66361019abe7f2aaaf7fbbb29",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "snapshotId": "f5d4223658320e647cbcba7e4a45782c6d7e5cb1313c4210e1203e27c539f4df",
+      "comparisonId": "8d57447d9973f988e3d54e0c89c8eb53941222f33ca23af4aa35cae66c7ecdd2",
+      "subject": {
+        "pathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "originalPathBytes": "4Lia4Lij4Li04LiB4Liy4LijLmphdmE=",
+        "ordinal": 4
+      },
+      "source": {
+        "kind": "syntax-parser",
+        "method": "containing-declarations",
+        "executed": true,
+        "runtime": "0.21.1",
+        "grammarAbi": 14,
+        "contentHashes": [
+          "cea3ae6209f4e99cbf3e82fde60360245836440203b08b6d240e941f31844343",
+          "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+        ],
+        "originatingEvidenceIds": [
+          "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+          "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+          "60bb822ee26034cea7c6490f84ebebd1b4b09c64b0fac1b016ef3c1396caa1ab"
+        ]
+      },
+      "confidence": "fact",
+      "kind": "symbol",
+      "data": {
+        "ordinal": 4,
+        "side": "after",
+        "language": "java",
+        "kind": "method",
+        "name": "choose",
+        "scope": [
+          {
+            "kind": "class",
+            "name": "บริการ"
+          }
+        ],
+        "range": {
+          "startByte": 249,
+          "endByte": 299,
+          "startLine": 19,
+          "endLine": 21,
+          "startColumn": 2,
+          "endColumn": 3
+        },
+        "contentHash": "4c351344d4ac861b7771cf93a70f77b0f6eccd660dbb4ebaaf44a949ee040ea9",
+        "hunkOrdinals": [
+          2
+        ],
+        "matching": "ambiguous",
+        "counterpartOrdinal": null,
+        "signatureDisplay": "choose(int value)",
+        "fileEvidenceId": "8f5846e85fb56b93e890c99c1c7a968953bb6fd74bb03385ceddce89ebae011f",
+        "analysisEvidenceId": "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+        "hunkEvidenceIds": [
+          "60bb822ee26034cea7c6490f84ebebd1b4b09c64b0fac1b016ef3c1396caa1ab"
+        ],
+        "sourceSha256": "32ab2dc54f3c0a6375101e17036546240741400d36de61fac0ab061949cc9f55"
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "REPOSITORY_INVALID",
+      "severity": "warning",
+      "stage": "discovery",
+      "repositoryId": "fc6e039789a0a83663f137ec8e0745da9d46b2d03e6084699a7d8a496b4aa62a",
+      "path": "failed-peer",
+      "scope": null,
+      "message": "Git verification failed (exit 128): fatal: not a git repository: C:/Users/Jstarc/AppData/Local/Temp/difflearn-ui-fixture-GHP1VV/workspace/failed-peer/missing-synthetic-metadata\n"
+    },
+    {
+      "code": "SYMBOL_SYNTAX_ERROR",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "Broken.java",
+      "scope": "staged",
+      "message": "Syntax errors or missing tokens; affected declarations are withheld"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "empty.txt",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_PATCH_INCOMPLETE",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "image.bin",
+      "scope": "staged",
+      "message": "Only retained complete hunks can be mapped; patch coverage is incomplete"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "image.bin",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "image.bin",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "mode.txt",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "mode.txt",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "unsupported.py",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "unsupported.py",
+      "scope": "staged",
+      "message": "Source side unavailable for declaration analysis"
+    },
+    {
+      "code": "SYMBOL_MATCH_AMBIGUOUS",
+      "severity": "warning",
+      "stage": "collection",
+      "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+      "path": "บริการ.java",
+      "scope": "staged",
+      "message": "Repeated kind/name/scope cannot establish a unique syntactic pairing; occurrences remain separate"
+    }
+  ],
+  "completeness": {
+    "state": "partial",
+    "reasons": [
+      "REPOSITORY_INVALID",
+      "SYMBOL_GIT_COVERAGE_INCOMPLETE",
+      "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "SYMBOL_MATCH_AMBIGUOUS",
+      "SYMBOL_PATCH_INCOMPLETE",
+      "SYMBOL_SYNTAX_ERROR"
+    ],
+    "repositoryStates": [
+      {
+        "repositoryId": "fc6e039789a0a83663f137ec8e0745da9d46b2d03e6084699a7d8a496b4aa62a",
+        "state": "failed"
+      },
+      {
+        "repositoryId": "2ad12802eab76488cafde30fe4aa0407b9a366829d4cee795d63b6f33a3e2b08",
+        "state": "complete"
+      }
+    ],
+    "requestedRepositories": 2,
+    "collectedRepositories": 1,
+    "collectedEvidence": 28,
+    "omittedCount": null
+  },
+  "analysis": {
+    "policy": "git-and-syntax-facts",
+    "unsupported": [
+      "references",
+      "behavior",
+      "return-types",
+      "impact",
+      "test-coverage",
+      "history",
+      "review-state"
+    ]
+  },
+  "trust": {
+    "repositoryContent": "untrusted-agent-input",
+    "export": "explicit-command-stdout-only"
+  },
+  "languageAnalysis": {
+    "requested": true,
+    "capabilities": {
+      "analyzer": "tree-sitter",
+      "runtime": "0.21.1",
+      "grammarAbi": 14,
+      "grammars": [
+        {
+          "language": "typescript",
+          "package": "tree-sitter-typescript",
+          "version": "0.23.2"
+        },
+        {
+          "language": "tsx",
+          "package": "tree-sitter-typescript",
+          "version": "0.23.2"
+        },
+        {
+          "language": "javascript",
+          "package": "tree-sitter-javascript",
+          "version": "0.23.1"
+        },
+        {
+          "language": "java",
+          "package": "tree-sitter-java",
+          "version": "0.23.5"
+        }
+      ],
+      "declarations": true,
+      "imports": true,
+      "topLevel": true,
+      "syntacticMatching": true,
+      "semanticReferences": false,
+      "typeChecking": false,
+      "inferredBehavior": false,
+      "inferredContracts": false,
+      "maxNodes": 100000,
+      "parseTimeoutMs": 250
+    },
+    "state": "partial",
+    "reasons": [
+      "SYMBOL_GIT_COVERAGE_INCOMPLETE",
+      "SYMBOL_LANGUAGE_UNSUPPORTED",
+      "SYMBOL_MATCH_AMBIGUOUS",
+      "SYMBOL_PATCH_INCOMPLETE",
+      "SYMBOL_SYNTAX_ERROR"
+    ],
+    "filesRequested": 7,
+    "filesAnalyzed": 3,
+    "omittedFiles": 0,
+    "evidenceIds": [
+      "eb3e402cc94e38a5312d32ef021d33ddb028e7c56d8abb0dfc74a23fad9ddd74",
+      "d2066984af82c155cc6ecea27132223a2d3a4d3d18531fd130d32d464ffeb5c4",
+      "f182d678c1fb554c49df3ec9c1de519c6a04eda77d08d6bcb8c5b7ac617f6aca",
+      "fd0e61a93bad776b3a2d4c9e2057341e8097237bdb07f8648e18e403690969a5",
+      "47165f6244599ea0901656f120c1a151dff469d08bd531fc12f443082c9db0ab",
+      "d4098ca390ad8d2eb65b3c925d51de73c43be3661cbde4a5660feafc599a9bf3",
+      "7127deb0c603fcd5fe24411f7f8a565e6e28526fbce14799c834a468cbb428aa",
+      "874620d33219f80a54f835d3582d6f5df01423ecd7509c368e079b72dd208864",
+      "dddfb109ceb886b38b4fc6efa4172404753e9470093adf8790e78bb636290ea0",
+      "d386e4e5f3dc3958d3828a4a1793b973fa807caa0d42339d47ee12cac20442d8",
+      "e523f4d4fbbffd86d4ea76cbcd74525f2b285ecefddf3c8ea873d6f574863f10",
+      "c5af7b893cbce423512bbb2ffe8f1cf6eb24247ca94d21da4ac6dda9b177b7d9",
+      "479d9cdfaa563abbe0ac9007d1c2a09070113076308212f0aad18054935506b1",
+      "00ee8c17dded6a9f7682dd66687778ce71d118b66361019abe7f2aaaf7fbbb29"
+    ],
+    "limits": {
+      "maxSourceBytes": 16777216,
+      "maxSymbols": 20000,
+      "maxNodes": 100000,
+      "parseTimeoutMs": 250
+    },
+    "gitCompleteness": {
+      "state": "partial",
+      "reasons": [
+        "REPOSITORY_INVALID"
+      ],
+      "omittedCount": null
+    }
+  }
+}

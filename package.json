@@ -14,13 +14,23 @@
   },
   "files": [
     "dist/**/*.js",
+    "dist/ui-assets/index.html",
+    "dist/ui-assets/assets/*",
     "README.md",
     "CONTRIBUTING.md",
     "LICENSE",
+    "THIRD-PARTY-NOTICES.md",
     "CHANGELOG.md",
     ".difflearn.example.json",
     "docs/implementation-plan.md",
     "docs/adr/0001-evidence-contract.md",
+    "docs/adr/0002-java-and-export-ui.md",
+    "docs/java-syntax-evidence.schema.json",
+    "docs/ui-design.md",
+    "docs/ux-flows/UX-FLOWS.md",
+    "docs/ux-flows/wireframes/workspace.html",
+    "docs/ux-flows/wireframes/wide.html",
+    "docs/ux-flows/wireframes/states.html",
     "docs/evidence.schema.json",
     "docs/syntax-evidence.schema.json",
     "docs/language-analysis.md",
@@ -32,9 +42,10 @@
   ],
   "scripts": {
     "setup": "npm ci --ignore-scripts --no-audit --no-fund && npm run build && npm link --ignore-scripts --no-audit --no-fund",
-    "build": "tsc -p tsconfig.build.json",
-    "typecheck": "tsc -p tsconfig.json",
-    "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=4 .test-dist/tests/cli.test.js .test-dist/tests/config.test.js .test-dist/tests/discovery.test.js .test-dist/tests/status.test.js .test-dist/tests/diff.test.js .test-dist/tests/evidence.test.js .test-dist/tests/language.test.js .test-dist/tests/candidates.test.js .test-dist/tests/review.test.js",
+    "build": "tsc -p tsconfig.build.json && vite build --config ui/vite.config.ts",
+    "typecheck": "tsc -p tsconfig.json && tsc -p ui/tsconfig.json",
+    "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=4 .test-dist/tests/cli.test.js .test-dist/tests/config.test.js .test-dist/tests/discovery.test.js .test-dist/tests/status.test.js .test-dist/tests/diff.test.js .test-dist/tests/evidence.test.js .test-dist/tests/language.test.js .test-dist/tests/java.test.js .test-dist/tests/ui.test.js .test-dist/tests/candidates.test.js .test-dist/tests/review.test.js",
+    "verify:ui": "npm run build && node scripts/verify-ui.mjs",
     "schema": "npm run build && node scripts/generate-schema.mjs",
     "verify:package": "npm run build && npm pack --dry-run --json",
     "verify:artifact": "npm run build && node scripts/verify-artifact.mjs"
@@ -42,12 +53,19 @@
   "dependencies": {
     "commander": "15.0.0",
     "tree-sitter": "0.21.1",
+    "tree-sitter-java": "0.23.5",
     "tree-sitter-javascript": "0.23.1",
     "tree-sitter-typescript": "0.23.2",
     "zod": "4.6.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@types/node": "24.19.0",
-    "typescript": "6.0.2"
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "typescript": "6.0.2",
+    "vite": "8.3.2"
   }
 }

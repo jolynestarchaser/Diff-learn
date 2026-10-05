@@ -3,14 +3,14 @@ import type { GitAdapter } from '../git/adapter.js';
 import type { capture } from '../git/snapshot.js';
 import type { FileChange } from '../git/metadata.js';
 import type { FilePatch } from '../diff/unified.js';
-import { languageForPath, type LanguageAnalyzer, type SourceSnapshot } from './contracts.js';
+import { type LanguageAnalyzer, type SourceSnapshot } from './contracts.js';
 
 export async function analyzeFile(adapter: GitAdapter, analyzer: LanguageAnalyzer, file: FileChange, patch: FilePatch, captured: Awaited<ReturnType<typeof capture>>, workingAfter: boolean, budget: { bytes: number; symbols: number }) {
   const sources: { snapshot: SourceSnapshot; bytes: Buffer | null }[] = [];
   for (const side of ['before', 'after'] as const) {
     const before = side === 'before'; const path = before ? file.originalPath : file.destinationPath; const pathBytes = before ? file.originalPathBytes : file.destinationPathBytes;
     const mode = before ? file.oldMode : file.newMode; const oid = before ? file.oldOid : file.newOid; const origin = mode === '000000' ? 'absent' : !before && workingAfter ? 'filesystem' : 'git-blob';
-    const snapshot: SourceSnapshot = { side, path, pathBytes, language: languageForPath(path), origin, oid: origin === 'git-blob' ? oid : null, sha256: null, byteLength: null, state: 'unavailable', reason: null };
+    const snapshot: SourceSnapshot = { side, path, pathBytes, language: analyzer.languageForPath(path), origin, oid: origin === 'git-blob' ? oid : null, sha256: null, byteLength: null, state: 'unavailable', reason: null };
     let bytes: Buffer | null = null;
     if (mode === '000000') bytes = Buffer.alloc(0);
     else if (!snapshot.language) snapshot.reason = 'SYMBOL_LANGUAGE_UNSUPPORTED';

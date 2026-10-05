@@ -3,9 +3,7 @@ import type { Command } from 'commander';
 import { ScanError } from '../config/load.js';
 import { canonicalRoot } from '../git/discovery.js';
 import { digest } from '../git/snapshot.js';
-import { validateBundle } from '../evidence/schema.js';
-import { validateSyntaxBundle } from '../evidence/syntax.js';
-import { validateCandidateBundle } from '../evidence/candidates.js';
+import { readEvidenceBundle } from '../evidence/read.js';
 import { listReview, markReview, type ReviewBundle } from '../review/matching.js';
 import { emptyReviewState, reviewLimits, reviewReportSchema, type ReviewReport } from '../review/schema.js';
 import { readBoundedJson, readReviewState, mutateReviewState, reviewStateFile } from '../review/store.js';
@@ -17,9 +15,8 @@ async function readEvidence(filename: string, root: string): Promise<ReviewBundl
   catch (error) { if (error instanceof ScanError) throw error; throw new ScanError('REVIEW_EVIDENCE_READ', 'Cannot read the supplied evidence file', 1); }
   let bundle: ReviewBundle;
   try {
-    const version = value && typeof value === 'object' && 'schemaVersion' in value ? value.schemaVersion : null;
-    bundle = version === '1.0.0' ? validateBundle(value) : version === '1.1.0' ? validateSyntaxBundle(value) : version === '1.2.0' ? validateCandidateBundle(value) : (() => { throw new Error('Unsupported evidence version'); })();
-  } catch { throw new ScanError('REVIEW_EVIDENCE_INVALID', 'Expected a validated evidence bundle version 1.0.0, 1.1.0 or 1.2.0, with intact IDs and parent references', 2); }
+    bundle = readEvidenceBundle(value);
+  } catch { throw new ScanError('REVIEW_EVIDENCE_INVALID', 'Expected a validated evidence bundle version 1.0.0, 1.1.0, 1.2.0 or 1.3.0, with intact IDs and parent references', 2); }
   if (await canonicalRoot(bundle.request.root) !== root) throw new ScanError('REVIEW_ROOT_MISMATCH', '--root must match the exported evidence workspace; recollect evidence after moving a workspace', 2);
   return bundle;
 }
@@ -42,7 +39,7 @@ export function registerReview(program: Command, signal: AbortSignal): void {
       .option('--root <directory>', 'workspace directory owning state (default cwd)')
       .option('--lang <locale>', 'human output: en or th (default en)')
       .option('--json', 'emit one English-keyed review report');
-    if (operation !== 'reset') command.requiredOption('--evidence <file>', 'explicit exported evidence JSON (1.0.0 / 1.1.0 / 1.2.0)');
+    if (operation !== 'reset') command.requiredOption('--evidence <file>', 'explicit exported evidence JSON (1.0.0 / 1.1.0 / 1.2.0 / 1.3.0)');
     if (operation === 'mark') command.requiredOption('--snapshot <id>', 'exact repository snapshot ID in the evidence')
       .requiredOption('--hunk <id>', 'exact hunk evidence ID (repeatable)', (value: string, previous: string[]) => [...previous, value], []);
     command.action(async (options: Options) => {
